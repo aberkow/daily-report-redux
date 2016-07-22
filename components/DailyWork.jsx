@@ -7,6 +7,11 @@ class DailyWork extends React.Component{
     super(props);
   }
   render(){
+    const paperStyle = {
+      height: 100,
+      width: 100,
+      textAlign: 'center',
+    };
     return(
       <div>
         <h3>{this.props.studentName} worked on</h3>

@@ -28,34 +28,43 @@ class App extends React.Component{
     this.state = {
       studentName: '',
       reportDate: null,
-      studentWork: ''
+      studentWork: '',
+      reinforcersArray: []
     }
     console.log(this.state, this.props);
     this.disableWeekends = this.disableWeekends.bind(this);
     this.submitNameAndDate = this.submitNameAndDate.bind(this);
     this.setStudentName = this.setStudentName.bind(this);
+    this.setReinforcers = this.setReinforcers.bind(this);
     this.setReportDate = this.setReportDate.bind(this);
     this.setStudentWork = this.setStudentWork.bind(this);
   }
   disableWeekends(date){
     return date.getDay() === 0 || date.getDay() === 6;
   }
-  submitNameAndDate(evt){
-    evt.preventDefault();
-    console.log(evt.target);
+  setReinforcers(evt){
+    console.log(evt.target.id, 'from reinforcers');
+    var reinforcer = evt.target.id;
+    var oldReinforcersArray = this.state.reinforcersArray;
+    var newReinforcersArray = oldReinforcersArray.concat(reinforcer);
+    this.setState( {reinforcersArray: newReinforcersArray} );
+  }
+  setReportDate(evt, date){
+    this.setState( {reportDate: date} );
+    console.log(this.state.reportDate, 'from setReportDate');
   }
   setStudentName(evt){
     var studentName = evt.target.value;
     this.setState( {studentName: studentName} );
     console.log(this.state.studentName);
   }
-  setReportDate(evt, date){
-    this.setState( {reportDate: date} );
-    console.log(this.state.reportDate, 'from setReportDate');
-  }
   setStudentWork(evt){
     var studentWork = evt.target.value;
     this.setState( {studentWork: studentWork} );
+  }
+  submitNameAndDate(evt){
+    evt.preventDefault();
+    console.log(evt.target);
   }
   render(){
     return(
@@ -65,8 +74,10 @@ class App extends React.Component{
           setStudentName={this.setStudentName}
           setReportDate={this.setReportDate}
           currentDate={this.state.reportDate} />
-          <DailyWorkContainer studentName={this.state.studentName}
-          setStudentWork={this.setStudentWork} />
+          <DailyWorkContainer
+            studentName={this.state.studentName}
+            setReinforcers={this.setReinforcers}
+            setStudentWork={this.setStudentWork} />
           <StudentMoodContainer
             studentName={this.state.studentName} />
         </div>

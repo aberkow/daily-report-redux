@@ -1,16 +1,23 @@
 import React from 'react';
 
 import DailyWork from './DailyWork';
+import Reinforcers from './Reinforcers';
+
 
 class DailyWorkContainer extends React.Component{
   constructor(props){
     super(props);
   }
   render(){
+
     return(
-      <DailyWork
-        studentName={this.props.studentName}
-        studentWork={this.props.studentWork} />
+      <div>
+        <DailyWork
+          studentName={this.props.studentName}
+          setStudentWork={this.props.setStudentWork} />
+        <Reinforcers
+          setReinforcers={this.props.setReinforcers} />
+      </div>
     );
   };
 };
