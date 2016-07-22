@@ -11,12 +11,12 @@ import TextField from 'material-ui/TextField';
 class Reinforcers extends React.Component{
   constructor(props){
     super(props);
-    this.favoriteToggle = this.favoriteToggle.bind(this);
+    //this.favoriteToggle = this.favoriteToggle.bind(this);
   }
-  favoriteToggle(evt){
-    var target = evt.target;
-    console.log(target);
-  }
+  // favoriteToggle(evt){
+  //   var target = evt.target;
+  //   console.log(target);
+  // }
   render(){
     const styles = {
       favoriteBorder: {
@@ -30,7 +30,9 @@ class Reinforcers extends React.Component{
       return(
 
           <li key={index} className='reinforcer__list-item'>
-            <span className='reinfocer__list-favorite'><FavoriteBorder key={'favorite' + index} id={reinforcer} className='favorite-border' style={styles.favoriteBorder}/></span>
+            <span className='reinfocer__list-favorite'>
+              <FavoriteBorder key={'favorite' + index} id={reinforcer} className='favorite-border' style={styles.favoriteBorder}/>
+            </span>
             {reinforcer}
           </li>
 
@@ -40,10 +42,7 @@ class Reinforcers extends React.Component{
     return(
       <div>
         <h3>Reinforcers</h3>
-        <ul
-          onChange={this.props.setReinforcers}
-          onClick={this.favoriteToggle}
-          className='reinfocer__list'>
+        <ul onClick={this.props.setReinforcers} className='reinfocer__list'>
           {reinforcers}
         </ul>
         <TextField

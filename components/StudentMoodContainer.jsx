@@ -2,10 +2,15 @@ import React from 'react';
 import StudentMood from './StudentMood';
 
 //icon imports
-import VeryHappy from 'material-ui/svg-icons/social/sentiment-very-satisfied';
-import Happy from 'material-ui/svg-icons/social/sentiment-satisfied';
-import Sad from 'material-ui/svg-icons/social/sentiment-dissatisfied';
-import Mad from 'material-ui/svg-icons/social/sentiment-very-dissatisfied';
+import SocialSentimentVerySatisfied from 'material-ui/svg-icons/social/sentiment-very-satisfied';
+import SocialSentimentSatisfied from 'material-ui/svg-icons/social/sentiment-satisfied';
+import SocialSentimentDissatisfied from 'material-ui/svg-icons/social/sentiment-dissatisfied';
+import SocialSentimentVeryDissatisfied from 'material-ui/svg-icons/social/sentiment-very-dissatisfied';
+
+const iconStyle = {
+  height: 100,
+  width: 100
+}
 
 class StudentMoodContainer extends React.Component{
   constructor(props){
@@ -22,20 +27,21 @@ class StudentMoodContainer extends React.Component{
   moodIconHandler(value){
     //const value = this.state.value;
     switch (value) {
-      case value === 2:
-        return <Happy />;
+      case 2:
+        return <SocialSentimentSatisfied style={iconStyle} />;
         break;
-      case value === 3:
-        return <Sad />;
+      case 3:
+        return <SocialSentimentDissatisfied style={iconStyle} />;
         break;
-      case value === 4:
-        return <Mad />;
+      case 4:
+        return <SocialSentimentVeryDissatisfied style={iconStyle} />;
         break;
       default:
-        return <VeryHappy />;
+        return <SocialSentimentVerySatisfied style={iconStyle} />;
     }
   }
   render(){
+
     return(
       <div>
         <StudentMood
