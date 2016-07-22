@@ -3,6 +3,12 @@ import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+//icon imports
+import SocialSentimentVerySatisfied from 'material-ui/svg-icons/social/sentiment-very-satisfied';
+import SocialSentimentSatisfied from 'material-ui/svg-icons/social/sentiment-satisfied';
+import SocialSentimentDissatisfied from 'material-ui/svg-icons/social/sentiment-dissatisfied';
+import SocialSentimentVeryDissatisfied from 'material-ui/svg-icons/social/sentiment-very-dissatisfied';
+
 //
 import DailyWorkContainer from './components/DailyWorkContainer';
 import Header from './components/Header';
@@ -20,6 +26,11 @@ import TextField from 'material-ui/TextField';
 //required to get components to register clicks & display dialogs.
 injectTapEventPlugin();
 
+const iconStyle = {
+  height: 100,
+  width: 100
+}
+
 class App extends React.Component{
   constructor(props){
     super(props);
@@ -27,18 +38,36 @@ class App extends React.Component{
       studentName: '',
       reportDate: null,
       studentWork: '',
+      studentMood: 1,
       reinforcersArray: []
     }
     console.log(this.state, this.props, 'from index');
     this.disableWeekends = this.disableWeekends.bind(this);
+    this.moodIconHandler = this.moodIconHandler.bind(this);
     this.submitNameAndDate = this.submitNameAndDate.bind(this);
     this.setStudentName = this.setStudentName.bind(this);
     this.setReinforcers = this.setReinforcers.bind(this);
     this.setReportDate = this.setReportDate.bind(this);
+    this.setStudentMood = this.setStudentMood.bind(this);
     this.setStudentWork = this.setStudentWork.bind(this);
   }
   disableWeekends(date){
     return date.getDay() === 0 || date.getDay() === 6;
+  }
+  moodIconHandler(value){
+    switch (value) {
+      case 2:
+        return <SocialSentimentSatisfied style={iconStyle} />;
+        break;
+      case 3:
+        return <SocialSentimentDissatisfied style={iconStyle} />;
+        break;
+      case 4:
+        return <SocialSentimentVeryDissatisfied style={iconStyle} />;
+        break;
+      default:
+        return <SocialSentimentVerySatisfied style={iconStyle} />;
+    }
   }
   setReinforcers(evt){
     //perhaps icon style can be set here using true or false.
@@ -52,6 +81,9 @@ class App extends React.Component{
   setReportDate(evt, date){
     this.setState( {reportDate: date} );
     console.log(this.state.reportDate, 'from setReportDate');
+  }
+  setStudentMood(evt, index, studentMood){
+    return this.setState( {studentMood} );
   }
   setStudentName(evt){
     var studentName = evt.target.value;
@@ -67,20 +99,29 @@ class App extends React.Component{
     console.log(evt.target);
   }
   render(){
+
     return(
       <MuiThemeProvider>
         <div>
+
           <Header submitNameAndDate={this.submitNameAndDate}
           setStudentName={this.setStudentName}
           setReportDate={this.setReportDate}
           currentDate={this.state.reportDate} />
+
           <StudentMoodContainer
-            studentName={this.state.studentName} />
+            value={this.state.studentMood}
+            studentName={this.state.studentName}
+            setStudentMood={this.setStudentMood}
+            moodIconHandler={this.moodIconHandler(this.state.studentMood)} />
+
           <DailyWorkContainer
             studentName={this.state.studentName}
             setReinforcers={this.setReinforcers}
             setStudentWork={this.setStudentWork} />
+
           <ServicesContainer studentName={this.state.studentName} />
+          
         </div>
       </MuiThemeProvider>
     );

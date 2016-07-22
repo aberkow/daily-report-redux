@@ -15,7 +15,7 @@ import Paper from 'material-ui/Paper';
 class StudentMood extends React.Component{
   constructor(props){
     super(props);
-    //console.log(this.props);
+    console.log(this.props, 'from StudentMood');
   }
   render(){
 
@@ -27,14 +27,14 @@ class StudentMood extends React.Component{
     return(
       <div>
         <h3>{this.props.studentName} was</h3>
-        
-        <DropDownMenu value={this.props.value} onChange={this.props.selectMood}>
+
+        <DropDownMenu value={this.props.value} onChange={this.props.setStudentMood}>
           <MenuItem value={1} primaryText='Very Happy' leftIcon={<SocialSentimentVerySatisfied />} />
           <MenuItem value={2} primaryText='Happy' leftIcon={<SocialSentimentSatisfied />} />
           <MenuItem value={3} primaryText='Sad' leftIcon={<SocialSentimentDissatisfied />} />
           <MenuItem value={4} primaryText='Mad' leftIcon={<SocialSentimentVeryDissatisfied />} />
         </DropDownMenu>
-        <Paper zDepth={2} style={paperStyle} children={this.props.moodHandler} />
+        <Paper zDepth={2} style={paperStyle} children={this.props.moodIconHandler} />
       </div>
     );
   };
