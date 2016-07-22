@@ -155,7 +155,8 @@
 	      reportDate: null,
 	      studentWork: '',
 	      studentMood: 1,
-	      reinforcersArray: []
+	      reinforcersArray: [],
+	      servicesArray: []
 	    };
 	    console.log(_this.state, _this.props, 'from index');
 	    _this.disableWeekends = _this.disableWeekends.bind(_this);
@@ -196,11 +197,26 @@
 	    value: function setReinforcers(evt) {
 	      //perhaps icon style can be set here using true or false.
 	      //an if block could set concat or remove the selected item as well.
-	      console.log(evt.target.id, 'from reinforcers');
-	      var reinforcer = evt.target.id;
+	      console.log(evt.target.nextSibling.lastChild.textContent, 'from setReinforcers');
+	      var reinforcer = evt.target.nextSibling.lastChild.textContent;
 	      var oldReinforcersArray = this.state.reinforcersArray;
 	      var newReinforcersArray = oldReinforcersArray.concat(reinforcer);
-	      this.setState({ reinforcersArray: newReinforcersArray });
+	      //as soon as I call this.setState the icons break?
+	      //this.setState( {reinforcersArray: newReinforcersArray} );
+	
+	      // var foundReinforcer = oldReinforcersArray.find(function(reinforcer){
+	      //   console.log(reinforcer, 'from foundReinforcer');
+	      //   return reinforcer;
+	      // });
+	      // console.log(foundReinforcer);
+	
+	      // if (oldReinforcersArray.find(reinforcer)){
+	      //   newReinforcersArray = oldReinforcersArray.splice(reinforcer, 1);
+	      //   this.setState( {reinforcersArray: newReinforcersArray} );
+	      // } else {
+	      //   newReinforcersArray = oldReinforcersArray.concat(reinforcer);
+	      //   this.setState( {reinforcersArray: newReinforcersArray} );
+	      // }
 	    }
 	  }, {
 	    key: 'setReportDate',
@@ -213,6 +229,9 @@
 	    value: function setStudentMood(evt, index, studentMood) {
 	      return this.setState({ studentMood: studentMood });
 	    }
+	  }, {
+	    key: 'setServices',
+	    value: function setServices() {}
 	  }, {
 	    key: 'setStudentName',
 	    value: function setStudentName(evt) {
@@ -31300,6 +31319,12 @@
 	
 	var _favoriteBorder2 = _interopRequireDefault(_favoriteBorder);
 	
+	var _Checkbox = __webpack_require__(452);
+	
+	var _Checkbox2 = _interopRequireDefault(_Checkbox);
+	
+	var _RadioButton = __webpack_require__(457);
+	
 	var _TextField = __webpack_require__(357);
 	
 	var _TextField2 = _interopRequireDefault(_TextField);
@@ -31311,10 +31336,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	// import ActionFavorite from 'material-ui/svg-icons/action/favorite';
-	// import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
-	// import Checkbox from 'material-ui/Checkbox';
 	
 	var Reinforcers = function (_React$Component) {
 	  _inherits(Reinforcers, _React$Component);
@@ -31334,27 +31355,43 @@
 	  _createClass(Reinforcers, [{
 	    key: 'render',
 	    value: function render() {
-	      var styles = {
-	        favoriteBorder: {
-	          display: 'visible'
-	        },
-	        favorite: {
-	          display: 'hidden'
-	        }
-	      };
-	      var reinforcers = this.props.reinforcerPropsArray.map(function (reinforcer, index) {
-	        return _react2.default.createElement(
-	          'li',
-	          { key: index, className: 'reinforcer__list-item' },
-	          _react2.default.createElement(
-	            'span',
-	            { className: 'reinfocer__list-favorite' },
-	            _react2.default.createElement(_favoriteBorder2.default, { key: 'favorite' + index, id: reinforcer, className: 'favorite-border', style: styles.favoriteBorder })
-	          ),
-	          reinforcer
-	        );
-	      });
+	      // const styles = {
+	      //   favoriteBorder: {
+	      //     display: 'visible'
+	      //   },
+	      //   favorite: {
+	      //     display: 'hidden'
+	      //   }
+	      // }
+	      // var reinforcers = this.props.reinforcerPropsArray.map(function(reinforcer, index){
+	      //   return(
+	      //
+	      //       <li key={index} className='reinforcer__list-item'>
+	      //         <span className='reinfocer__list-favorite'>
+	      //           <FavoriteBorder key={'favorite' + index} id={reinforcer} className='favorite-border' style={styles.favoriteBorder}/>
+	      //         </span>
+	      //         {reinforcer}
+	      //       </li>
+	      //
+	      //   );
+	      // });
+	      var reinfocerTest = this.props.reinforcerPropsArray.map(function (reinforcer, index) {
 	
+	        return _react2.default.createElement(_Checkbox2.default, { key: index, label: reinforcer,
+	          checkedIcon: _react2.default.createElement(_favorite2.default, null),
+	          uncheckedIcon: _react2.default.createElement(_favoriteBorder2.default, null),
+	          onCheck: this.props.setReinforcers });
+	      }.bind(this));
+	      // var reinforcerRadioTest = this.props.reinforcerPropsArray.map(function(reinforcer, index){
+	      //   return(
+	      //     <RadioButtonGroup key={index} name='reinforcer'>
+	      //       <RadioButton key={index}
+	      //         value={reinforcer} label={reinforcer} checkedIcon={<ActionFavorite />}
+	      //         uncheckedIcon={<ActionFavoriteBorder />}
+	      //         onChange={this.props.setReinforcers} />
+	      //     </RadioButtonGroup>
+	      //   );
+	      // }.bind(this));
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -31363,16 +31400,12 @@
 	          null,
 	          'Reinforcers'
 	        ),
-	        _react2.default.createElement(
-	          'ul',
-	          { onClick: this.props.setReinforcers, className: 'reinfocer__list' },
-	          reinforcers
-	        ),
 	        _react2.default.createElement(_TextField2.default, {
 	          hintText: 'Other reinforcers',
 	          floatingLabelText: 'Other reinforcers',
 	          name: 'otherReinforcers',
-	          id: 'other-reinforcers' })
+	          id: 'other-reinforcers' }),
+	        reinfocerTest
 	      );
 	    }
 	  }]);
@@ -31387,6 +31420,10 @@
 	};
 	
 	module.exports = Reinforcers;
+	
+	// <ul onClick={this.props.setReinforcers} className='reinfocer__list'>
+	//   {reinforcers}
+	// </ul>
 	
 	// checkedIcon={<ActionFavorite key={'favorite' + index} />}
 	// uncheckedIcon={<ActionFavoriteBorder key={'favorite-border' + index} />}
@@ -39447,13 +39484,33 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _Menu = __webpack_require__(464);
+	
+	var _Menu2 = _interopRequireDefault(_Menu);
+	
+	var _MenuItem = __webpack_require__(446);
+	
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
+	
 	var _Paper = __webpack_require__(366);
 	
 	var _Paper2 = _interopRequireDefault(_Paper);
 	
-	var _handAndPen = __webpack_require__(426);
+	var _borderColor = __webpack_require__(462);
 	
-	var _handAndPen2 = _interopRequireDefault(_handAndPen);
+	var _borderColor2 = _interopRequireDefault(_borderColor);
+	
+	var _directionsRun = __webpack_require__(463);
+	
+	var _directionsRun2 = _interopRequireDefault(_directionsRun);
+	
+	var _questionAnswer = __webpack_require__(465);
+	
+	var _questionAnswer2 = _interopRequireDefault(_questionAnswer);
+	
+	var _trendingUp = __webpack_require__(466);
+	
+	var _trendingUp2 = _interopRequireDefault(_trendingUp);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -39469,21 +39526,40 @@
 	  function Services(props) {
 	    _classCallCheck(this, Services);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Services).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Services).call(this, props));
+	
+	    _this.highlightServices = _this.highlightServices.bind(_this);
+	    return _this;
 	  }
+	  //needs better selection of elements...
+	
 	
 	  _createClass(Services, [{
+	    key: 'highlightServices',
+	    value: function highlightServices(evt) {
+	      console.log(evt.target);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var iconStyle = {
-	        height: 50,
-	        width: 50
+	        height: 40,
+	        width: 40
 	      };
 	      var paperStyle = {
-	        height: 60,
-	        width: 60,
-	        textAlign: 'center'
+	        height: 80,
+	        width: 80,
+	        textAlign: 'center',
+	        display: 'inline-block'
 	      };
+	      // const textStyle = {
+	      //   margin: 5, 'auto'
+	      // }
+	      // var services = this.props.servicesArray.map(function(service, index){
+	      //   return(
+	      //     <MenuItem key={index} primaryText={service} />
+	      //   );
+	      // });
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -39494,8 +39570,54 @@
 	          this.props.studentName,
 	          ' went to:'
 	        ),
-	        _react2.default.createElement(_Paper2.default, { style: paperStyle,
-	          children: _react2.default.createElement(_handAndPen2.default, { style: iconStyle }) })
+	        _react2.default.createElement(
+	          'div',
+	          { onClick: this.highlightServices },
+	          _react2.default.createElement(_Paper2.default, { style: paperStyle,
+	            children: _react2.default.createElement(
+	              'div',
+	              null,
+	              _react2.default.createElement(
+	                'p',
+	                null,
+	                'OT'
+	              ),
+	              _react2.default.createElement(_borderColor2.default, { style: iconStyle })
+	            ) }),
+	          _react2.default.createElement(_Paper2.default, { style: paperStyle,
+	            children: _react2.default.createElement(
+	              'div',
+	              null,
+	              _react2.default.createElement(
+	                'p',
+	                null,
+	                'PT'
+	              ),
+	              _react2.default.createElement(_directionsRun2.default, { style: iconStyle })
+	            ) }),
+	          _react2.default.createElement(_Paper2.default, { style: paperStyle,
+	            children: _react2.default.createElement(
+	              'div',
+	              null,
+	              _react2.default.createElement(
+	                'p',
+	                null,
+	                'Speech'
+	              ),
+	              _react2.default.createElement(_questionAnswer2.default, { style: iconStyle })
+	            ) }),
+	          _react2.default.createElement(_Paper2.default, { style: paperStyle,
+	            children: _react2.default.createElement(
+	              'div',
+	              null,
+	              _react2.default.createElement(
+	                'p',
+	                null,
+	                'ABA'
+	              ),
+	              _react2.default.createElement(_trendingUp2.default, { style: iconStyle })
+	            ) })
+	        )
 	      );
 	    }
 	  }]);
@@ -39505,51 +39627,22 @@
 	
 	;
 	
-	Services.defaultProps = {
-	  servicesArray: []
-	};
+	// <Menu multiple={true}>
+	//   <MenuItem primaryText={this.props.servicesArray[0]} />
+	//   <MenuItem primaryText={this.props.servicesArray[1]} />
+	//   <MenuItem primaryText={this.props.servicesArray[2]} />
+	//   <MenuItem primaryText={this.props.servicesArray[3]} />
+	// </Menu>
+	//
+	//
+	// Services.defaultProps = {
+	//   servicesArray: ['ABA Therapy', 'Occupational Therapy', 'Physical Therapy', 'Speech Therapy']
+	// };
 	
 	module.exports = Services;
 
 /***/ },
-/* 426 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _pure = __webpack_require__(338);
-	
-	var _pure2 = _interopRequireDefault(_pure);
-	
-	var _SvgIcon = __webpack_require__(348);
-	
-	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var HandAndPen = function HandAndPen(props) {
-	  return _react2.default.createElement(
-	    _SvgIcon2.default,
-	    props,
-	    _react2.default.createElement('path', { d: "M405.455 296.506c-1.744-3.137-5.702-4.268-8.84-2.524l-38.438 21.365c-8.765 4.87-18.122 8.63-27.813 11.174 l-191.089 50.157c-3.872 1.013-7.794 1.056-11.654 0.128c-7.632-1.836-13.891-7.298-16.75-14.626 c-0.503-1.28-1.622-7.117-1.622-8.656c0-8.616 4.649-16.598 12.13-20.83c0.726-0.411 90.066-40.158 90.066-40.158 c12.298-5.476 19.955-18.17 19.053-31.585c-1.017-15.233-12.637-27.481-27.324-29.695l39.038-84.778l143.516 57.411 c0.792 0.316 1.608 0.467 2.412 0.467c2.579 0 5.021-1.546 6.037-4.088c1.333-3.333-0.288-7.116-3.621-8.449l-142.899-57.164 L295.41 30.947c2.438-5.295 2.668-11.223 0.646-16.692c-2.021-5.468-6.051-9.822-11.347-12.258 c-10.925-5.029-23.91-0.23-28.942 10.696l-54.169 117.64c-7.028 1.47-13.798 3.896-20.166 7.245l-80.642 42.387 c-22.251 11.695-38.285 32.448-43.989 56.937l-14.193 60.907c-4.128 17.701 17.909 58.698 34.477 76.077 c3.164 3.319 6.134 5.799 8.94 7.462l-10.201 22.152c-2.44 5.294-2.67 11.223-0.646 16.691c1.266 3.422 3.32 6.407 5.978 8.76 l-4.414 10.385c-1.404 3.304 0.136 7.12 3.439 8.524c0.83 0.353 1.691 0.52 2.54 0.52c2.529 0 4.934-1.485 5.985-3.959l4.31-10.14 c0.862 0.103 1.732 0.16 2.613 0.16c8.5 0 16.288-4.981 19.84-12.692l8.61-18.695c4.562 10.169 14.605 16.244 25.131 16.244 c3.664 0 7.387-0.735 10.955-2.29c7.703-3.362 13.089-9.857 15.33-17.345c0.689 0.338 1.392 0.656 2.114 0.94 c3.257 1.278 6.657 1.916 10.053 1.916c3.735 0 7.466-0.771 10.992-2.311c6.732-2.938 11.918-8.323 14.602-15.161 c0.285-0.727 0.532-1.462 0.753-2.202c3.766 1.852 7.933 2.858 12.184 2.858c3.666 0 7.393-0.738 10.963-2.296 c9.506-4.154 15.701-13.253 16.406-23.285l80.102-21.025c10.742-2.82 21.113-6.987 30.828-12.385l38.439-21.366 C406.069 303.601 407.199 299.644 405.455 296.506z M115.376 309.616c-1.654-7.582-0.419-15.461 3.479-22.188l15.58-26.906 c2.92-5.044 7.288-8.955 12.43-11.319l-30.31 65.825L115.376 309.616z M237.056 84.412l15.792 7.885l-97.044 210.748l-24.416 10.849 L237.056 84.412z M198.395 243.896c10.058 0 18.461 7.872 19.133 17.924c0.538 8.001-4.031 15.572-11.365 18.838l-32.357 14.377 l23.522-51.083C197.864 243.92 198.262 243.899 198.395 243.896z M267.576 18.131c2.033-4.417 7.284-6.355 11.7-4.325 c2.141 0.985 3.77 2.745 4.587 4.956c0.817 2.211 0.725 4.607-0.262 6.748l-25.314 54.973l-15.791-7.885L267.576 18.131z M76.859 352.8c-13.437-19.42-23.526-43.738-21.589-52.042l14.194-60.908c4.847-20.808 18.471-38.442 37.377-48.379l80.643-42.387 c2.25-1.183 4.562-2.226 6.924-3.131l-40.511 87.98c-12.822 1.448-24.211 8.846-30.711 20.075l-15.579 26.904 c-5.527 9.54-7.278 20.718-4.931 31.474l3.482 15.989c-6.259 6.74-9.907 15.692-9.907 25.15c0 1.639 0.118 3.278 0.334 4.897 l-5.072 11.012C88.57 367.301 83.568 362.497 76.859 352.8z M103.661 416.308c-1.437 3.117-4.589 5.131-8.033 5.131 c-1.281 0-2.513-0.269-3.666-0.801c-2.143-0.988-3.774-2.75-4.592-4.96c-0.817-2.208-0.725-4.602 0.261-6.741l15.588-33.849 c3.542 4.916 8.246 8.89 13.693 11.57l0.197 0.451L103.661 416.308z M154.968 405.09c-7.334 3.194-15.9-0.167-19.098-7.491 l-3.122-7.153c0.143 0.002 0.286 0.012 0.429 0.012c3.158 0 6.32-0.402 9.392-1.206l19.118-5.018l0.767 1.76 C165.649 393.328 162.288 401.895 154.968 405.09z M201.154 380.296c-1.416 3.606-4.15 6.446-7.701 7.996 c-3.548 1.549-7.489 1.624-11.094 0.208c-3.573-1.403-6.386-4.102-7.942-7.606l27.671-7.263 C202.302 375.869 202 378.142 201.154 380.296z M231.953 371.492c-3.549 1.55-7.49 1.623-11.096 0.208 c-1.313-0.515-2.52-1.209-3.604-2.049l22.255-5.842C238.1 367.159 235.454 369.962 231.953 371.492z" })
-	  );
-	};
-	HandAndPen = (0, _pure2.default)(HandAndPen);
-	HandAndPen.displayName = 'HandAndPen';
-	HandAndPen.muiName = 'SvgIcon';
-	
-	exports.default = HandAndPen;
-
-
-/***/ },
+/* 426 */,
 /* 427 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -43459,6 +43552,1575 @@
 	  muiTheme: _react.PropTypes.object.isRequired
 	};
 	exports.default = SelectField;
+
+/***/ },
+/* 452 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+	
+	var _Checkbox = __webpack_require__(453);
+	
+	var _Checkbox2 = _interopRequireDefault(_Checkbox);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = _Checkbox2.default;
+
+/***/ },
+/* 453 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _simpleAssign = __webpack_require__(350);
+	
+	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _EnhancedSwitch = __webpack_require__(454);
+	
+	var _EnhancedSwitch2 = _interopRequireDefault(_EnhancedSwitch);
+	
+	var _transitions = __webpack_require__(351);
+	
+	var _transitions2 = _interopRequireDefault(_transitions);
+	
+	var _checkBoxOutlineBlank = __webpack_require__(455);
+	
+	var _checkBoxOutlineBlank2 = _interopRequireDefault(_checkBoxOutlineBlank);
+	
+	var _checkBox = __webpack_require__(456);
+	
+	var _checkBox2 = _interopRequireDefault(_checkBox);
+	
+	var _deprecatedPropType = __webpack_require__(360);
+	
+	var _deprecatedPropType2 = _interopRequireDefault(_deprecatedPropType);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	function getStyles(props, context) {
+	  var checkbox = context.muiTheme.checkbox;
+	
+	  var checkboxSize = 24;
+	
+	  return {
+	    icon: {
+	      height: checkboxSize,
+	      width: checkboxSize
+	    },
+	    check: {
+	      position: 'absolute',
+	      opacity: 0,
+	      transform: 'scale(0)',
+	      transitionOrigin: '50% 50%',
+	      transition: _transitions2.default.easeOut('450ms', 'opacity', '0ms') + ', ' + _transitions2.default.easeOut('0ms', 'transform', '450ms'),
+	      fill: checkbox.checkedColor
+	    },
+	    box: {
+	      position: 'absolute',
+	      opacity: 1,
+	      fill: checkbox.boxColor,
+	      transition: _transitions2.default.easeOut('2s', null, '200ms')
+	    },
+	    checkWhenSwitched: {
+	      opacity: 1,
+	      transform: 'scale(1)',
+	      transition: _transitions2.default.easeOut('0ms', 'opacity', '0ms') + ', ' + _transitions2.default.easeOut('800ms', 'transform', '0ms')
+	    },
+	    boxWhenSwitched: {
+	      transition: _transitions2.default.easeOut('100ms', null, '0ms'),
+	      fill: checkbox.checkedColor
+	    },
+	    checkWhenDisabled: {
+	      fill: checkbox.disabledColor,
+	      cursor: 'not-allowed'
+	    },
+	    boxWhenDisabled: {
+	      fill: props.checked ? 'transparent' : checkbox.disabledColor,
+	      cursor: 'not-allowed'
+	    },
+	    label: {
+	      color: props.disabled ? checkbox.labelDisabledColor : checkbox.labelColor
+	    }
+	  };
+	}
+	
+	var Checkbox = function (_Component) {
+	  _inherits(Checkbox, _Component);
+	
+	  function Checkbox() {
+	    var _Object$getPrototypeO;
+	
+	    var _temp, _this, _ret;
+	
+	    _classCallCheck(this, Checkbox);
+	
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+	
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Checkbox)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = { switched: false }, _this.handleCheck = function (event, isInputChecked) {
+	      if (_this.props.onCheck) _this.props.onCheck(event, isInputChecked);
+	    }, _this.handleStateChange = function (newSwitched) {
+	      _this.setState({ switched: newSwitched });
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+	
+	  _createClass(Checkbox, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var _props = this.props;
+	      var checked = _props.checked;
+	      var defaultChecked = _props.defaultChecked;
+	      var valueLink = _props.valueLink;
+	
+	
+	      if (checked || defaultChecked || valueLink && valueLink.value) {
+	        this.setState({ switched: true });
+	      }
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      this.setState({
+	        switched: this.props.checked !== nextProps.checked ? nextProps.checked : this.state.switched
+	      });
+	    }
+	  }, {
+	    key: 'isChecked',
+	    value: function isChecked() {
+	      return this.refs.enhancedSwitch.isSwitched();
+	    }
+	  }, {
+	    key: 'setChecked',
+	    value: function setChecked(newCheckedValue) {
+	      this.refs.enhancedSwitch.setSwitched(newCheckedValue);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props2 = this.props;
+	      var iconStyle = _props2.iconStyle;
+	      var onCheck = _props2.onCheck;
+	      var checkedIcon = _props2.checkedIcon;
+	      var uncheckedIcon = _props2.uncheckedIcon;
+	      var unCheckedIcon = _props2.unCheckedIcon;
+	
+	      var other = _objectWithoutProperties(_props2, ['iconStyle', 'onCheck', 'checkedIcon', 'uncheckedIcon', 'unCheckedIcon']);
+	
+	      var styles = getStyles(this.props, this.context);
+	      var boxStyles = (0, _simpleAssign2.default)(styles.box, this.state.switched && styles.boxWhenSwitched, iconStyle, this.props.disabled && styles.boxWhenDisabled);
+	      var checkStyles = (0, _simpleAssign2.default)(styles.check, this.state.switched && styles.checkWhenSwitched, iconStyle, this.props.disabled && styles.checkWhenDisabled);
+	
+	      var checkedElement = checkedIcon ? _react2.default.cloneElement(checkedIcon, {
+	        style: (0, _simpleAssign2.default)(checkStyles, checkedIcon.props.style)
+	      }) : _react2.default.createElement(_checkBox2.default, {
+	        style: checkStyles
+	      });
+	
+	      var unCheckedElement = unCheckedIcon || uncheckedIcon ? _react2.default.cloneElement(unCheckedIcon || uncheckedIcon, {
+	        style: (0, _simpleAssign2.default)(boxStyles, (unCheckedIcon || uncheckedIcon).props.style)
+	      }) : _react2.default.createElement(_checkBoxOutlineBlank2.default, {
+	        style: boxStyles
+	      });
+	
+	      var checkboxElement = _react2.default.createElement(
+	        'div',
+	        null,
+	        unCheckedElement,
+	        checkedElement
+	      );
+	
+	      var rippleColor = this.state.switched ? checkStyles.fill : boxStyles.fill;
+	      var mergedIconStyle = (0, _simpleAssign2.default)(styles.icon, iconStyle);
+	
+	      var labelStyle = (0, _simpleAssign2.default)(styles.label, this.props.labelStyle);
+	
+	      var enhancedSwitchProps = {
+	        ref: 'enhancedSwitch',
+	        inputType: 'checkbox',
+	        switched: this.state.switched,
+	        switchElement: checkboxElement,
+	        rippleColor: rippleColor,
+	        iconStyle: mergedIconStyle,
+	        onSwitch: this.handleCheck,
+	        labelStyle: labelStyle,
+	        onParentShouldUpdate: this.handleStateChange,
+	        labelPosition: this.props.labelPosition
+	      };
+	
+	      return _react2.default.createElement(_EnhancedSwitch2.default, _extends({}, other, enhancedSwitchProps));
+	    }
+	  }]);
+	
+	  return Checkbox;
+	}(_react.Component);
+	
+	Checkbox.propTypes = {
+	  /**
+	   * Checkbox is checked if true.
+	   */
+	  checked: _react.PropTypes.bool,
+	  /**
+	   * The SvgIcon to use for the checked state.
+	   * This is useful to create icon toggles.
+	   */
+	  checkedIcon: _react.PropTypes.element,
+	  /**
+	   * The default state of our checkbox component.
+	   * **Warning:** This cannot be used in conjunction with `checked`.
+	   * Decide between using a controlled or uncontrolled input element and remove one of these props.
+	   * More info: https://fb.me/react-controlled-components
+	   */
+	  defaultChecked: _react.PropTypes.bool,
+	  /**
+	   * Disabled if true.
+	   */
+	  disabled: _react.PropTypes.bool,
+	  /**
+	   * Overrides the inline-styles of the icon element.
+	   */
+	  iconStyle: _react.PropTypes.object,
+	  /**
+	   * Overrides the inline-styles of the input element.
+	   */
+	  inputStyle: _react.PropTypes.object,
+	  /**
+	   * Where the label will be placed next to the checkbox.
+	   */
+	  labelPosition: _react.PropTypes.oneOf(['left', 'right']),
+	  /**
+	   * Overrides the inline-styles of the Checkbox element label.
+	   */
+	  labelStyle: _react.PropTypes.object,
+	  /**
+	   * Callback function that is fired when the checkbox is checked.
+	   *
+	   * @param {object} event `change` event targeting the underlying checkbox `input`.
+	   * @param {boolean} isInputChecked The `checked` value of the underlying checkbox `input`.
+	   */
+	  onCheck: _react.PropTypes.func,
+	  /**
+	   * Override the inline-styles of the root element.
+	   */
+	  style: _react.PropTypes.object,
+	  /**
+	   * The SvgIcon to use for the unchecked state.
+	   * This is useful to create icon toggles.
+	   */
+	  unCheckedIcon: (0, _deprecatedPropType2.default)(_react.PropTypes.element, 'Use uncheckedIcon instead. It will be removed with v0.16.0.'),
+	  /**
+	   * The SvgIcon to use for the unchecked state.
+	   * This is useful to create icon toggles.
+	   */
+	  uncheckedIcon: _react.PropTypes.element,
+	  /**
+	   * ValueLink for when using controlled checkbox.
+	   */
+	  valueLink: _react.PropTypes.object
+	};
+	Checkbox.defaultProps = {
+	  labelPosition: 'right',
+	  disabled: false
+	};
+	Checkbox.contextTypes = {
+	  muiTheme: _react.PropTypes.object.isRequired
+	};
+	exports.default = Checkbox;
+
+/***/ },
+/* 454 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _simpleAssign = __webpack_require__(350);
+	
+	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactEventListener = __webpack_require__(362);
+	
+	var _reactEventListener2 = _interopRequireDefault(_reactEventListener);
+	
+	var _keycode = __webpack_require__(359);
+	
+	var _keycode2 = _interopRequireDefault(_keycode);
+	
+	var _transitions = __webpack_require__(351);
+	
+	var _transitions2 = _interopRequireDefault(_transitions);
+	
+	var _FocusRipple = __webpack_require__(387);
+	
+	var _FocusRipple2 = _interopRequireDefault(_FocusRipple);
+	
+	var _TouchRipple = __webpack_require__(394);
+	
+	var _TouchRipple2 = _interopRequireDefault(_TouchRipple);
+	
+	var _Paper = __webpack_require__(366);
+	
+	var _Paper2 = _interopRequireDefault(_Paper);
+	
+	var _warning = __webpack_require__(332);
+	
+	var _warning2 = _interopRequireDefault(_warning);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	function getStyles(props, context) {
+	  var baseTheme = context.muiTheme.baseTheme;
+	
+	
+	  return {
+	    root: {
+	      position: 'relative',
+	      cursor: props.disabled ? 'default' : 'pointer',
+	      overflow: 'visible',
+	      display: 'table',
+	      height: 'auto',
+	      width: '100%'
+	    },
+	    input: {
+	      position: 'absolute',
+	      cursor: props.disabled ? 'default' : 'pointer',
+	      pointerEvents: 'all',
+	      opacity: 0,
+	      width: '100%',
+	      height: '100%',
+	      zIndex: 2,
+	      left: 0,
+	      boxSizing: 'border-box',
+	      padding: 0,
+	      margin: 0
+	    },
+	    controls: {
+	      display: 'flex',
+	      width: '100%',
+	      height: '100%'
+	    },
+	    label: {
+	      float: 'left',
+	      position: 'relative',
+	      display: 'block',
+	      width: 'calc(100% - 60px)',
+	      lineHeight: '24px',
+	      color: baseTheme.palette.textColor,
+	      fontFamily: baseTheme.fontFamily
+	    },
+	    wrap: {
+	      transition: _transitions2.default.easeOut(),
+	      float: 'left',
+	      position: 'relative',
+	      display: 'block',
+	      flexShrink: 0,
+	      width: 60 - baseTheme.spacing.desktopGutterLess,
+	      marginRight: props.labelPosition === 'right' ? baseTheme.spacing.desktopGutterLess : 0,
+	      marginLeft: props.labelPosition === 'left' ? baseTheme.spacing.desktopGutterLess : 0
+	    },
+	    ripple: {
+	      color: props.rippleColor || baseTheme.palette.primary1Color,
+	      height: '200%',
+	      width: '200%',
+	      top: -12,
+	      left: -12
+	    }
+	  };
+	}
+	
+	var EnhancedSwitch = function (_Component) {
+	  _inherits(EnhancedSwitch, _Component);
+	
+	  function EnhancedSwitch() {
+	    var _Object$getPrototypeO;
+	
+	    var _temp, _this, _ret;
+	
+	    _classCallCheck(this, EnhancedSwitch);
+	
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+	
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(EnhancedSwitch)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
+	      isKeyboardFocused: false
+	    }, _this.handleChange = function (event) {
+	      _this.tabPressed = false;
+	      _this.setState({
+	        isKeyboardFocused: false
+	      });
+	
+	      var isInputChecked = _this.refs.checkbox.checked;
+	
+	      if (!_this.props.hasOwnProperty('checked') && _this.props.onParentShouldUpdate) {
+	        _this.props.onParentShouldUpdate(isInputChecked);
+	      }
+	      if (_this.props.onSwitch) {
+	        _this.props.onSwitch(event, isInputChecked);
+	      }
+	    }, _this.handleKeyDown = function (event) {
+	      var code = (0, _keycode2.default)(event);
+	
+	      if (code === 'tab') {
+	        _this.tabPressed = true;
+	      }
+	      if (_this.state.isKeyboardFocused && code === 'space') {
+	        _this.handleChange(event);
+	      }
+	    }, _this.handleKeyUp = function (event) {
+	      if (_this.state.isKeyboardFocused && (0, _keycode2.default)(event) === 'space') {
+	        _this.handleChange(event);
+	      }
+	    }, _this.handleMouseDown = function (event) {
+	      // only listen to left clicks
+	      if (event.button === 0) {
+	        _this.refs.touchRipple.start(event);
+	      }
+	    }, _this.handleMouseUp = function () {
+	      _this.refs.touchRipple.end();
+	    }, _this.handleMouseLeave = function () {
+	      _this.refs.touchRipple.end();
+	    }, _this.handleTouchStart = function (event) {
+	      _this.refs.touchRipple.start(event);
+	    }, _this.handleTouchEnd = function () {
+	      _this.refs.touchRipple.end();
+	    }, _this.handleBlur = function (event) {
+	      _this.setState({
+	        isKeyboardFocused: false
+	      });
+	
+	      if (_this.props.onBlur) {
+	        _this.props.onBlur(event);
+	      }
+	    }, _this.handleFocus = function (event) {
+	      // setTimeout is needed becuase the focus event fires first
+	      // Wait so that we can capture if this was a keyboard focus
+	      // or touch focus
+	      setTimeout(function () {
+	        if (_this.tabPressed) {
+	          _this.setState({
+	            isKeyboardFocused: true
+	          });
+	        }
+	      }, 150);
+	
+	      if (_this.props.onFocus) {
+	        _this.props.onFocus(event);
+	      }
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+	
+	  _createClass(EnhancedSwitch, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var inputNode = this.refs.checkbox;
+	      if ((!this.props.switched || inputNode.checked !== this.props.switched) && this.props.onParentShouldUpdate) {
+	        this.props.onParentShouldUpdate(inputNode.checked);
+	      }
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      var hasCheckedProp = nextProps.hasOwnProperty('checked');
+	      var hasToggledProp = nextProps.hasOwnProperty('toggled');
+	      var hasNewDefaultProp = nextProps.hasOwnProperty('defaultChecked') && nextProps.defaultChecked !== this.props.defaultChecked;
+	
+	      if (hasCheckedProp || hasToggledProp || hasNewDefaultProp) {
+	        var switched = nextProps.checked || nextProps.toggled || nextProps.defaultChecked || false;
+	
+	        this.setState({
+	          switched: switched
+	        });
+	
+	        if (this.props.onParentShouldUpdate && switched !== this.props.switched) {
+	          this.props.onParentShouldUpdate(switched);
+	        }
+	      }
+	    }
+	  }, {
+	    key: 'isSwitched',
+	    value: function isSwitched() {
+	      return this.refs.checkbox.checked;
+	    }
+	
+	    // no callback here because there is no event
+	
+	  }, {
+	    key: 'setSwitched',
+	    value: function setSwitched(newSwitchedValue) {
+	      if (!this.props.hasOwnProperty('checked') || this.props.checked === false) {
+	        if (this.props.onParentShouldUpdate) {
+	          this.props.onParentShouldUpdate(newSwitchedValue);
+	        }
+	        this.refs.checkbox.checked = newSwitchedValue;
+	      } else {
+	        process.env.NODE_ENV !== "production" ? (0, _warning2.default)(false, 'Cannot call set method while checked is defined as a property.') : void 0;
+	      }
+	    }
+	  }, {
+	    key: 'getValue',
+	    value: function getValue() {
+	      return this.refs.checkbox.value;
+	    }
+	
+	    // Checkbox inputs only use SPACE to change their state. Using ENTER will
+	    // update the ui but not the input.
+	
+	
+	    /**
+	     * Because both the ripples and the checkbox input cannot share pointer
+	     * events, the checkbox input takes control of pointer events and calls
+	     * ripple animations manually.
+	     */
+	
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var name = _props.name;
+	      var value = _props.value;
+	      var iconStyle = _props.iconStyle;
+	      var inputStyle = _props.inputStyle;
+	      var inputType = _props.inputType;
+	      var label = _props.label;
+	      var labelStyle = _props.labelStyle;
+	      var labelPosition = _props.labelPosition;
+	      var onSwitch = _props.onSwitch;
+	      var onBlur = _props.onBlur;
+	      var onFocus = _props.onFocus;
+	      var onMouseUp = _props.onMouseUp;
+	      var onMouseDown = _props.onMouseDown;
+	      var onMouseLeave = _props.onMouseLeave;
+	      var onTouchStart = _props.onTouchStart;
+	      var onTouchEnd = _props.onTouchEnd;
+	      var onParentShouldUpdate = _props.onParentShouldUpdate;
+	      var disabled = _props.disabled;
+	      var disableTouchRipple = _props.disableTouchRipple;
+	      var disableFocusRipple = _props.disableFocusRipple;
+	      var className = _props.className;
+	      var rippleColor = _props.rippleColor;
+	      var rippleStyle = _props.rippleStyle;
+	      var style = _props.style;
+	      var switched = _props.switched;
+	      var switchElement = _props.switchElement;
+	      var thumbStyle = _props.thumbStyle;
+	      var trackStyle = _props.trackStyle;
+	
+	      var other = _objectWithoutProperties(_props, ['name', 'value', 'iconStyle', 'inputStyle', 'inputType', 'label', 'labelStyle', 'labelPosition', 'onSwitch', 'onBlur', 'onFocus', 'onMouseUp', 'onMouseDown', 'onMouseLeave', 'onTouchStart', 'onTouchEnd', 'onParentShouldUpdate', 'disabled', 'disableTouchRipple', 'disableFocusRipple', 'className', 'rippleColor', 'rippleStyle', 'style', 'switched', 'switchElement', 'thumbStyle', 'trackStyle']);
+	
+	      var prepareStyles = this.context.muiTheme.prepareStyles;
+	
+	      var styles = getStyles(this.props, this.context);
+	      var wrapStyles = (0, _simpleAssign2.default)(styles.wrap, iconStyle);
+	      var mergedRippleStyle = (0, _simpleAssign2.default)(styles.ripple, rippleStyle);
+	
+	      if (thumbStyle) {
+	        wrapStyles.marginLeft /= 2;
+	        wrapStyles.marginRight /= 2;
+	      }
+	
+	      var labelElement = label && _react2.default.createElement(
+	        'label',
+	        { style: prepareStyles((0, _simpleAssign2.default)(styles.label, labelStyle)) },
+	        label
+	      );
+	
+	      var showTouchRipple = !disabled && !disableTouchRipple;
+	      var showFocusRipple = !disabled && !disableFocusRipple;
+	
+	      var touchRipple = _react2.default.createElement(_TouchRipple2.default, {
+	        ref: 'touchRipple',
+	        key: 'touchRipple',
+	        style: mergedRippleStyle,
+	        color: mergedRippleStyle.color,
+	        muiTheme: this.context.muiTheme,
+	        centerRipple: true
+	      });
+	
+	      var focusRipple = _react2.default.createElement(_FocusRipple2.default, {
+	        key: 'focusRipple',
+	        innerStyle: mergedRippleStyle,
+	        color: mergedRippleStyle.color,
+	        muiTheme: this.context.muiTheme,
+	        show: this.state.isKeyboardFocused
+	      });
+	
+	      var ripples = [showTouchRipple ? touchRipple : null, showFocusRipple ? focusRipple : null];
+	
+	      var inputElement = _react2.default.createElement('input', _extends({}, other, {
+	        ref: 'checkbox',
+	        type: inputType,
+	        style: prepareStyles((0, _simpleAssign2.default)(styles.input, inputStyle)),
+	        name: name,
+	        value: value,
+	        disabled: disabled,
+	        onBlur: this.handleBlur,
+	        onFocus: this.handleFocus,
+	        onChange: this.handleChange,
+	        onMouseUp: showTouchRipple && this.handleMouseUp,
+	        onMouseDown: showTouchRipple && this.handleMouseDown,
+	        onMouseLeave: showTouchRipple && this.handleMouseLeave,
+	        onTouchStart: showTouchRipple && this.handleTouchStart,
+	        onTouchEnd: showTouchRipple && this.handleTouchEnd
+	      }));
+	
+	      // If toggle component (indicated by whether the style includes thumb) manually lay out
+	      // elements in order to nest ripple elements
+	      var switchOrThumbElement = !thumbStyle ? _react2.default.createElement(
+	        'div',
+	        { style: prepareStyles(wrapStyles) },
+	        switchElement,
+	        ripples
+	      ) : _react2.default.createElement(
+	        'div',
+	        { style: prepareStyles(wrapStyles) },
+	        _react2.default.createElement('div', { style: prepareStyles((0, _simpleAssign2.default)({}, trackStyle)) }),
+	        _react2.default.createElement(
+	          _Paper2.default,
+	          { style: thumbStyle, zDepth: 1, circle: true },
+	          ' ',
+	          ripples,
+	          ' '
+	        )
+	      );
+	
+	      var elementsInOrder = labelPosition === 'right' ? _react2.default.createElement(
+	        'div',
+	        { style: styles.controls },
+	        switchOrThumbElement,
+	        labelElement
+	      ) : _react2.default.createElement(
+	        'div',
+	        { style: styles.controls },
+	        labelElement,
+	        switchOrThumbElement
+	      );
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { ref: 'root', className: className, style: prepareStyles((0, _simpleAssign2.default)(styles.root, style)) },
+	        _react2.default.createElement(_reactEventListener2.default, {
+	          target: 'window',
+	          onKeyDown: this.handleKeyDown,
+	          onKeyUp: this.handleKeyUp
+	        }),
+	        inputElement,
+	        elementsInOrder
+	      );
+	    }
+	  }]);
+	
+	  return EnhancedSwitch;
+	}(_react.Component);
+	
+	EnhancedSwitch.propTypes = {
+	  checked: _react.PropTypes.bool,
+	  className: _react.PropTypes.string,
+	  defaultChecked: _react.PropTypes.bool,
+	  disableFocusRipple: _react.PropTypes.bool,
+	  disableTouchRipple: _react.PropTypes.bool,
+	  disabled: _react.PropTypes.bool,
+	  iconStyle: _react.PropTypes.object,
+	  inputStyle: _react.PropTypes.object,
+	  inputType: _react.PropTypes.string.isRequired,
+	  label: _react.PropTypes.node,
+	  labelPosition: _react.PropTypes.oneOf(['left', 'right']),
+	  labelStyle: _react.PropTypes.object,
+	  name: _react.PropTypes.string,
+	  onBlur: _react.PropTypes.func,
+	  onFocus: _react.PropTypes.func,
+	  onMouseDown: _react.PropTypes.func,
+	  onMouseLeave: _react.PropTypes.func,
+	  onMouseUp: _react.PropTypes.func,
+	  onParentShouldUpdate: _react.PropTypes.func,
+	  onSwitch: _react.PropTypes.func,
+	  onTouchEnd: _react.PropTypes.func,
+	  onTouchStart: _react.PropTypes.func,
+	  rippleColor: _react.PropTypes.string,
+	  rippleStyle: _react.PropTypes.object,
+	  style: _react.PropTypes.object,
+	  switchElement: _react.PropTypes.element.isRequired,
+	  switched: _react.PropTypes.bool.isRequired,
+	  thumbStyle: _react.PropTypes.object,
+	  trackStyle: _react.PropTypes.object,
+	  value: _react.PropTypes.any
+	};
+	EnhancedSwitch.contextTypes = {
+	  muiTheme: _react.PropTypes.object.isRequired
+	};
+	exports.default = EnhancedSwitch;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 455 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(338);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(348);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ToggleCheckBoxOutlineBlank = function ToggleCheckBoxOutlineBlank(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z' })
+	  );
+	};
+	ToggleCheckBoxOutlineBlank = (0, _pure2.default)(ToggleCheckBoxOutlineBlank);
+	ToggleCheckBoxOutlineBlank.displayName = 'ToggleCheckBoxOutlineBlank';
+	ToggleCheckBoxOutlineBlank.muiName = 'SvgIcon';
+	
+	exports.default = ToggleCheckBoxOutlineBlank;
+
+/***/ },
+/* 456 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(338);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(348);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ToggleCheckBox = function ToggleCheckBox(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z' })
+	  );
+	};
+	ToggleCheckBox = (0, _pure2.default)(ToggleCheckBox);
+	ToggleCheckBox.displayName = 'ToggleCheckBox';
+	ToggleCheckBox.muiName = 'SvgIcon';
+	
+	exports.default = ToggleCheckBox;
+
+/***/ },
+/* 457 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = exports.RadioButtonGroup = exports.RadioButton = undefined;
+	
+	var _RadioButton2 = __webpack_require__(458);
+	
+	var _RadioButton3 = _interopRequireDefault(_RadioButton2);
+	
+	var _RadioButtonGroup2 = __webpack_require__(461);
+	
+	var _RadioButtonGroup3 = _interopRequireDefault(_RadioButtonGroup2);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.RadioButton = _RadioButton3.default;
+	exports.RadioButtonGroup = _RadioButtonGroup3.default;
+	exports.default = _RadioButton3.default;
+
+/***/ },
+/* 458 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _simpleAssign = __webpack_require__(350);
+	
+	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _transitions = __webpack_require__(351);
+	
+	var _transitions2 = _interopRequireDefault(_transitions);
+	
+	var _EnhancedSwitch = __webpack_require__(454);
+	
+	var _EnhancedSwitch2 = _interopRequireDefault(_EnhancedSwitch);
+	
+	var _radioButtonUnchecked = __webpack_require__(459);
+	
+	var _radioButtonUnchecked2 = _interopRequireDefault(_radioButtonUnchecked);
+	
+	var _radioButtonChecked = __webpack_require__(460);
+	
+	var _radioButtonChecked2 = _interopRequireDefault(_radioButtonChecked);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	function getStyles(props, context) {
+	  var radioButton = context.muiTheme.radioButton;
+	
+	
+	  return {
+	    icon: {
+	      height: radioButton.size,
+	      width: radioButton.size
+	    },
+	    target: {
+	      transition: _transitions2.default.easeOut(),
+	      position: 'absolute',
+	      opacity: 1,
+	      transform: 'scale(1)',
+	      fill: radioButton.borderColor
+	    },
+	    fill: {
+	      position: 'absolute',
+	      opacity: 1,
+	      transform: 'scale(0)',
+	      transformOrigin: '50% 50%',
+	      transition: _transitions2.default.easeOut(),
+	      fill: radioButton.checkedColor
+	    },
+	    targetWhenChecked: {
+	      opacity: 0,
+	      transform: 'scale(0)'
+	    },
+	    fillWhenChecked: {
+	      opacity: 1,
+	      transform: 'scale(1)'
+	    },
+	    targetWhenDisabled: {
+	      fill: radioButton.disabledColor,
+	      cursor: 'not-allowed'
+	    },
+	    fillWhenDisabled: {
+	      fill: radioButton.disabledColor,
+	      cursor: 'not-allowed'
+	    },
+	    label: {
+	      color: props.disabled ? radioButton.labelDisabledColor : radioButton.labelColor
+	    },
+	    ripple: {
+	      color: props.checked ? radioButton.checkedColor : radioButton.borderColor
+	    }
+	  };
+	}
+	
+	var RadioButton = function (_Component) {
+	  _inherits(RadioButton, _Component);
+	
+	  function RadioButton() {
+	    var _Object$getPrototypeO;
+	
+	    var _temp, _this, _ret;
+	
+	    _classCallCheck(this, RadioButton);
+	
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+	
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(RadioButton)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.handleStateChange = function () {}, _this.handleSwitch = function (event) {
+	      if (_this.props.onCheck) _this.props.onCheck(event, _this.props.value);
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+	
+	  // Only called when selected, not when unselected.
+	
+	
+	  _createClass(RadioButton, [{
+	    key: 'isChecked',
+	    value: function isChecked() {
+	      return this.refs.enhancedSwitch.isSwitched();
+	    }
+	
+	    // Use RadioButtonGroup.setSelectedValue(newSelectionValue) to set a
+	    // RadioButton's checked value.
+	
+	  }, {
+	    key: 'setChecked',
+	    value: function setChecked(newCheckedValue) {
+	      this.refs.enhancedSwitch.setSwitched(newCheckedValue);
+	    }
+	  }, {
+	    key: 'getValue',
+	    value: function getValue() {
+	      return this.refs.enhancedSwitch.getValue();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var checkedIcon = _props.checkedIcon;
+	      var checked = _props.checked;
+	      var iconStyle = _props.iconStyle;
+	      var labelStyle = _props.labelStyle;
+	      var labelPosition = _props.labelPosition;
+	      var onCheck = _props.onCheck;
+	      var uncheckedIcon = _props.uncheckedIcon;
+	      var disabled = _props.disabled;
+	
+	      var other = _objectWithoutProperties(_props, ['checkedIcon', 'checked', 'iconStyle', 'labelStyle', 'labelPosition', 'onCheck', 'uncheckedIcon', 'disabled']);
+	
+	      var styles = getStyles(this.props, this.context);
+	
+	      var uncheckedStyles = (0, _simpleAssign2.default)(styles.target, checked && styles.targetWhenChecked, iconStyle, disabled && styles.targetWhenDisabled);
+	
+	      var checkedStyles = (0, _simpleAssign2.default)(styles.fill, checked && styles.fillWhenChecked, iconStyle, disabled && styles.fillWhenDisabled);
+	
+	      var uncheckedElement = _react2.default.isValidElement(uncheckedIcon) ? _react2.default.cloneElement(uncheckedIcon, {
+	        style: (0, _simpleAssign2.default)(uncheckedStyles, uncheckedIcon.props.style)
+	      }) : _react2.default.createElement(_radioButtonUnchecked2.default, { style: uncheckedStyles });
+	
+	      var checkedElement = _react2.default.isValidElement(checkedIcon) ? _react2.default.cloneElement(checkedIcon, {
+	        style: (0, _simpleAssign2.default)(checkedStyles, checkedIcon.props.style)
+	      }) : _react2.default.createElement(_radioButtonChecked2.default, { style: checkedStyles });
+	
+	      var mergedIconStyle = (0, _simpleAssign2.default)(styles.icon, iconStyle);
+	      var mergedLabelStyle = (0, _simpleAssign2.default)(styles.label, labelStyle);
+	
+	      return _react2.default.createElement(_EnhancedSwitch2.default, _extends({}, other, {
+	        ref: 'enhancedSwitch',
+	        inputType: 'radio',
+	        checked: checked,
+	        switched: checked,
+	        disabled: disabled,
+	        rippleColor: styles.ripple.color,
+	        iconStyle: mergedIconStyle,
+	        labelStyle: mergedLabelStyle,
+	        labelPosition: labelPosition,
+	        onParentShouldUpdate: this.handleStateChange,
+	        onSwitch: this.handleSwitch,
+	        switchElement: _react2.default.createElement(
+	          'div',
+	          null,
+	          uncheckedElement,
+	          checkedElement
+	        )
+	      }));
+	    }
+	  }]);
+	
+	  return RadioButton;
+	}(_react.Component);
+	
+	RadioButton.propTypes = {
+	  /**
+	   * @ignore
+	   * checked if true
+	   * Used internally by `RadioButtonGroup`.
+	   */
+	  checked: _react.PropTypes.bool,
+	  /**
+	   * The icon element to show when the radio button is checked.
+	   */
+	  checkedIcon: _react.PropTypes.element,
+	  /**
+	   * If true, the radio button is disabled.
+	   */
+	  disabled: _react.PropTypes.bool,
+	  /**
+	   * Override the inline-styles of the icon element.
+	   */
+	  iconStyle: _react.PropTypes.object,
+	  /**
+	   * Override the inline-styles of the input element.
+	   */
+	  inputStyle: _react.PropTypes.object,
+	  /**
+	   * @ignore
+	   * Used internally by `RadioButtonGroup`. Use the `labelPosition` property of `RadioButtonGroup` instead.
+	   * Where the label will be placed next to the radio button.
+	   */
+	  labelPosition: _react.PropTypes.oneOf(['left', 'right']),
+	  /**
+	   * Override the inline-styles of the label element.
+	   */
+	  labelStyle: _react.PropTypes.object,
+	  /**
+	   * @ignore
+	   * Callback function fired when the radio button is checked. Note that this
+	   * function will not be called if the radio button is part of a
+	   * radio button group: in this case, use the `onChange` property of
+	   * `RadioButtonGroup`.
+	   *
+	   * @param {object} event `change` event targeting the element.
+	   * @param {string} value The element's `value`.
+	   */
+	  onCheck: _react.PropTypes.func,
+	  /**
+	   * Override the inline-styles of the root element.
+	   */
+	  style: _react.PropTypes.object,
+	  /**
+	   * The icon element to show when the radio button is unchecked.
+	   */
+	  uncheckedIcon: _react.PropTypes.element,
+	  /**
+	   * The value of the radio button.
+	   */
+	  value: _react.PropTypes.any
+	};
+	RadioButton.defaultProps = {
+	  checked: false,
+	  disabled: false,
+	  labelPosition: 'right'
+	};
+	RadioButton.contextTypes = {
+	  muiTheme: _react.PropTypes.object.isRequired
+	};
+	exports.default = RadioButton;
+
+/***/ },
+/* 459 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(338);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(348);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ToggleRadioButtonUnchecked = function ToggleRadioButtonUnchecked(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z' })
+	  );
+	};
+	ToggleRadioButtonUnchecked = (0, _pure2.default)(ToggleRadioButtonUnchecked);
+	ToggleRadioButtonUnchecked.displayName = 'ToggleRadioButtonUnchecked';
+	ToggleRadioButtonUnchecked.muiName = 'SvgIcon';
+	
+	exports.default = ToggleRadioButtonUnchecked;
+
+/***/ },
+/* 460 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(338);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(348);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ToggleRadioButtonChecked = function ToggleRadioButtonChecked(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z' })
+	  );
+	};
+	ToggleRadioButtonChecked = (0, _pure2.default)(ToggleRadioButtonChecked);
+	ToggleRadioButtonChecked.displayName = 'ToggleRadioButtonChecked';
+	ToggleRadioButtonChecked.muiName = 'SvgIcon';
+	
+	exports.default = ToggleRadioButtonChecked;
+
+/***/ },
+/* 461 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _simpleAssign = __webpack_require__(350);
+	
+	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _RadioButton = __webpack_require__(457);
+	
+	var _RadioButton2 = _interopRequireDefault(_RadioButton);
+	
+	var _warning = __webpack_require__(332);
+	
+	var _warning2 = _interopRequireDefault(_warning);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var RadioButtonGroup = function (_Component) {
+	  _inherits(RadioButtonGroup, _Component);
+	
+	  function RadioButtonGroup() {
+	    var _Object$getPrototypeO;
+	
+	    var _temp, _this, _ret;
+	
+	    _classCallCheck(this, RadioButtonGroup);
+	
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+	
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(RadioButtonGroup)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
+	      numberCheckedRadioButtons: 0,
+	      selected: ''
+	    }, _this.handleChange = function (event, newSelection) {
+	      _this.updateRadioButtons(newSelection);
+	
+	      // Successful update
+	      if (_this.state.numberCheckedRadioButtons === 0) {
+	        if (_this.props.onChange) _this.props.onChange(event, newSelection);
+	      }
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+	
+	  _createClass(RadioButtonGroup, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var _this2 = this;
+	
+	      var cnt = 0;
+	
+	      _react2.default.Children.forEach(this.props.children, function (option) {
+	        if (_this2.hasCheckAttribute(option)) cnt++;
+	      }, this);
+	
+	      this.setState({
+	        numberCheckedRadioButtons: cnt,
+	        selected: this.props.valueSelected || this.props.defaultSelected || ''
+	      });
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      if (nextProps.hasOwnProperty('valueSelected')) {
+	        this.setState({
+	          selected: nextProps.valueSelected
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'hasCheckAttribute',
+	    value: function hasCheckAttribute(radioButton) {
+	      return radioButton.props.hasOwnProperty('checked') && radioButton.props.checked;
+	    }
+	  }, {
+	    key: 'updateRadioButtons',
+	    value: function updateRadioButtons(newSelection) {
+	      if (this.state.numberCheckedRadioButtons === 0) {
+	        this.setState({ selected: newSelection });
+	      } else {
+	        process.env.NODE_ENV !== "production" ? (0, _warning2.default)(false, 'Cannot select a different radio button while another radio button\n        has the \'checked\' property set to true.') : void 0;
+	      }
+	    }
+	  }, {
+	    key: 'getSelectedValue',
+	    value: function getSelectedValue() {
+	      return this.state.selected;
+	    }
+	  }, {
+	    key: 'setSelectedValue',
+	    value: function setSelectedValue(newSelectionValue) {
+	      this.updateRadioButtons(newSelectionValue);
+	    }
+	  }, {
+	    key: 'clearValue',
+	    value: function clearValue() {
+	      this.setSelectedValue('');
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this3 = this;
+	
+	      var prepareStyles = this.context.muiTheme.prepareStyles;
+	
+	
+	      var options = _react2.default.Children.map(this.props.children, function (option) {
+	        var _option$props = option.props;
+	        var name = _option$props.name;
+	        var value = _option$props.value;
+	        var label = _option$props.label;
+	        var onCheck = _option$props.onCheck;
+	
+	        var other = _objectWithoutProperties(_option$props, ['name', 'value', 'label', 'onCheck']);
+	
+	        return _react2.default.createElement(_RadioButton2.default, _extends({}, other, {
+	          ref: option.props.value,
+	          name: _this3.props.name,
+	          key: option.props.value,
+	          value: option.props.value,
+	          label: option.props.label,
+	          labelPosition: _this3.props.labelPosition,
+	          onCheck: _this3.handleChange,
+	          checked: option.props.value === _this3.state.selected
+	        }));
+	      }, this);
+	
+	      return _react2.default.createElement(
+	        'div',
+	        {
+	          style: prepareStyles((0, _simpleAssign2.default)({}, this.props.style)),
+	          className: this.props.className
+	        },
+	        options
+	      );
+	    }
+	  }]);
+	
+	  return RadioButtonGroup;
+	}(_react.Component);
+	
+	RadioButtonGroup.propTypes = {
+	  /**
+	   * Should be used to pass `RadioButton` components.
+	   */
+	  children: _react.PropTypes.node,
+	  /**
+	   * The CSS class name of the root element.
+	   */
+	  className: _react.PropTypes.string,
+	  /**
+	   * The `value` property (case-sensitive) of the radio button that will be
+	   * selected by default. This takes precedence over the `checked` property
+	   * of the `RadioButton` elements.
+	   */
+	  defaultSelected: _react.PropTypes.string,
+	  /**
+	   * Where the label will be placed for all child radio buttons.
+	   * This takes precedence over the `labelPosition` property of the
+	   * `RadioButton` elements.
+	   */
+	  labelPosition: _react.PropTypes.oneOf(['left', 'right']),
+	  /**
+	   * The name that will be applied to all child radio buttons.
+	   */
+	  name: _react.PropTypes.string.isRequired,
+	  /**
+	   * Callback function that is fired when a radio button has
+	   * been checked.
+	   *
+	   * @param {object} event `change` event targeting the selected
+	   * radio button.
+	   * @param {string} value The `value` of the selected radio button.
+	   */
+	  onChange: _react.PropTypes.func,
+	  /**
+	   * Override the inline-styles of the root element.
+	   */
+	  style: _react.PropTypes.object,
+	  /**
+	   * The `value` of the currently selected radio button.
+	   */
+	  valueSelected: _react.PropTypes.string
+	};
+	RadioButtonGroup.defaultProps = {
+	  style: {}
+	};
+	RadioButtonGroup.contextTypes = {
+	  muiTheme: _react.PropTypes.object.isRequired
+	};
+	exports.default = RadioButtonGroup;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 462 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(338);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(348);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var EditorBorderColor = function EditorBorderColor(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M17.75 7L14 3.25l-10 10V17h3.75l10-10zm2.96-2.96c.39-.39.39-1.02 0-1.41L18.37.29c-.39-.39-1.02-.39-1.41 0L15 2.25 18.75 6l1.96-1.96z' }),
+	    _react2.default.createElement('path', { fillOpacity: '.36', d: 'M0 20h24v4H0z' })
+	  );
+	};
+	EditorBorderColor = (0, _pure2.default)(EditorBorderColor);
+	EditorBorderColor.displayName = 'EditorBorderColor';
+	EditorBorderColor.muiName = 'SvgIcon';
+	
+	exports.default = EditorBorderColor;
+
+/***/ },
+/* 463 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(338);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(348);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var MapsDirectionsRun = function MapsDirectionsRun(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z' })
+	  );
+	};
+	MapsDirectionsRun = (0, _pure2.default)(MapsDirectionsRun);
+	MapsDirectionsRun.displayName = 'MapsDirectionsRun';
+	MapsDirectionsRun.muiName = 'SvgIcon';
+	
+	exports.default = MapsDirectionsRun;
+
+/***/ },
+/* 464 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = exports.MenuItem = exports.Menu = undefined;
+	
+	var _Menu2 = __webpack_require__(432);
+	
+	var _Menu3 = _interopRequireDefault(_Menu2);
+	
+	var _MenuItem2 = __webpack_require__(446);
+	
+	var _MenuItem3 = _interopRequireDefault(_MenuItem2);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.Menu = _Menu3.default;
+	exports.MenuItem = _MenuItem3.default;
+	exports.default = _Menu3.default;
+
+/***/ },
+/* 465 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(338);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(348);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ActionQuestionAnswer = function ActionQuestionAnswer(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z' })
+	  );
+	};
+	ActionQuestionAnswer = (0, _pure2.default)(ActionQuestionAnswer);
+	ActionQuestionAnswer.displayName = 'ActionQuestionAnswer';
+	ActionQuestionAnswer.muiName = 'SvgIcon';
+	
+	exports.default = ActionQuestionAnswer;
+
+/***/ },
+/* 466 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(338);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(348);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ActionTrendingUp = function ActionTrendingUp(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z' })
+	  );
+	};
+	ActionTrendingUp = (0, _pure2.default)(ActionTrendingUp);
+	ActionTrendingUp.displayName = 'ActionTrendingUp';
+	ActionTrendingUp.muiName = 'SvgIcon';
+	
+	exports.default = ActionTrendingUp;
 
 /***/ }
 /******/ ]);

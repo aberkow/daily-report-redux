@@ -39,7 +39,8 @@ class App extends React.Component{
       reportDate: null,
       studentWork: '',
       studentMood: 1,
-      reinforcersArray: []
+      reinforcersArray: [],
+      servicesArray: []
     }
     console.log(this.state, this.props, 'from index');
     this.disableWeekends = this.disableWeekends.bind(this);
@@ -72,11 +73,26 @@ class App extends React.Component{
   setReinforcers(evt){
     //perhaps icon style can be set here using true or false.
     //an if block could set concat or remove the selected item as well.
-    console.log(evt.target.id, 'from reinforcers');
-    var reinforcer = evt.target.id;
+    console.log(evt.target.nextSibling.lastChild.textContent, 'from setReinforcers');
+    var reinforcer = evt.target.nextSibling.lastChild.textContent;
     var oldReinforcersArray = this.state.reinforcersArray;
     var newReinforcersArray = oldReinforcersArray.concat(reinforcer);
-    this.setState( {reinforcersArray: newReinforcersArray} );
+    //as soon as I call this.setState the icons break?
+    //this.setState( {reinforcersArray: newReinforcersArray} );
+
+    // var foundReinforcer = oldReinforcersArray.find(function(reinforcer){
+    //   console.log(reinforcer, 'from foundReinforcer');
+    //   return reinforcer;
+    // });
+    // console.log(foundReinforcer);
+
+    // if (oldReinforcersArray.find(reinforcer)){
+    //   newReinforcersArray = oldReinforcersArray.splice(reinforcer, 1);
+    //   this.setState( {reinforcersArray: newReinforcersArray} );
+    // } else {
+    //   newReinforcersArray = oldReinforcersArray.concat(reinforcer);
+    //   this.setState( {reinforcersArray: newReinforcersArray} );
+    // }
   }
   setReportDate(evt, date){
     this.setState( {reportDate: date} );
@@ -84,6 +100,9 @@ class App extends React.Component{
   }
   setStudentMood(evt, index, studentMood){
     return this.setState( {studentMood} );
+  }
+  setServices(){
+
   }
   setStudentName(evt){
     var studentName = evt.target.value;
@@ -121,7 +140,7 @@ class App extends React.Component{
             setStudentWork={this.setStudentWork} />
 
           <ServicesContainer studentName={this.state.studentName} />
-          
+
         </div>
       </MuiThemeProvider>
     );

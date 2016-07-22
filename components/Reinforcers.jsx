@@ -1,8 +1,10 @@
 import React from 'react';
 
-// import ActionFavorite from 'material-ui/svg-icons/action/favorite';
-// import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
-// import Checkbox from 'material-ui/Checkbox';
+import ActionFavorite from 'material-ui/svg-icons/action/favorite';
+import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
+import Checkbox from 'material-ui/Checkbox';
+
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 
 import Favorite from 'material-ui/svg-icons/action/favorite';
 import FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
@@ -18,39 +20,56 @@ class Reinforcers extends React.Component{
   //   console.log(target);
   // }
   render(){
-    const styles = {
-      favoriteBorder: {
-        display: 'visible'
-      },
-      favorite: {
-        display: 'hidden'
-      }
-    }
-    var reinforcers = this.props.reinforcerPropsArray.map(function(reinforcer, index){
-      return(
+    // const styles = {
+    //   favoriteBorder: {
+    //     display: 'visible'
+    //   },
+    //   favorite: {
+    //     display: 'hidden'
+    //   }
+    // }
+    // var reinforcers = this.props.reinforcerPropsArray.map(function(reinforcer, index){
+    //   return(
+    //
+    //       <li key={index} className='reinforcer__list-item'>
+    //         <span className='reinfocer__list-favorite'>
+    //           <FavoriteBorder key={'favorite' + index} id={reinforcer} className='favorite-border' style={styles.favoriteBorder}/>
+    //         </span>
+    //         {reinforcer}
+    //       </li>
+    //
+    //   );
+    // });
+    var reinfocerTest = this.props.reinforcerPropsArray.map(function(reinforcer, index){
 
-          <li key={index} className='reinforcer__list-item'>
-            <span className='reinfocer__list-favorite'>
-              <FavoriteBorder key={'favorite' + index} id={reinforcer} className='favorite-border' style={styles.favoriteBorder}/>
-            </span>
-            {reinforcer}
-          </li>
+      return(
+        <Checkbox key={index} label={reinforcer}
+          checkedIcon={<ActionFavorite />}
+          uncheckedIcon={<ActionFavoriteBorder />}
+          onCheck={this.props.setReinforcers} />
 
       );
-    });
-
+    }.bind(this));
+    // var reinforcerRadioTest = this.props.reinforcerPropsArray.map(function(reinforcer, index){
+    //   return(
+    //     <RadioButtonGroup key={index} name='reinforcer'>
+    //       <RadioButton key={index}
+    //         value={reinforcer} label={reinforcer} checkedIcon={<ActionFavorite />}
+    //         uncheckedIcon={<ActionFavoriteBorder />}
+    //         onChange={this.props.setReinforcers} />
+    //     </RadioButtonGroup>
+    //   );
+    // }.bind(this));
     return(
       <div>
         <h3>Reinforcers</h3>
-        <ul onClick={this.props.setReinforcers} className='reinfocer__list'>
-          {reinforcers}
-        </ul>
+
         <TextField
           hintText='Other reinforcers'
           floatingLabelText='Other reinforcers'
           name='otherReinforcers'
           id='other-reinforcers' />
-        
+          {reinfocerTest}
       </div>
     );
   };
@@ -61,6 +80,10 @@ Reinforcers.defaultProps = {
 };
 
 module.exports = Reinforcers;
+
+// <ul onClick={this.props.setReinforcers} className='reinfocer__list'>
+//   {reinforcers}
+// </ul>
 
 // checkedIcon={<ActionFavorite key={'favorite' + index} />}
 // uncheckedIcon={<ActionFavoriteBorder key={'favorite-border' + index} />}
