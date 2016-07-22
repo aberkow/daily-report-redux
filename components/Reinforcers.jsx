@@ -50,7 +50,7 @@ class Reinforcers extends React.Component{
           floatingLabelText='Other reinforcers'
           name='otherReinforcers'
           id='other-reinforcers' />
-
+        
       </div>
     );
   };
