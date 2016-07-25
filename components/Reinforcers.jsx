@@ -20,6 +20,9 @@ class Reinforcers extends React.Component{
   //   console.log(target);
   // }
   render(){
+    const style = {
+      display: 'inline-block'
+    }
     // const styles = {
     //   favoriteBorder: {
     //     display: 'visible'
@@ -43,7 +46,7 @@ class Reinforcers extends React.Component{
     var reinfocerTest = this.props.reinforcerPropsArray.map(function(reinforcer, index){
 
       return(
-        <Checkbox key={index} label={reinforcer}
+        <Checkbox style={style} key={index} label={reinforcer}
           checkedIcon={<ActionFavorite />}
           uncheckedIcon={<ActionFavoriteBorder />}
           onCheck={this.props.setReinforcers} />
@@ -63,20 +66,20 @@ class Reinforcers extends React.Component{
     return(
       <div>
         <h3>Reinforcers</h3>
-
+        {reinfocerTest}
         <TextField
           hintText='Other reinforcers'
           floatingLabelText='Other reinforcers'
           name='otherReinforcers'
-          id='other-reinforcers' />
-          {reinfocerTest}
+          id='other-reinforcers'
+          style={style} />
       </div>
     );
   };
 };
 
 Reinforcers.defaultProps = {
-  reinforcerPropsArray: ['iPad', 'Extra Snack', 'Other', 'Slide', 'Wagon']
+  reinforcerPropsArray: ['iPad', 'Extra Snack', 'Slide', 'Wagon', 'Other']
 };
 
 module.exports = Reinforcers;

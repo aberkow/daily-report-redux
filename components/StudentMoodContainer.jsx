@@ -7,9 +7,11 @@ class StudentMoodContainer extends React.Component{
 
   }
   render(){
-
+    const studentMoodStyle = {
+      display: 'inline-block'
+    }
     return(
-      <div>
+      <div style={studentMoodStyle}>
         <StudentMood
           value={this.props.value}
           studentName={this.props.studentName}

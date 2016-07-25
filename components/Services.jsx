@@ -11,60 +11,74 @@ import TrendingUp from 'material-ui/svg-icons/action/trending-up';
 class Services extends React.Component{
   constructor(props){
     super(props);
+    this.state = {
+      highlighted: false
+    }
     this.highlightServices = this.highlightServices.bind(this);
   }
   //needs better selection of elements...
   highlightServices(evt){
-    console.log(evt.target);
+    console.log(evt.target, this.state.highlighted, 'from Services');
+    this.setState( {highlighted: !this.state.highlighted} );
   }
   render(){
     const iconStyle = {
-      height: 40,
-      width: 40
+      height: 24,
+      width: 24
     };
+    const textStyle = {
+      cursor: 'pointer'
+    }
     const paperStyle = {
       height: 80,
       width: 80,
+      marginLeft: 10,
       textAlign: 'center',
-      display: 'inline-block',
+      display: 'inline-block'
     };
-    // const textStyle = {
-    //   margin: 5, 'auto'
-    // }
-    // var services = this.props.servicesArray.map(function(service, index){
-    //   return(
-    //     <MenuItem key={index} primaryText={service} />
-    //   );
-    // });
+
+    //add css file to set className to highlightServices
     return(
       <div>
         <h3>Today, {this.props.studentName} went to:</h3>
-        <div onClick={this.highlightServices}>
-          <Paper style={paperStyle}
+        <div>
+          <Paper
+            className={this.state.highlighted ? 'highlighted' : ''}
+            onClick={this.highlightServices}
+            style={paperStyle}
             children={
               <div>
-                <p>OT</p>
+                <p style={textStyle}>OT</p>
                 <BorderColor style={iconStyle} />
               </div>
             } />
-          <Paper style={paperStyle}
+          <Paper
+            className={this.state.highlighted ? 'highlighted' : ''}
+            onClick={this.highlightServices}
+            style={paperStyle}
             children={
               <div>
-                <p>PT</p>
+                <p style={textStyle}>PT</p>
                 <DirectionsRun style={iconStyle} />
               </div>
             } />
-          <Paper style={paperStyle}
+          <Paper
+            className={this.state.highlighted ? 'highlighted' : ''}
+            onClick={this.highlightServices}
+            style={paperStyle}
             children={
               <div>
-                <p>Speech</p>
+                <p style={textStyle}>Speech</p>
                 <QuestionAnswer style={iconStyle} />
               </div>
             } />
-          <Paper style={paperStyle}
+          <Paper
+            className={this.state.highlighted ? 'highlighted' : ''}
+            onClick={this.highlightServices}
+            style={paperStyle}
             children={
               <div>
-                <p>ABA</p>
+                <p style={textStyle}>ABA</p>
                 <TrendingUp style={iconStyle} />
               </div>
             } />
@@ -73,17 +87,5 @@ class Services extends React.Component{
     );
   };
 };
-
-// <Menu multiple={true}>
-//   <MenuItem primaryText={this.props.servicesArray[0]} />
-//   <MenuItem primaryText={this.props.servicesArray[1]} />
-//   <MenuItem primaryText={this.props.servicesArray[2]} />
-//   <MenuItem primaryText={this.props.servicesArray[3]} />
-// </Menu>
-//
-//
-// Services.defaultProps = {
-//   servicesArray: ['ABA Therapy', 'Occupational Therapy', 'Physical Therapy', 'Speech Therapy']
-// };
 
 module.exports = Services;

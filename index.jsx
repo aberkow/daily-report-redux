@@ -36,11 +36,11 @@ class App extends React.Component{
     super(props);
     this.state = {
       studentName: '',
+      reinforcersArray: [],
       reportDate: null,
+      servicesArray: [],
       studentWork: '',
       studentMood: 1,
-      reinforcersArray: [],
-      servicesArray: []
     }
     console.log(this.state, this.props, 'from index');
     this.disableWeekends = this.disableWeekends.bind(this);
@@ -78,7 +78,7 @@ class App extends React.Component{
     var oldReinforcersArray = this.state.reinforcersArray;
     var newReinforcersArray = oldReinforcersArray.concat(reinforcer);
     //as soon as I call this.setState the icons break?
-    //this.setState( {reinforcersArray: newReinforcersArray} );
+    //return this.setState( {reinforcersArray: newReinforcersArray} );
 
     // var foundReinforcer = oldReinforcersArray.find(function(reinforcer){
     //   console.log(reinforcer, 'from foundReinforcer');
@@ -122,11 +122,11 @@ class App extends React.Component{
     return(
       <MuiThemeProvider>
         <div>
-
-          <Header submitNameAndDate={this.submitNameAndDate}
-          setStudentName={this.setStudentName}
-          setReportDate={this.setReportDate}
-          currentDate={this.state.reportDate} />
+          <Header
+            submitNameAndDate={this.submitNameAndDate}
+            setStudentName={this.setStudentName}
+            setReportDate={this.setReportDate}
+            currentDate={this.state.reportDate} />
 
           <StudentMoodContainer
             value={this.state.studentMood}
@@ -134,13 +134,13 @@ class App extends React.Component{
             setStudentMood={this.setStudentMood}
             moodIconHandler={this.moodIconHandler(this.state.studentMood)} />
 
+          <ServicesContainer
+            studentName={this.state.studentName} />
+
           <DailyWorkContainer
             studentName={this.state.studentName}
             setReinforcers={this.setReinforcers}
             setStudentWork={this.setStudentWork} />
-
-          <ServicesContainer studentName={this.state.studentName} />
-
         </div>
       </MuiThemeProvider>
     );

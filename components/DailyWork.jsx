@@ -18,18 +18,24 @@ class DailyWork extends React.Component{
       height: 60,
       width: 60,
       textAlign: 'center',
+      display: 'inline-block'
     };
+    const workAreaStyle = {
+      display: 'inline-block'
+    }
     return(
       <div>
         <Paper style={paperStyle} children={<SchoolWork style={iconStyle} />} />
-        <h3>{this.props.studentName} worked on</h3>
-        <TextField
-          multiLine={true}
-          hintText="Today's classwork"
-          name='work'
-          id='student-work'
-          onChange={this.props.setStudentWork} />
-
+        <div>
+          <h3>{this.props.studentName} worked on</h3>
+          <TextField
+            multiLine={true}
+            hintText="Today's classwork"
+            name='work'
+            id='student-work'
+            style={workAreaStyle}
+            onChange={this.props.setStudentWork} />
+        </div>
       </div>
     );
   };

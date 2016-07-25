@@ -8,8 +8,11 @@ class ServicesContainer extends React.Component{
     super(props);
   }
   render(){
+    const studentServicesStyle = {
+      display: 'inline-block'
+    }
     return(
-      <div>
+      <div style={studentServicesStyle}>
         <Services studentName={this.props.studentName} />
       </div>
     );
