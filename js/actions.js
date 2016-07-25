@@ -22,11 +22,11 @@ const setMood = function(mood){
   };
 };
 
-const SET_SERVICES = 'SET_SERVICES';
-const setServices = function(servicesArray){
+const SET_SERVICE = 'SET_SERVICE';
+const setService = function(service){
   return {
-    type: SET_SERVICES,
-    servicesArray: servicesArray
+    type: SET_SERVICE,
+    service: service
   }
 }
 
@@ -38,11 +38,11 @@ const setWork = function(work){
   };
 };
 
-const SET_REINFORCERS = 'SET_REINFORCERS';
-const setReinforcers = function(reinforcersArray){
+const SET_REINFORCER = 'SET_REINFORCER';
+const setReinforcer = function(reinforcer){
   return {
-    type: SET_REINFORCERS,
-    reinforcersArray: reinforcersArray
+    type: SET_REINFORCER,
+    reinforcer: reinforcer
   };
 };
 
@@ -52,14 +52,14 @@ exports.setName = setName;
 exports.SET_DATE = SET_DATE;
 exports.setDate = setDate;
 
-exports. SET_MOOD = SET_MOOD;
+exports.SET_MOOD = SET_MOOD;
 exports.setMood = setMood;
 
-exports.SET_SERVICES = SET_SERVICES;
-exports.setServices = setServices;
+exports.SET_SERVICE = SET_SERVICE;
+exports.setService = setService;
 
 exports.SET_WORK = SET_WORK;
 exports.setWork = setWork;
 
-exports. SET_REINFORCERS = SET_REINFORCERS;
-exports.setReinforcers = setReinforcers;
+exports. SET_REINFORCER = SET_REINFORCER;
+exports.setReinforcer = setReinforcer;

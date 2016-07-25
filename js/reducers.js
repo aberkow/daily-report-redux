@@ -14,33 +14,48 @@ var reportReducer = function(state, action){
   state = state || reportState;
   if (action.type === actions.SET_NAME){
     var name = action.name;
-    var reportState = Object.assign({}, state, {
+    var nameState = Object.assign({}, state, {
       name: name
     });
-    return reportState;
+    return nameState;
   }
   else if (action.type === actions.SET_DATE){
-    //set the date of the report.
+    var date = actions.date;
+    var dateState = Object.assign({}, state, {
+      date: date
+    });
+    console.log(date, dateState, 'from setDate');
+    return dateState;
   }
   else if (action.type === actions.SET_MOOD) {
     var mood = action.mood;
-    var reportState = Object.assign({}, state, {
+    var moodState = Object.assign({}, state, {
       mood: mood
     });
-    return reportState;
+    return moodState;
   }
-  else if (action.type === actions.SET_SERVICES) {
-    //set the array of services.
+  else if (action.type === actions.SET_SERVICE) {
+    var service = action.service;
+    var servicesArray = state.servicesArray;
+    var servicesState = Object.assign({}, state, {
+      servicesArray: servicesArray.concat(service)
+    });
+    return servicesState;
   }
   else if (action.type === actions.SET_WORK) {
     var work = action.work;
-    var reportState = Object.assign({}, state, {
+    var workState = Object.assign({}, state, {
       work: work
     });
-    return reportState;
+    return workState;
   }
-  else if (action.type === actions.SET_REINFORCERS) {
-    //set the array of reinforcers.
+  else if (action.type === actions.SET_REINFORCER) {
+    var reinforcer = action.reinforcer;
+    var reinforcersArray = state.reinforcersArray;
+    var reinforcersState = Object.assign({}, state, {
+      reinforcersArray: reinforcersArray.concat(reinforcer)
+    });
+    return reinforcersState;
   }
   return state;
 }
