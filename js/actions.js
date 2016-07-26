@@ -39,10 +39,13 @@ const setWork = function(work){
 };
 
 const SET_REINFORCER = 'SET_REINFORCER';
-const setReinforcer = function(reinforcer){
+const setReinforcer = function(reinforcer, checkedBool){
   return {
     type: SET_REINFORCER,
-    reinforcer: reinforcer
+    reinforcerObj: {
+      kind: reinforcer,
+      checked: checkedBool
+    }
   };
 };
 

@@ -6,21 +6,29 @@ import ActionFavorite from 'material-ui/svg-icons/action/favorite';
 import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 import Checkbox from 'material-ui/Checkbox';
 
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+// import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 
-import Favorite from 'material-ui/svg-icons/action/favorite';
-import FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
+// import Favorite from 'material-ui/svg-icons/action/favorite';
+// import FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 import TextField from 'material-ui/TextField';
 
 class Reinforcers extends React.Component{
   constructor(props){
     super(props);
     this.setReinforcers = this.setReinforcers.bind(this);
+    console.log(this.props, 'from Reinforcers');
   }
   setReinforcers(evt){
+    //console.log(evt.target, 'from setReinforcers');
     evt.preventDefault();
     var reinforcer = evt.target.nextSibling.lastChild.textContent;
-    this.props.dispatch(actions.setReinforcer(reinforcer));
+    var checkedStatus = true;
+
+    //if ()
+
+
+    this.props.dispatch(actions.setReinforcer(reinforcer, checkedStatus));
+    console.log(this.props, 'from setReinforcers');
   }
   render(){
     const style = {
@@ -32,6 +40,7 @@ class Reinforcers extends React.Component{
           label={reinforcer}
           checkedIcon={<ActionFavorite />}
           uncheckedIcon={<ActionFavoriteBorder />}
+          checked={this.props.reinforcerChecked}
           onCheck={this.setReinforcers} />
       );
     }.bind(this));

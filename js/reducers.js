@@ -51,12 +51,22 @@ var reportReducer = function(state, action){
     return workState;
   }
   else if (action.type === actions.SET_REINFORCER) {
-    var reinforcer = action.reinforcer;
+    var reinforcer = {
+      kind: action.reinforcerObj.kind,
+      checked: action.reinforcerObj.checked
+    }
     var reinforcersArray = state.reinforcersArray;
     var reinforcersState = Object.assign({}, state, {
       reinforcersArray: reinforcersArray.concat(reinforcer)
     });
     return reinforcersState;
+    // var reinforcer = action.reinforcerObj.kind;
+    // var checkedStatus = action.reinforcerObj.checked;
+    // var reinforcersArray = state.reinforcersArray;
+    // var reinforcersState = Object.assign({}, state, {
+    //   reinforcersArray: reinforcersArray.concat(reinforcer)
+    // });
+    // return reinforcersState;
   }
   return state;
 }

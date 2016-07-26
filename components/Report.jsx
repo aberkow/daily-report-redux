@@ -19,9 +19,12 @@ class Report extends React.Component{
     return(
       <div>
         <Header />
+
         <StudentMoodContainer mood={this.props.mood} studentName={this.props.name} />
+
         <ServicesContainer studentName={this.props.name} />
-        <DailyWorkContainer studentName={this.props.name} />
+
+        <DailyWorkContainer studentName={this.props.name} reinforcerKind={this.props.reinforcersArray.kind} reinforcerChecked={this.props.reinforcersArray.checked} />
       </div>
     );
   };
