@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+const actions = require('../js/actions');
 
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
 import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
@@ -13,60 +15,31 @@ import TextField from 'material-ui/TextField';
 class Reinforcers extends React.Component{
   constructor(props){
     super(props);
-    //this.favoriteToggle = this.favoriteToggle.bind(this);
+    this.setReinforcers = this.setReinforcers.bind(this);
   }
-  // favoriteToggle(evt){
-  //   var target = evt.target;
-  //   console.log(target);
-  // }
+  setReinforcers(evt){
+    evt.preventDefault();
+    var reinforcer = evt.target.nextSibling.lastChild.textContent;
+    this.props.dispatch(actions.setReinforcer(reinforcer));
+  }
   render(){
     const style = {
       display: 'inline-block'
     }
-    // const styles = {
-    //   favoriteBorder: {
-    //     display: 'visible'
-    //   },
-    //   favorite: {
-    //     display: 'hidden'
-    //   }
-    // }
-    // var reinforcers = this.props.reinforcerPropsArray.map(function(reinforcer, index){
-    //   return(
-    //
-    //       <li key={index} className='reinforcer__list-item'>
-    //         <span className='reinfocer__list-favorite'>
-    //           <FavoriteBorder key={'favorite' + index} id={reinforcer} className='favorite-border' style={styles.favoriteBorder}/>
-    //         </span>
-    //         {reinforcer}
-    //       </li>
-    //
-    //   );
-    // });
-    var reinfocerTest = this.props.reinforcerPropsArray.map(function(reinforcer, index){
-
+    var reinfocerList = this.props.reinforcerPropsArray.map(function(reinforcer, index){
       return(
-        <Checkbox style={style} key={index} label={reinforcer}
+        <Checkbox style={style} key={index}
+          label={reinforcer}
           checkedIcon={<ActionFavorite />}
           uncheckedIcon={<ActionFavoriteBorder />}
-          onCheck={this.props.setReinforcers} />
-
+          onCheck={this.setReinforcers} />
       );
     }.bind(this));
-    // var reinforcerRadioTest = this.props.reinforcerPropsArray.map(function(reinforcer, index){
-    //   return(
-    //     <RadioButtonGroup key={index} name='reinforcer'>
-    //       <RadioButton key={index}
-    //         value={reinforcer} label={reinforcer} checkedIcon={<ActionFavorite />}
-    //         uncheckedIcon={<ActionFavoriteBorder />}
-    //         onChange={this.props.setReinforcers} />
-    //     </RadioButtonGroup>
-    //   );
-    // }.bind(this));
+
     return(
       <div>
         <h3>Reinforcers</h3>
-        {reinfocerTest}
+        {reinfocerList}
         <TextField
           hintText='Other reinforcers'
           floatingLabelText='Other reinforcers'
@@ -79,10 +52,11 @@ class Reinforcers extends React.Component{
 };
 
 Reinforcers.defaultProps = {
-  reinforcerPropsArray: ['iPad', 'Extra Snack', 'Slide', 'Wagon', 'Other']
+  reinforcerPropsArray: ['Bicycle', 'iPad', 'Extra Snack', 'Slide', 'Wagon']
 };
 
-module.exports = Reinforcers;
+var Container = connect()(Reinforcers);
+module.exports = Container;
 
 // <ul onClick={this.props.setReinforcers} className='reinfocer__list'>
 //   {reinforcers}

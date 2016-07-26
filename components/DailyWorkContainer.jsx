@@ -14,7 +14,7 @@ class DailyWorkContainer extends React.Component{
       <div>
         <DailyWork
           studentName={this.props.studentName}
-          setStudentWork={this.props.setStudentWork} />
+           />
         <Reinforcers
           setReinforcers={this.props.setReinforcers} />
       </div>

@@ -90,7 +90,7 @@
 	
 	var _sentimentVeryDissatisfied2 = _interopRequireDefault(_sentimentVeryDissatisfied);
 	
-	var _add = __webpack_require__(485);
+	var _add = __webpack_require__(486);
 	
 	var _add2 = _interopRequireDefault(_add);
 	
@@ -98,11 +98,11 @@
 	
 	var _DatePicker2 = _interopRequireDefault(_DatePicker);
 	
-	var _FloatingActionButton = __webpack_require__(486);
+	var _FloatingActionButton = __webpack_require__(487);
 	
 	var _FloatingActionButton2 = _interopRequireDefault(_FloatingActionButton);
 	
-	var _SelectField = __webpack_require__(488);
+	var _SelectField = __webpack_require__(489);
 	
 	var _SelectField2 = _interopRequireDefault(_SelectField);
 	
@@ -30207,9 +30207,9 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(_Header2.default, null),
-	        _react2.default.createElement(_StudentMoodContainer2.default, { mood: this.props.mood }),
-	        _react2.default.createElement(_ServicesContainer2.default, null),
-	        _react2.default.createElement(_DailyWorkContainer2.default, null)
+	        _react2.default.createElement(_StudentMoodContainer2.default, { mood: this.props.mood, studentName: this.props.name }),
+	        _react2.default.createElement(_ServicesContainer2.default, { studentName: this.props.name }),
+	        _react2.default.createElement(_DailyWorkContainer2.default, { studentName: this.props.name })
 	      );
 	    }
 	  }]);
@@ -30246,6 +30246,8 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactRedux = __webpack_require__(172);
+	
 	var _DatePicker = __webpack_require__(361);
 	
 	var _DatePicker2 = _interopRequireDefault(_DatePicker);
@@ -30262,16 +30264,29 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	var actions = __webpack_require__(358);
+	
 	var Header = function (_React$Component) {
 	  _inherits(Header, _React$Component);
 	
 	  function Header(props) {
 	    _classCallCheck(this, Header);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Header).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Header).call(this, props));
+	
+	    console.log(_this.props, 'from Header');
+	    _this.setStudentName = _this.setStudentName.bind(_this);
+	    return _this;
 	  }
 	
 	  _createClass(Header, [{
+	    key: 'setStudentName',
+	    value: function setStudentName(evt) {
+	      evt.preventDefault();
+	      var studentName = evt.target.value;
+	      this.props.dispatch(actions.setName(studentName));
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -30288,7 +30303,7 @@
 	              floatingLabelText: 'Student\'s name',
 	              name: 'name',
 	              id: 'student-name',
-	              onChange: this.props.setStudentName }),
+	              onChange: this.setStudentName }),
 	            _react2.default.createElement(_DatePicker2.default, {
 	              autoOk: true,
 	              hintText: 'Today\'s Date',
@@ -30306,7 +30321,8 @@
 	
 	;
 	
-	module.exports = Header;
+	var Container = (0, _reactRedux.connect)()(Header);
+	module.exports = Container;
 
 /***/ },
 /* 361 */
@@ -40514,9 +40530,7 @@
 	        { style: studentMoodStyle },
 	        _react2.default.createElement(_StudentMood2.default, {
 	          value: this.props.mood,
-	          studentName: this.props.studentName,
-	          setStudentMood: this.props.setStudentMood,
-	          moodIconHandler: this.props.moodIconHandler })
+	          studentName: this.props.studentName })
 	      );
 	    }
 	  }]);
@@ -44286,7 +44300,7 @@
 	
 	var _DailyWork2 = _interopRequireDefault(_DailyWork);
 	
-	var _Reinforcers = __webpack_require__(472);
+	var _Reinforcers = __webpack_require__(473);
 	
 	var _Reinforcers2 = _interopRequireDefault(_Reinforcers);
 	
@@ -44315,8 +44329,8 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(_DailyWork2.default, {
-	          studentName: this.props.studentName,
-	          setStudentWork: this.props.setStudentWork }),
+	          studentName: this.props.studentName
+	        }),
 	        _react2.default.createElement(_Reinforcers2.default, {
 	          setReinforcers: this.props.setReinforcers })
 	      );
@@ -44342,6 +44356,8 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactRedux = __webpack_require__(172);
+	
 	var _TextField = __webpack_require__(433);
 	
 	var _TextField2 = _interopRequireDefault(_TextField);
@@ -44350,7 +44366,7 @@
 	
 	var _Paper2 = _interopRequireDefault(_Paper);
 	
-	var _schoolWork = __webpack_require__(490);
+	var _schoolWork = __webpack_require__(472);
 	
 	var _schoolWork2 = _interopRequireDefault(_schoolWork);
 	
@@ -44362,16 +44378,27 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	var actions = __webpack_require__(358);
+	
 	var DailyWork = function (_React$Component) {
 	  _inherits(DailyWork, _React$Component);
 	
 	  function DailyWork(props) {
 	    _classCallCheck(this, DailyWork);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(DailyWork).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DailyWork).call(this, props));
+	
+	    _this.setStudentWork = _this.setStudentWork.bind(_this);
+	    return _this;
 	  }
 	
 	  _createClass(DailyWork, [{
+	    key: 'setStudentWork',
+	    value: function setStudentWork(evt) {
+	      var studentWork = evt.target.value;
+	      this.props.dispatch(actions.setWork(studentWork));
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var iconStyle = {
@@ -44406,7 +44433,7 @@
 	            name: 'work',
 	            id: 'student-work',
 	            style: workAreaStyle,
-	            onChange: this.props.setStudentWork })
+	            onChange: this.setStudentWork })
 	        )
 	      );
 	    }
@@ -44417,10 +44444,50 @@
 	
 	;
 	
-	module.exports = DailyWork;
+	var Container = (0, _reactRedux.connect)()(DailyWork);
+	module.exports = Container;
 
 /***/ },
 /* 472 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(403);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(412);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var SchoolWork = function SchoolWork(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: "M10.594 4.476c-0.05 0.166-0.103 0.332-0.13 0.506c-0.036 0.216-0.056 0.44-0.056 0.666c0 2.236 1.811 4.048 4.048 4.048 c2.232 0 4.046-1.812 4.046-4.048c0-0.447-0.091-0.869-0.224-1.271l0.822-1.134l-1.473-0.519l0.289-1.504l-1.801 0.514L15.292 0 l-1.537 1.602l-1.189-1.381l-0.561,1.822l-1.91-0.625l0.722 1.608l-1.392 0.39L10.594 4.476z"}),
+	    _react2.default.createElement('path', { d: "M18.149 16.184l0.012-2.624l5.73-6.92l-1.742-1.441l-4.42 5.336l-1.27-0.23c0 0-0.555 1.701-2.078 1.791 c-1.524 0.088-2.101-1.791-2.101-1.791L9.835 10.88l-1.961 5.304H1.507v1.928h1.159v10.983h0.942V18.111h7.232l0.014 1.361H9.325 v0.661h1.312v8.457h2.897v-8.457h1.917v8.457h2.898v-8.457h1.141v-0.661h-1.342l0.002-1.361H25.2v10.983h0.94V18.111h1.447v-1.928H18.149z M9.91,16.184l0.882-2.455l0.027,2.455H9.91z"})
+	  );
+	};
+	SchoolWork = (0, _pure2.default)(SchoolWork);
+	SchoolWork.displayName = 'SchoolWork';
+	SchoolWork.muiName = 'SvgIcon';
+	
+	exports.default = SchoolWork;
+
+
+/***/ },
+/* 473 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44431,19 +44498,21 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _favorite = __webpack_require__(473);
+	var _reactRedux = __webpack_require__(172);
+	
+	var _favorite = __webpack_require__(474);
 	
 	var _favorite2 = _interopRequireDefault(_favorite);
 	
-	var _favoriteBorder = __webpack_require__(474);
+	var _favoriteBorder = __webpack_require__(475);
 	
 	var _favoriteBorder2 = _interopRequireDefault(_favoriteBorder);
 	
-	var _Checkbox = __webpack_require__(475);
+	var _Checkbox = __webpack_require__(476);
 	
 	var _Checkbox2 = _interopRequireDefault(_Checkbox);
 	
-	var _RadioButton = __webpack_require__(480);
+	var _RadioButton = __webpack_require__(481);
 	
 	var _TextField = __webpack_require__(433);
 	
@@ -44457,64 +44526,41 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	var actions = __webpack_require__(358);
+	
 	var Reinforcers = function (_React$Component) {
 	  _inherits(Reinforcers, _React$Component);
 	
 	  function Reinforcers(props) {
 	    _classCallCheck(this, Reinforcers);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Reinforcers).call(this, props));
-	    //this.favoriteToggle = this.favoriteToggle.bind(this);
-	  }
-	  // favoriteToggle(evt){
-	  //   var target = evt.target;
-	  //   console.log(target);
-	  // }
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Reinforcers).call(this, props));
 	
+	    _this.setReinforcers = _this.setReinforcers.bind(_this);
+	    return _this;
+	  }
 	
 	  _createClass(Reinforcers, [{
+	    key: 'setReinforcers',
+	    value: function setReinforcers(evt) {
+	      evt.preventDefault();
+	      var reinforcer = evt.target.nextSibling.lastChild.textContent;
+	      this.props.dispatch(actions.setReinforcer(reinforcer));
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var style = {
 	        display: 'inline-block'
 	      };
-	      // const styles = {
-	      //   favoriteBorder: {
-	      //     display: 'visible'
-	      //   },
-	      //   favorite: {
-	      //     display: 'hidden'
-	      //   }
-	      // }
-	      // var reinforcers = this.props.reinforcerPropsArray.map(function(reinforcer, index){
-	      //   return(
-	      //
-	      //       <li key={index} className='reinforcer__list-item'>
-	      //         <span className='reinfocer__list-favorite'>
-	      //           <FavoriteBorder key={'favorite' + index} id={reinforcer} className='favorite-border' style={styles.favoriteBorder}/>
-	      //         </span>
-	      //         {reinforcer}
-	      //       </li>
-	      //
-	      //   );
-	      // });
-	      var reinfocerTest = this.props.reinforcerPropsArray.map(function (reinforcer, index) {
-	
-	        return _react2.default.createElement(_Checkbox2.default, { style: style, key: index, label: reinforcer,
+	      var reinfocerList = this.props.reinforcerPropsArray.map(function (reinforcer, index) {
+	        return _react2.default.createElement(_Checkbox2.default, { style: style, key: index,
+	          label: reinforcer,
 	          checkedIcon: _react2.default.createElement(_favorite2.default, null),
 	          uncheckedIcon: _react2.default.createElement(_favoriteBorder2.default, null),
-	          onCheck: this.props.setReinforcers });
+	          onCheck: this.setReinforcers });
 	      }.bind(this));
-	      // var reinforcerRadioTest = this.props.reinforcerPropsArray.map(function(reinforcer, index){
-	      //   return(
-	      //     <RadioButtonGroup key={index} name='reinforcer'>
-	      //       <RadioButton key={index}
-	      //         value={reinforcer} label={reinforcer} checkedIcon={<ActionFavorite />}
-	      //         uncheckedIcon={<ActionFavoriteBorder />}
-	      //         onChange={this.props.setReinforcers} />
-	      //     </RadioButtonGroup>
-	      //   );
-	      // }.bind(this));
+	
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -44523,7 +44569,7 @@
 	          null,
 	          'Reinforcers'
 	        ),
-	        reinfocerTest,
+	        reinfocerList,
 	        _react2.default.createElement(_TextField2.default, {
 	          hintText: 'Other reinforcers',
 	          floatingLabelText: 'Other reinforcers',
@@ -44540,10 +44586,11 @@
 	;
 	
 	Reinforcers.defaultProps = {
-	  reinforcerPropsArray: ['iPad', 'Extra Snack', 'Slide', 'Wagon', 'Other']
+	  reinforcerPropsArray: ['Bicycle', 'iPad', 'Extra Snack', 'Slide', 'Wagon']
 	};
 	
-	module.exports = Reinforcers;
+	var Container = (0, _reactRedux.connect)()(Reinforcers);
+	module.exports = Container;
 	
 	// <ul onClick={this.props.setReinforcers} className='reinfocer__list'>
 	//   {reinforcers}
@@ -44571,7 +44618,7 @@
 	//   label='Other' />
 
 /***/ },
-/* 473 */
+/* 474 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44608,7 +44655,7 @@
 	exports.default = ActionFavorite;
 
 /***/ },
-/* 474 */
+/* 475 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44645,7 +44692,7 @@
 	exports.default = ActionFavoriteBorder;
 
 /***/ },
-/* 475 */
+/* 476 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44655,7 +44702,7 @@
 	});
 	exports.default = undefined;
 	
-	var _Checkbox = __webpack_require__(476);
+	var _Checkbox = __webpack_require__(477);
 	
 	var _Checkbox2 = _interopRequireDefault(_Checkbox);
 	
@@ -44664,7 +44711,7 @@
 	exports.default = _Checkbox2.default;
 
 /***/ },
-/* 476 */
+/* 477 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44685,7 +44732,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _EnhancedSwitch = __webpack_require__(477);
+	var _EnhancedSwitch = __webpack_require__(478);
 	
 	var _EnhancedSwitch2 = _interopRequireDefault(_EnhancedSwitch);
 	
@@ -44693,11 +44740,11 @@
 	
 	var _transitions2 = _interopRequireDefault(_transitions);
 	
-	var _checkBoxOutlineBlank = __webpack_require__(478);
+	var _checkBoxOutlineBlank = __webpack_require__(479);
 	
 	var _checkBoxOutlineBlank2 = _interopRequireDefault(_checkBoxOutlineBlank);
 	
-	var _checkBox = __webpack_require__(479);
+	var _checkBox = __webpack_require__(480);
 	
 	var _checkBox2 = _interopRequireDefault(_checkBox);
 	
@@ -44946,7 +44993,7 @@
 	exports.default = Checkbox;
 
 /***/ },
-/* 477 */
+/* 478 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -45389,7 +45436,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 478 */
+/* 479 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45426,7 +45473,7 @@
 	exports.default = ToggleCheckBoxOutlineBlank;
 
 /***/ },
-/* 479 */
+/* 480 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45463,7 +45510,7 @@
 	exports.default = ToggleCheckBox;
 
 /***/ },
-/* 480 */
+/* 481 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45473,11 +45520,11 @@
 	});
 	exports.default = exports.RadioButtonGroup = exports.RadioButton = undefined;
 	
-	var _RadioButton2 = __webpack_require__(481);
+	var _RadioButton2 = __webpack_require__(482);
 	
 	var _RadioButton3 = _interopRequireDefault(_RadioButton2);
 	
-	var _RadioButtonGroup2 = __webpack_require__(484);
+	var _RadioButtonGroup2 = __webpack_require__(485);
 	
 	var _RadioButtonGroup3 = _interopRequireDefault(_RadioButtonGroup2);
 	
@@ -45488,7 +45535,7 @@
 	exports.default = _RadioButton3.default;
 
 /***/ },
-/* 481 */
+/* 482 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45513,15 +45560,15 @@
 	
 	var _transitions2 = _interopRequireDefault(_transitions);
 	
-	var _EnhancedSwitch = __webpack_require__(477);
+	var _EnhancedSwitch = __webpack_require__(478);
 	
 	var _EnhancedSwitch2 = _interopRequireDefault(_EnhancedSwitch);
 	
-	var _radioButtonUnchecked = __webpack_require__(482);
+	var _radioButtonUnchecked = __webpack_require__(483);
 	
 	var _radioButtonUnchecked2 = _interopRequireDefault(_radioButtonUnchecked);
 	
-	var _radioButtonChecked = __webpack_require__(483);
+	var _radioButtonChecked = __webpack_require__(484);
 	
 	var _radioButtonChecked2 = _interopRequireDefault(_radioButtonChecked);
 	
@@ -45750,7 +45797,7 @@
 	exports.default = RadioButton;
 
 /***/ },
-/* 482 */
+/* 483 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45787,7 +45834,7 @@
 	exports.default = ToggleRadioButtonUnchecked;
 
 /***/ },
-/* 483 */
+/* 484 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45824,7 +45871,7 @@
 	exports.default = ToggleRadioButtonChecked;
 
 /***/ },
-/* 484 */
+/* 485 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -45845,7 +45892,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _RadioButton = __webpack_require__(480);
+	var _RadioButton = __webpack_require__(481);
 	
 	var _RadioButton2 = _interopRequireDefault(_RadioButton);
 	
@@ -46040,7 +46087,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 485 */
+/* 486 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46077,7 +46124,7 @@
 	exports.default = ContentAdd;
 
 /***/ },
-/* 486 */
+/* 487 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46087,7 +46134,7 @@
 	});
 	exports.default = undefined;
 	
-	var _FloatingActionButton = __webpack_require__(487);
+	var _FloatingActionButton = __webpack_require__(488);
 	
 	var _FloatingActionButton2 = _interopRequireDefault(_FloatingActionButton);
 	
@@ -46096,7 +46143,7 @@
 	exports.default = _FloatingActionButton2.default;
 
 /***/ },
-/* 487 */
+/* 488 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -46454,7 +46501,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 488 */
+/* 489 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46464,7 +46511,7 @@
 	});
 	exports.default = undefined;
 	
-	var _SelectField = __webpack_require__(489);
+	var _SelectField = __webpack_require__(490);
 	
 	var _SelectField2 = _interopRequireDefault(_SelectField);
 	
@@ -46473,7 +46520,7 @@
 	exports.default = _SelectField2.default;
 
 /***/ },
-/* 489 */
+/* 490 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46738,45 +46785,6 @@
 	  muiTheme: _react.PropTypes.object.isRequired
 	};
 	exports.default = SelectField;
-
-/***/ },
-/* 490 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _pure = __webpack_require__(403);
-	
-	var _pure2 = _interopRequireDefault(_pure);
-	
-	var _SvgIcon = __webpack_require__(412);
-	
-	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var SchoolWork = function SchoolWork(props) {
-	  return _react2.default.createElement(
-	    _SvgIcon2.default,
-	    props,
-	    _react2.default.createElement('path', { d: "M10.594 4.476c-0.05 0.166-0.103 0.332-0.13 0.506c-0.036 0.216-0.056 0.44-0.056 0.666c0 2.236 1.811 4.048 4.048 4.048 c2.232 0 4.046-1.812 4.046-4.048c0-0.447-0.091-0.869-0.224-1.271l0.822-1.134l-1.473-0.519l0.289-1.504l-1.801 0.514L15.292 0 l-1.537 1.602l-1.189-1.381l-0.561,1.822l-1.91-0.625l0.722 1.608l-1.392 0.39L10.594 4.476z"}),
-	    _react2.default.createElement('path', { d: "M18.149 16.184l0.012-2.624l5.73-6.92l-1.742-1.441l-4.42 5.336l-1.27-0.23c0 0-0.555 1.701-2.078 1.791 c-1.524 0.088-2.101-1.791-2.101-1.791L9.835 10.88l-1.961 5.304H1.507v1.928h1.159v10.983h0.942V18.111h7.232l0.014 1.361H9.325 v0.661h1.312v8.457h2.897v-8.457h1.917v8.457h2.898v-8.457h1.141v-0.661h-1.342l0.002-1.361H25.2v10.983h0.94V18.111h1.447v-1.928H18.149z M9.91,16.184l0.882-2.455l0.027,2.455H9.91z"})
-	  );
-	};
-	SchoolWork = (0, _pure2.default)(SchoolWork);
-	SchoolWork.displayName = 'SchoolWork';
-	SchoolWork.muiName = 'SvgIcon';
-	
-	exports.default = SchoolWork;
-
 
 /***/ }
 /******/ ]);

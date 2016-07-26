@@ -19,9 +19,9 @@ class Report extends React.Component{
     return(
       <div>
         <Header />
-        <StudentMoodContainer mood={this.props.mood} />
-        <ServicesContainer />
-        <DailyWorkContainer />
+        <StudentMoodContainer mood={this.props.mood} studentName={this.props.name} />
+        <ServicesContainer studentName={this.props.name} />
+        <DailyWorkContainer studentName={this.props.name} />
       </div>
     );
   };

@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+const actions = require('../js/actions');
 
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
@@ -8,6 +10,11 @@ import SchoolWork from 'material-ui/svg-icons/custom/school-work';
 class DailyWork extends React.Component{
   constructor(props){
     super(props);
+    this.setStudentWork = this.setStudentWork.bind(this);
+  }
+  setStudentWork(evt){
+    var studentWork = evt.target.value;
+    this.props.dispatch(actions.setWork(studentWork));
   }
   render(){
     const iconStyle = {
@@ -34,11 +41,12 @@ class DailyWork extends React.Component{
             name='work'
             id='student-work'
             style={workAreaStyle}
-            onChange={this.props.setStudentWork} />
+            onChange={this.setStudentWork} />
         </div>
       </div>
     );
   };
 };
 
-module.exports = DailyWork;
+var Container = connect()(DailyWork);
+module.exports = Container;

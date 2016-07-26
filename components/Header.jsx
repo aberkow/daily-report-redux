@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+const actions = require('../js/actions');
 
 import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
@@ -6,6 +8,13 @@ import TextField from 'material-ui/TextField';
 class Header extends React.Component{
   constructor(props){
     super(props);
+    console.log(this.props, 'from Header');
+    this.setStudentName = this.setStudentName.bind(this);
+  }
+  setStudentName(evt){
+    evt.preventDefault();
+    var studentName = evt.target.value;
+    this.props.dispatch(actions.setName(studentName));
   }
   render(){
     return(
@@ -17,7 +26,7 @@ class Header extends React.Component{
               floatingLabelText="Student's name"
               name='name'
               id='student-name'
-              onChange={this.props.setStudentName} />
+              onChange={this.setStudentName} />
             <DatePicker
               autoOk={true}
               hintText="Today's Date"
@@ -31,4 +40,5 @@ class Header extends React.Component{
   };
 };
 
-module.exports = Header;
+var Container = connect()(Header);
+module.exports = Container;
