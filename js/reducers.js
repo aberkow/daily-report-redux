@@ -3,7 +3,7 @@ var actions = require('./actions');
 var reportState = {
   name: '',
   date: '',
-  mood: 1,
+  mood: 'Very Happy',
   servicesArray: [],
   work: '',
   reinforcersArray: []
@@ -32,6 +32,7 @@ var reportReducer = function(state, action){
     var moodState = Object.assign({}, state, {
       mood: mood
     });
+    console.log(mood, 'from mood reducer');
     return moodState;
   }
   else if (action.type === actions.SET_SERVICE) {

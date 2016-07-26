@@ -6,6 +6,6 @@ var applyMiddleware = redux.applyMiddleware;
 
 var reducers = require('./reducers');
 
-var store = createStore(reducers.reportReducer);
+var store = createStore(reducers.reportReducer, window.devToolsExtension ? window.devToolsExtension() : undefined);
 
 module.exports = store;

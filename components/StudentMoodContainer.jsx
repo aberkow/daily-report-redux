@@ -13,7 +13,7 @@ class StudentMoodContainer extends React.Component{
     return(
       <div style={studentMoodStyle}>
         <StudentMood
-          value={this.props.value}
+          value={this.props.mood}
           studentName={this.props.studentName}
           setStudentMood={this.props.setStudentMood}
           moodIconHandler={this.props.moodIconHandler} />
