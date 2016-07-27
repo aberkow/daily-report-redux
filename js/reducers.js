@@ -44,20 +44,18 @@ var reportReducer = function(state, action){
     console.log(index, 'from setService reducer');
     var servicesState;
 
-    //doesn't quite work. check redux dev tools
     if (index !== -1){
+      var serviceRemoved = servicesArray.splice(index, 1);
       servicesState = Object.assign({}, state, {
-        servicesArray: servicesArray.splice(index, 1)
+        servicesArray: servicesArray
       });
-    } else {
+    }
+    else {
       servicesState = Object.assign({}, state, {
         servicesArray: servicesArray.concat(service)
       });
     }
 
-    // var servicesState = Object.assign({}, state, {
-    //   servicesArray: servicesArray.concat(service)
-    // });
     return servicesState;
   }
   else if (action.type === actions.SET_WORK) {
@@ -98,3 +96,50 @@ exports.reportReducer = reportReducer;
 //   reinforcersArray: reinforcersArray.concat(reinforcer)
 // });
 // return reinforcersState;
+
+//check this. looks to see if there's only one thing in the array.
+//if so, it resets the array and changes the state.
+// if (index !== -1 && servicesArray.length === 1){
+//   servicesArray.length = 0;
+//   servicesState = Object.assign({}, state, {
+//     servicesArray: servicesArray
+//   });
+// }
+// else if (index !== -1) {
+//
+//   var serviceRemoved = servicesArray.splice(index, 1);
+//   servicesState = Object.assign({}, state, {
+//     servicesArray: servicesArray
+//   })
+//
+//   // var before = servicesArray.splice(0, index);
+//   // var after = servicesArray.splice(index, servicesArray.length);
+//   // var newServicesArray = before.concat(after);
+//   //
+//   // console.log(before, after, newServicesArray, 'from setService else if');
+//   //
+//   // servicesState = Object.assign({}, state, {
+//   //   servicesArray: newServicesArray
+//   // });
+// }
+// else {
+//   servicesState = Object.assign({}, state, {
+//     servicesArray: servicesArray.concat(service)
+//   });
+// }
+
+
+//doesn't quite work. check redux dev tools
+// if (index !== -1){
+//   servicesState = Object.assign({}, state, {
+//     servicesArray: servicesArray.splice(index, 1)
+//   });
+// } else {
+//   servicesState = Object.assign({}, state, {
+//     servicesArray: servicesArray.concat(service)
+//   });
+// }
+
+// var servicesState = Object.assign({}, state, {
+//   servicesArray: servicesArray.concat(service)
+// });
