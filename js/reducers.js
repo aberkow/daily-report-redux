@@ -73,6 +73,16 @@ var reportReducer = function(state, action){
     });
     return reinforcersState;
   }
+  else if (action.type === actions.REMOVE_REINFORCER) {
+    var reinforcerToRemove = action.reinforcerToRemove;
+    var reinforcersArray = state.reinforcersArray;
+    var index = reinforcersArray.indexOf(reinforcerToRemove);
+    var reinforcerRemoved = reinforcersArray.splice(index, 1);
+    var reinforcersArrayState = Object.assign({}, state, {
+      reinforcersArray: reinforcersArray
+    });
+    return reinforcersArrayState;
+  }
   return state;
 }
 

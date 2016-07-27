@@ -2,42 +2,48 @@ import React from 'react';
 import { connect } from 'react-redux';
 const actions = require('../js/actions');
 
-// import ActionFavorite from 'material-ui/svg-icons/action/favorite';
-// import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
-// import Checkbox from 'material-ui/Checkbox';
-
-// import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
-
-// import Favorite from 'material-ui/svg-icons/action/favorite';
-// import FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
 class ReinforcerList extends React.Component{
   constructor(props){
     super(props);
-    // this.handleReinforcerField = this.handleReinforcerField.bind(this);
+    this.deleteReinforcer = this.deleteReinforcer.bind(this);
     this.submitReinforcer = this.submitReinforcer.bind(this);
   }
-  // handleReinforcerField(evt){
-  //   var value = evt.target.value;
-  //   return value;
-  // }
+  deleteReinforcer(evt){
+    evt.preventDefault();
+    var reinforcerToDelete = evt.target.parentNode.parentNode.parentNode;
+    var reinforcerList = document.getElementById('reinforcerList');
+
+    //almost works. gets a little weird when the last item is removed.
+    this.props.dispatch(actions.removeReinforcer(reinforcerToDelete.id));
+    reinforcerToDelete.parentNode.removeChild(reinforcerToDelete);
+  }
   submitReinforcer(evt){
     evt.preventDefault();
     //call getValue() instead of value.
     var reinforcer = this.refs.reinforcer.getValue();
-    console.log(reinforcer);
     this.props.dispatch(actions.setReinforcer(reinforcer));
-    //can't set the value of this.refs.reinforcer
   }
   render(){
     var reinforcerItem = this.props.reinforcersArray.map(function(reinforcer, index){
       return(
-        <li key={index}>{reinforcer}</li>
+        <div key={index} id={reinforcer}>
+          <li key={'item' + index}>
+            {reinforcer}
+            <span>
+              <button
+              type='button'
+              key={'deleteButton' + index}
+              onClick={this.deleteReinforcer}>Delete</button>
+            </span>
+          </li>
+        </div>
       );
-    });
+    }, this);
     return(
       <div>
         <form onSubmit={this.submitReinforcer}>
@@ -50,7 +56,7 @@ class ReinforcerList extends React.Component{
             <ContentAdd />
           </FloatingActionButton>
         </form>
-        <ul>
+        <ul id='reinforcerList'>
           {reinforcerItem}
         </ul>
       </div>
@@ -60,6 +66,15 @@ class ReinforcerList extends React.Component{
 
 var Container = connect()(ReinforcerList);
 module.exports = Container;
+
+
+
+// <RaisedButton
+//   key={index}
+//   label='Delete'
+//   secondary={true}
+//   onClick={this.deleteReinforcer} />
+
 
 
 

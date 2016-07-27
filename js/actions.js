@@ -46,6 +46,14 @@ const setReinforcer = function(reinforcer){
   };
 };
 
+const REMOVE_REINFORCER = 'REMOVE_REINFORCER';
+const removeReinforcer = function(reinforcerToRemove){
+  return {
+    type: REMOVE_REINFORCER,
+    reinforcerToRemove: reinforcerToRemove
+  };
+};
+
 exports.SET_NAME = SET_NAME;
 exports.setName = setName;
 
@@ -63,3 +71,6 @@ exports.setWork = setWork;
 
 exports.SET_REINFORCER = SET_REINFORCER;
 exports.setReinforcer = setReinforcer;
+
+exports.REMOVE_REINFORCER = REMOVE_REINFORCER;
+exports.removeReinforcer = removeReinforcer;
