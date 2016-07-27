@@ -39,13 +39,10 @@ const setWork = function(work){
 };
 
 const SET_REINFORCER = 'SET_REINFORCER';
-const setReinforcer = function(reinforcer, checkedBool){
+const setReinforcer = function(reinforcer){
   return {
     type: SET_REINFORCER,
-    reinforcerObj: {
-      kind: reinforcer,
-      checked: checkedBool
-    }
+    reinforcer: reinforcer
   };
 };
 
@@ -64,5 +61,5 @@ exports.setService = setService;
 exports.SET_WORK = SET_WORK;
 exports.setWork = setWork;
 
-exports. SET_REINFORCER = SET_REINFORCER;
+exports.SET_REINFORCER = SET_REINFORCER;
 exports.setReinforcer = setReinforcer;

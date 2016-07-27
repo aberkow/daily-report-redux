@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+const actions = require('../js/actions');
+
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Paper from 'material-ui/Paper';
@@ -18,8 +21,10 @@ class Services extends React.Component{
   }
   //needs better selection of elements...
   highlightServices(evt){
-    console.log(evt.target, this.state.highlighted, 'from Services');
-    this.setState( {highlighted: !this.state.highlighted} );
+    var service = evt.target.innerText;
+    console.log(service, 'from highlightServices');
+
+    this.props.dispatch(actions.setService(service))
   }
   render(){
     const iconStyle = {
@@ -28,7 +33,7 @@ class Services extends React.Component{
     };
     const textStyle = {
       cursor: 'pointer'
-    }
+    };
     const paperStyle = {
       height: 80,
       width: 80,
@@ -43,6 +48,7 @@ class Services extends React.Component{
         <h3>Today, {this.props.studentName} went to:</h3>
         <div>
           <Paper
+
             className={this.state.highlighted ? 'highlighted' : ''}
             onClick={this.highlightServices}
             style={paperStyle}
@@ -53,6 +59,7 @@ class Services extends React.Component{
               </div>
             } />
           <Paper
+
             className={this.state.highlighted ? 'highlighted' : ''}
             onClick={this.highlightServices}
             style={paperStyle}
@@ -63,6 +70,7 @@ class Services extends React.Component{
               </div>
             } />
           <Paper
+
             className={this.state.highlighted ? 'highlighted' : ''}
             onClick={this.highlightServices}
             style={paperStyle}
@@ -73,6 +81,7 @@ class Services extends React.Component{
               </div>
             } />
           <Paper
+
             className={this.state.highlighted ? 'highlighted' : ''}
             onClick={this.highlightServices}
             style={paperStyle}
@@ -88,4 +97,59 @@ class Services extends React.Component{
   };
 };
 
-module.exports = Services;
+var Container = connect()(Services);
+module.exports = Container;
+
+// <Paper
+//   key={index}
+//   onClick={this.highlightServices}
+//   style={paperStyle}
+//   children={
+//     <div>
+//       <p style={textStyle}>{service}</p>
+//       {iconTypes[index]}
+//     </div>
+//   } />
+
+
+
+
+
+// var servicesArray = [
+//   {
+//     serviceType: 'OT',
+//     iconType: <BorderColor style={iconStyle} />
+//   },
+//   {
+//     serviceType: 'PT',
+//     iconType: <DirectionsRun style={iconStyle} />
+//   },
+//   {
+//     serviceType: 'Speech',
+//     iconType: <QuestionAnswer style={iconStyle} />
+//   },
+//   {
+//     serviceType: 'ABA',
+//     iconType: <BorderColor style={iconStyle} />
+//   }
+// ];
+//
+// var services = servicesArray.map(function(service, index){
+//   return(
+//     <Paper key={index}
+//       onClick={this.highlightServices}
+//       style={paperStyle}
+//       service={service.serviceType}
+//       children={
+//
+//           <div>
+//             <p>{service.serviceType}</p>
+//             {service.iconType}
+//           </div>
+//
+//       }/>
+//   );
+// });
+//
+//
+//

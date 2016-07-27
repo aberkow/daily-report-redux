@@ -90,7 +90,7 @@
 	
 	var _sentimentVeryDissatisfied2 = _interopRequireDefault(_sentimentVeryDissatisfied);
 	
-	var _add = __webpack_require__(481);
+	var _add = __webpack_require__(469);
 	
 	var _add2 = _interopRequireDefault(_add);
 	
@@ -98,11 +98,11 @@
 	
 	var _DatePicker2 = _interopRequireDefault(_DatePicker);
 	
-	var _FloatingActionButton = __webpack_require__(482);
+	var _FloatingActionButton = __webpack_require__(470);
 	
 	var _FloatingActionButton2 = _interopRequireDefault(_FloatingActionButton);
 	
-	var _SelectField = __webpack_require__(484);
+	var _SelectField = __webpack_require__(472);
 	
 	var _SelectField2 = _interopRequireDefault(_SelectField);
 	
@@ -30022,6 +30022,7 @@
 	  mood: 'Very Happy',
 	  servicesArray: [],
 	  work: '',
+	  reinforcer: '',
 	  reinforcersArray: []
 	};
 	
@@ -30050,10 +30051,26 @@
 	    return moodState;
 	  } else if (action.type === actions.SET_SERVICE) {
 	    var service = action.service;
+	
 	    var servicesArray = state.servicesArray;
-	    var servicesState = Object.assign({}, state, {
-	      servicesArray: servicesArray.concat(service)
-	    });
+	    var index = servicesArray.indexOf(service);
+	    console.log(index, 'from setService reducer');
+	    var servicesState;
+	
+	    //doesn't quite work. check redux dev tools
+	    if (index !== -1) {
+	      servicesState = Object.assign({}, state, {
+	        servicesArray: servicesArray.splice(index, 1)
+	      });
+	    } else {
+	      servicesState = Object.assign({}, state, {
+	        servicesArray: servicesArray.concat(service)
+	      });
+	    }
+	
+	    // var servicesState = Object.assign({}, state, {
+	    //   servicesArray: servicesArray.concat(service)
+	    // });
 	    return servicesState;
 	  } else if (action.type === actions.SET_WORK) {
 	    var work = action.work;
@@ -30062,27 +30079,34 @@
 	    });
 	    return workState;
 	  } else if (action.type === actions.SET_REINFORCER) {
-	    var reinforcer = {
-	      kind: action.reinforcerObj.kind,
-	      checked: action.reinforcerObj.checked
-	    };
+	    var reinforcer = action.reinforcer;
 	    var reinforcersArray = state.reinforcersArray;
 	    var reinforcersState = Object.assign({}, state, {
 	      reinforcersArray: reinforcersArray.concat(reinforcer)
 	    });
 	    return reinforcersState;
-	    // var reinforcer = action.reinforcerObj.kind;
-	    // var checkedStatus = action.reinforcerObj.checked;
-	    // var reinforcersArray = state.reinforcersArray;
-	    // var reinforcersState = Object.assign({}, state, {
-	    //   reinforcersArray: reinforcersArray.concat(reinforcer)
-	    // });
-	    // return reinforcersState;
 	  }
 	  return state;
 	};
 	
 	exports.reportReducer = reportReducer;
+	
+	// var reinforcer = {
+	//   kind: action.reinforcerObj.kind,
+	//   checked: action.reinforcerObj.checked
+	// }
+	// var reinforcersArray = state.reinforcersArray;
+	// var reinforcersState = Object.assign({}, state, {
+	//   reinforcersArray: reinforcersArray.concat(reinforcer)
+	// });
+	// return reinforcersState;
+	// var reinforcer = action.reinforcerObj.kind;
+	// var checkedStatus = action.reinforcerObj.checked;
+	// var reinforcersArray = state.reinforcersArray;
+	// var reinforcersState = Object.assign({}, state, {
+	//   reinforcersArray: reinforcersArray.concat(reinforcer)
+	// });
+	// return reinforcersState;
 
 /***/ },
 /* 358 */
@@ -30131,13 +30155,10 @@
 	};
 	
 	var SET_REINFORCER = 'SET_REINFORCER';
-	var setReinforcer = function setReinforcer(reinforcer, checkedBool) {
+	var setReinforcer = function setReinforcer(reinforcer) {
 	  return {
 	    type: SET_REINFORCER,
-	    reinforcerObj: {
-	      kind: reinforcer,
-	      checked: checkedBool
-	    }
+	    reinforcer: reinforcer
 	  };
 	};
 	
@@ -30185,7 +30206,7 @@
 	
 	var _ServicesContainer2 = _interopRequireDefault(_ServicesContainer);
 	
-	var _DailyWorkContainer = __webpack_require__(470);
+	var _DailyWorkContainer = __webpack_require__(465);
 	
 	var _DailyWorkContainer2 = _interopRequireDefault(_DailyWorkContainer);
 	
@@ -30222,7 +30243,8 @@
 	        _react2.default.createElement(_Header2.default, null),
 	        _react2.default.createElement(_StudentMoodContainer2.default, { mood: this.props.mood, studentName: this.props.name }),
 	        _react2.default.createElement(_ServicesContainer2.default, { studentName: this.props.name }),
-	        _react2.default.createElement(_DailyWorkContainer2.default, { studentName: this.props.name, reinforcerKind: this.props.reinforcersArray.kind, reinforcerChecked: this.props.reinforcersArray.checked })
+	        _react2.default.createElement(_DailyWorkContainer2.default, { studentName: this.props.name,
+	          reinforcersArray: this.props.reinforcersArray })
 	      );
 	    }
 	  }]);
@@ -30239,6 +30261,7 @@
 	    mood: state.mood,
 	    servicesArray: state.servicesArray,
 	    work: state.work,
+	    reinforcer: state.reinforcer,
 	    reinforcersArray: state.reinforcersArray
 	  };
 	};
@@ -30246,6 +30269,9 @@
 	var Container = (0, _reactRedux.connect)(mapStateToProps)(Report);
 	
 	module.exports = Container;
+	
+	// reinforcerKind={this.props.reinforcersArray.kind}
+	// reinforcerChecked={this.props.reinforcersArray.checked}
 
 /***/ },
 /* 360 */
@@ -43964,7 +43990,9 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Menu = __webpack_require__(465);
+	var _reactRedux = __webpack_require__(172);
+	
+	var _Menu = __webpack_require__(474);
 	
 	var _Menu2 = _interopRequireDefault(_Menu);
 	
@@ -43976,19 +44004,19 @@
 	
 	var _Paper2 = _interopRequireDefault(_Paper);
 	
-	var _borderColor = __webpack_require__(466);
+	var _borderColor = __webpack_require__(475);
 	
 	var _borderColor2 = _interopRequireDefault(_borderColor);
 	
-	var _directionsRun = __webpack_require__(467);
+	var _directionsRun = __webpack_require__(476);
 	
 	var _directionsRun2 = _interopRequireDefault(_directionsRun);
 	
-	var _questionAnswer = __webpack_require__(468);
+	var _questionAnswer = __webpack_require__(477);
 	
 	var _questionAnswer2 = _interopRequireDefault(_questionAnswer);
 	
-	var _trendingUp = __webpack_require__(469);
+	var _trendingUp = __webpack_require__(478);
 	
 	var _trendingUp2 = _interopRequireDefault(_trendingUp);
 	
@@ -43999,6 +44027,8 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var actions = __webpack_require__(358);
 	
 	var Services = function (_React$Component) {
 	  _inherits(Services, _React$Component);
@@ -44020,8 +44050,10 @@
 	  _createClass(Services, [{
 	    key: 'highlightServices',
 	    value: function highlightServices(evt) {
-	      console.log(evt.target, this.state.highlighted, 'from Services');
-	      this.setState({ highlighted: !this.state.highlighted });
+	      var service = evt.target.innerText;
+	      console.log(service, 'from highlightServices');
+	
+	      this.props.dispatch(actions.setService(service));
 	    }
 	  }, {
 	    key: 'render',
@@ -44056,6 +44088,7 @@
 	          'div',
 	          null,
 	          _react2.default.createElement(_Paper2.default, {
+	
 	            className: this.state.highlighted ? 'highlighted' : '',
 	            onClick: this.highlightServices,
 	            style: paperStyle,
@@ -44070,6 +44103,7 @@
 	              _react2.default.createElement(_borderColor2.default, { style: iconStyle })
 	            ) }),
 	          _react2.default.createElement(_Paper2.default, {
+	
 	            className: this.state.highlighted ? 'highlighted' : '',
 	            onClick: this.highlightServices,
 	            style: paperStyle,
@@ -44084,6 +44118,7 @@
 	              _react2.default.createElement(_directionsRun2.default, { style: iconStyle })
 	            ) }),
 	          _react2.default.createElement(_Paper2.default, {
+	
 	            className: this.state.highlighted ? 'highlighted' : '',
 	            onClick: this.highlightServices,
 	            style: paperStyle,
@@ -44098,6 +44133,7 @@
 	              _react2.default.createElement(_questionAnswer2.default, { style: iconStyle })
 	            ) }),
 	          _react2.default.createElement(_Paper2.default, {
+	
 	            className: this.state.highlighted ? 'highlighted' : '',
 	            onClick: this.highlightServices,
 	            style: paperStyle,
@@ -44121,184 +44157,62 @@
 	
 	;
 	
-	module.exports = Services;
+	var Container = (0, _reactRedux.connect)()(Services);
+	module.exports = Container;
+	
+	// <Paper
+	//   key={index}
+	//   onClick={this.highlightServices}
+	//   style={paperStyle}
+	//   children={
+	//     <div>
+	//       <p style={textStyle}>{service}</p>
+	//       {iconTypes[index]}
+	//     </div>
+	//   } />
+	
+	
+	// var servicesArray = [
+	//   {
+	//     serviceType: 'OT',
+	//     iconType: <BorderColor style={iconStyle} />
+	//   },
+	//   {
+	//     serviceType: 'PT',
+	//     iconType: <DirectionsRun style={iconStyle} />
+	//   },
+	//   {
+	//     serviceType: 'Speech',
+	//     iconType: <QuestionAnswer style={iconStyle} />
+	//   },
+	//   {
+	//     serviceType: 'ABA',
+	//     iconType: <BorderColor style={iconStyle} />
+	//   }
+	// ];
+	//
+	// var services = servicesArray.map(function(service, index){
+	//   return(
+	//     <Paper key={index}
+	//       onClick={this.highlightServices}
+	//       style={paperStyle}
+	//       service={service.serviceType}
+	//       children={
+	//
+	//           <div>
+	//             <p>{service.serviceType}</p>
+	//             {service.iconType}
+	//           </div>
+	//
+	//       }/>
+	//   );
+	// });
+	//
+	//
+	//
 
 /***/ },
 /* 465 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = exports.MenuItem = exports.Menu = undefined;
-	
-	var _Menu2 = __webpack_require__(448);
-	
-	var _Menu3 = _interopRequireDefault(_Menu2);
-	
-	var _MenuItem2 = __webpack_require__(462);
-	
-	var _MenuItem3 = _interopRequireDefault(_MenuItem2);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.Menu = _Menu3.default;
-	exports.MenuItem = _MenuItem3.default;
-	exports.default = _Menu3.default;
-
-/***/ },
-/* 466 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _pure = __webpack_require__(403);
-	
-	var _pure2 = _interopRequireDefault(_pure);
-	
-	var _SvgIcon = __webpack_require__(412);
-	
-	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var EditorBorderColor = function EditorBorderColor(props) {
-	  return _react2.default.createElement(
-	    _SvgIcon2.default,
-	    props,
-	    _react2.default.createElement('path', { d: 'M17.75 7L14 3.25l-10 10V17h3.75l10-10zm2.96-2.96c.39-.39.39-1.02 0-1.41L18.37.29c-.39-.39-1.02-.39-1.41 0L15 2.25 18.75 6l1.96-1.96z' }),
-	    _react2.default.createElement('path', { fillOpacity: '.36', d: 'M0 20h24v4H0z' })
-	  );
-	};
-	EditorBorderColor = (0, _pure2.default)(EditorBorderColor);
-	EditorBorderColor.displayName = 'EditorBorderColor';
-	EditorBorderColor.muiName = 'SvgIcon';
-	
-	exports.default = EditorBorderColor;
-
-/***/ },
-/* 467 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _pure = __webpack_require__(403);
-	
-	var _pure2 = _interopRequireDefault(_pure);
-	
-	var _SvgIcon = __webpack_require__(412);
-	
-	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var MapsDirectionsRun = function MapsDirectionsRun(props) {
-	  return _react2.default.createElement(
-	    _SvgIcon2.default,
-	    props,
-	    _react2.default.createElement('path', { d: 'M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z' })
-	  );
-	};
-	MapsDirectionsRun = (0, _pure2.default)(MapsDirectionsRun);
-	MapsDirectionsRun.displayName = 'MapsDirectionsRun';
-	MapsDirectionsRun.muiName = 'SvgIcon';
-	
-	exports.default = MapsDirectionsRun;
-
-/***/ },
-/* 468 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _pure = __webpack_require__(403);
-	
-	var _pure2 = _interopRequireDefault(_pure);
-	
-	var _SvgIcon = __webpack_require__(412);
-	
-	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var ActionQuestionAnswer = function ActionQuestionAnswer(props) {
-	  return _react2.default.createElement(
-	    _SvgIcon2.default,
-	    props,
-	    _react2.default.createElement('path', { d: 'M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z' })
-	  );
-	};
-	ActionQuestionAnswer = (0, _pure2.default)(ActionQuestionAnswer);
-	ActionQuestionAnswer.displayName = 'ActionQuestionAnswer';
-	ActionQuestionAnswer.muiName = 'SvgIcon';
-	
-	exports.default = ActionQuestionAnswer;
-
-/***/ },
-/* 469 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _pure = __webpack_require__(403);
-	
-	var _pure2 = _interopRequireDefault(_pure);
-	
-	var _SvgIcon = __webpack_require__(412);
-	
-	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var ActionTrendingUp = function ActionTrendingUp(props) {
-	  return _react2.default.createElement(
-	    _SvgIcon2.default,
-	    props,
-	    _react2.default.createElement('path', { d: 'M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z' })
-	  );
-	};
-	ActionTrendingUp = (0, _pure2.default)(ActionTrendingUp);
-	ActionTrendingUp.displayName = 'ActionTrendingUp';
-	ActionTrendingUp.muiName = 'SvgIcon';
-	
-	exports.default = ActionTrendingUp;
-
-/***/ },
-/* 470 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44309,13 +44223,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _DailyWork = __webpack_require__(471);
+	var _DailyWork = __webpack_require__(466);
 	
 	var _DailyWork2 = _interopRequireDefault(_DailyWork);
 	
-	var _Reinforcers = __webpack_require__(473);
+	var _ReinforcerList = __webpack_require__(468);
 	
-	var _Reinforcers2 = _interopRequireDefault(_Reinforcers);
+	var _ReinforcerList2 = _interopRequireDefault(_ReinforcerList);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -44344,9 +44258,7 @@
 	        _react2.default.createElement(_DailyWork2.default, {
 	          studentName: this.props.studentName
 	        }),
-	        _react2.default.createElement(_Reinforcers2.default, {
-	          reinforcerKind: this.props.reinreinforcerKind,
-	          reinforcerChecked: this.props.reinforcerChecked })
+	        _react2.default.createElement(_ReinforcerList2.default, { reinforcersArray: this.props.reinforcersArray })
 	      );
 	    }
 	  }]);
@@ -44357,9 +44269,12 @@
 	;
 	
 	module.exports = DailyWorkContainer;
+	
+	// reinforcerKind={this.props.reinreinforcerKind}
+	// reinforcerChecked={this.props.reinforcerChecked}
 
 /***/ },
-/* 471 */
+/* 466 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44380,7 +44295,7 @@
 	
 	var _Paper2 = _interopRequireDefault(_Paper);
 	
-	var _schoolWork = __webpack_require__(472);
+	var _schoolWork = __webpack_require__(467);
 	
 	var _schoolWork2 = _interopRequireDefault(_schoolWork);
 	
@@ -44462,7 +44377,7 @@
 	module.exports = Container;
 
 /***/ },
-/* 472 */
+/* 467 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44501,7 +44416,7 @@
 
 
 /***/ },
-/* 473 */
+/* 468 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44514,17 +44429,13 @@
 	
 	var _reactRedux = __webpack_require__(172);
 	
-	var _favorite = __webpack_require__(474);
+	var _add = __webpack_require__(469);
 	
-	var _favorite2 = _interopRequireDefault(_favorite);
+	var _add2 = _interopRequireDefault(_add);
 	
-	var _favoriteBorder = __webpack_require__(475);
+	var _FloatingActionButton = __webpack_require__(470);
 	
-	var _favoriteBorder2 = _interopRequireDefault(_favoriteBorder);
-	
-	var _Checkbox = __webpack_require__(476);
-	
-	var _Checkbox2 = _interopRequireDefault(_Checkbox);
+	var _FloatingActionButton2 = _interopRequireDefault(_FloatingActionButton);
 	
 	var _TextField = __webpack_require__(433);
 	
@@ -44540,83 +44451,141 @@
 	
 	var actions = __webpack_require__(358);
 	
+	// import ActionFavorite from 'material-ui/svg-icons/action/favorite';
+	// import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
+	// import Checkbox from 'material-ui/Checkbox';
+	
 	// import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 	
 	// import Favorite from 'material-ui/svg-icons/action/favorite';
 	// import FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 	
-	var Reinforcers = function (_React$Component) {
-	  _inherits(Reinforcers, _React$Component);
+	var ReinforcerList = function (_React$Component) {
+	  _inherits(ReinforcerList, _React$Component);
 	
-	  function Reinforcers(props) {
-	    _classCallCheck(this, Reinforcers);
+	  function ReinforcerList(props) {
+	    _classCallCheck(this, ReinforcerList);
 	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Reinforcers).call(this, props));
+	    // this.handleReinforcerField = this.handleReinforcerField.bind(this);
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ReinforcerList).call(this, props));
 	
-	    _this.setReinforcers = _this.setReinforcers.bind(_this);
-	    console.log(_this.props, 'from Reinforcers');
+	    _this.submitReinforcer = _this.submitReinforcer.bind(_this);
 	    return _this;
 	  }
+	  // handleReinforcerField(evt){
+	  //   var value = evt.target.value;
+	  //   return value;
+	  // }
 	
-	  _createClass(Reinforcers, [{
-	    key: 'setReinforcers',
-	    value: function setReinforcers(evt) {
-	      //console.log(evt.target, 'from setReinforcers');
+	
+	  _createClass(ReinforcerList, [{
+	    key: 'submitReinforcer',
+	    value: function submitReinforcer(evt) {
 	      evt.preventDefault();
-	      var reinforcer = evt.target.nextSibling.lastChild.textContent;
-	      var checkedStatus = true;
-	
-	      //if ()
-	
-	
-	      this.props.dispatch(actions.setReinforcer(reinforcer, checkedStatus));
-	      console.log(this.props, 'from setReinforcers');
+	      //call getValue() instead of value.
+	      var reinforcer = this.refs.reinforcer.getValue();
+	      console.log(reinforcer);
+	      this.props.dispatch(actions.setReinforcer(reinforcer));
+	      //can't set the value of this.refs.reinforcer
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var style = {
-	        display: 'inline-block'
-	      };
-	      var reinfocerList = this.props.reinforcerPropsArray.map(function (reinforcer, index) {
-	        return _react2.default.createElement(_Checkbox2.default, { style: style, key: index,
-	          label: reinforcer,
-	          checkedIcon: _react2.default.createElement(_favorite2.default, null),
-	          uncheckedIcon: _react2.default.createElement(_favoriteBorder2.default, null),
-	          checked: this.props.reinforcerChecked,
-	          onCheck: this.setReinforcers });
-	      }.bind(this));
-	
+	      var reinforcerItem = this.props.reinforcersArray.map(function (reinforcer, index) {
+	        return _react2.default.createElement(
+	          'li',
+	          { key: index },
+	          reinforcer
+	        );
+	      });
 	      return _react2.default.createElement(
 	        'div',
 	        null,
 	        _react2.default.createElement(
-	          'h3',
-	          null,
-	          'Reinforcers'
+	          'form',
+	          { onSubmit: this.submitReinforcer },
+	          _react2.default.createElement(_TextField2.default, {
+	            hintText: 'Add reinforcers',
+	            floatingLabelText: 'Reinforcers',
+	            name: 'reinforcers',
+	            ref: 'reinforcer' }),
+	          _react2.default.createElement(
+	            _FloatingActionButton2.default,
+	            { mini: true, type: 'submit' },
+	            _react2.default.createElement(_add2.default, null)
+	          )
 	        ),
-	        reinfocerList,
-	        _react2.default.createElement(_TextField2.default, {
-	          hintText: 'Other reinforcers',
-	          floatingLabelText: 'Other reinforcers',
-	          name: 'otherReinforcers',
-	          id: 'other-reinforcers',
-	          style: style })
+	        _react2.default.createElement(
+	          'ul',
+	          null,
+	          reinforcerItem
+	        )
 	      );
 	    }
 	  }]);
 	
-	  return Reinforcers;
+	  return ReinforcerList;
 	}(_react2.default.Component);
 	
 	;
 	
-	Reinforcers.defaultProps = {
-	  reinforcerPropsArray: ['Bicycle', 'iPad', 'Extra Snack', 'Slide', 'Wagon']
-	};
-	
-	var Container = (0, _reactRedux.connect)()(Reinforcers);
+	var Container = (0, _reactRedux.connect)()(ReinforcerList);
 	module.exports = Container;
+	
+	// class Reinforcers extends React.Component{
+	//   constructor(props){
+	//     super(props);
+	//     this.setReinforcers = this.setReinforcers.bind(this);
+	//     console.log(this.props, 'from Reinforcers');
+	//   }
+	//   setReinforcers(evt){
+	//     //console.log(evt.target, 'from setReinforcers');
+	//     evt.preventDefault();
+	//     var reinforcer = evt.target.nextSibling.lastChild.textContent;
+	//     var checkedStatus = true;
+	//
+	//     //if ()
+	//
+	//
+	//     this.props.dispatch(actions.setReinforcer(reinforcer, checkedStatus));
+	//     console.log(this.props, 'from setReinforcers');
+	//   }
+	//   render(){
+	//     const style = {
+	//       display: 'inline-block'
+	//     }
+	//     var reinfocerList = this.props.reinforcerPropsArray.map(function(reinforcer, index){
+	//       return(
+	//         <Checkbox style={style} key={index}
+	//           label={reinforcer}
+	//           checkedIcon={<ActionFavorite />}
+	//           uncheckedIcon={<ActionFavoriteBorder />}
+	//           checked={this.props.reinforcerChecked}
+	//           onCheck={this.setReinforcers} />
+	//       );
+	//     }.bind(this));
+	//
+	//     return(
+	//       <div>
+	//         <h3>Reinforcers</h3>
+	//         {reinfocerList}
+	//         <TextField
+	//           hintText='Other reinforcers'
+	//           floatingLabelText='Other reinforcers'
+	//           name='otherReinforcers'
+	//           id='other-reinforcers'
+	//           style={style} />
+	//       </div>
+	//     );
+	//   };
+	// };
+	//
+	// Reinforcers.defaultProps = {
+	//   reinforcerPropsArray: ['Bicycle', 'iPad', 'Extra Snack', 'Slide', 'Wagon']
+	// };
+	
+	// var Container = connect()(Reinforcers);
+	// module.exports = Container;
 	
 	// <ul onClick={this.props.setReinforcers} className='reinfocer__list'>
 	//   {reinforcers}
@@ -44644,899 +44613,7 @@
 	//   label='Other' />
 
 /***/ },
-/* 474 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _pure = __webpack_require__(403);
-	
-	var _pure2 = _interopRequireDefault(_pure);
-	
-	var _SvgIcon = __webpack_require__(412);
-	
-	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var ActionFavorite = function ActionFavorite(props) {
-	  return _react2.default.createElement(
-	    _SvgIcon2.default,
-	    props,
-	    _react2.default.createElement('path', { d: 'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z' })
-	  );
-	};
-	ActionFavorite = (0, _pure2.default)(ActionFavorite);
-	ActionFavorite.displayName = 'ActionFavorite';
-	ActionFavorite.muiName = 'SvgIcon';
-	
-	exports.default = ActionFavorite;
-
-/***/ },
-/* 475 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _pure = __webpack_require__(403);
-	
-	var _pure2 = _interopRequireDefault(_pure);
-	
-	var _SvgIcon = __webpack_require__(412);
-	
-	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var ActionFavoriteBorder = function ActionFavoriteBorder(props) {
-	  return _react2.default.createElement(
-	    _SvgIcon2.default,
-	    props,
-	    _react2.default.createElement('path', { d: 'M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z' })
-	  );
-	};
-	ActionFavoriteBorder = (0, _pure2.default)(ActionFavoriteBorder);
-	ActionFavoriteBorder.displayName = 'ActionFavoriteBorder';
-	ActionFavoriteBorder.muiName = 'SvgIcon';
-	
-	exports.default = ActionFavoriteBorder;
-
-/***/ },
-/* 476 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = undefined;
-	
-	var _Checkbox = __webpack_require__(477);
-	
-	var _Checkbox2 = _interopRequireDefault(_Checkbox);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = _Checkbox2.default;
-
-/***/ },
-/* 477 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _simpleAssign = __webpack_require__(363);
-	
-	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _EnhancedSwitch = __webpack_require__(478);
-	
-	var _EnhancedSwitch2 = _interopRequireDefault(_EnhancedSwitch);
-	
-	var _transitions = __webpack_require__(369);
-	
-	var _transitions2 = _interopRequireDefault(_transitions);
-	
-	var _checkBoxOutlineBlank = __webpack_require__(479);
-	
-	var _checkBoxOutlineBlank2 = _interopRequireDefault(_checkBoxOutlineBlank);
-	
-	var _checkBox = __webpack_require__(480);
-	
-	var _checkBox2 = _interopRequireDefault(_checkBox);
-	
-	var _deprecatedPropType = __webpack_require__(389);
-	
-	var _deprecatedPropType2 = _interopRequireDefault(_deprecatedPropType);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	function getStyles(props, context) {
-	  var checkbox = context.muiTheme.checkbox;
-	
-	  var checkboxSize = 24;
-	
-	  return {
-	    icon: {
-	      height: checkboxSize,
-	      width: checkboxSize
-	    },
-	    check: {
-	      position: 'absolute',
-	      opacity: 0,
-	      transform: 'scale(0)',
-	      transitionOrigin: '50% 50%',
-	      transition: _transitions2.default.easeOut('450ms', 'opacity', '0ms') + ', ' + _transitions2.default.easeOut('0ms', 'transform', '450ms'),
-	      fill: checkbox.checkedColor
-	    },
-	    box: {
-	      position: 'absolute',
-	      opacity: 1,
-	      fill: checkbox.boxColor,
-	      transition: _transitions2.default.easeOut('2s', null, '200ms')
-	    },
-	    checkWhenSwitched: {
-	      opacity: 1,
-	      transform: 'scale(1)',
-	      transition: _transitions2.default.easeOut('0ms', 'opacity', '0ms') + ', ' + _transitions2.default.easeOut('800ms', 'transform', '0ms')
-	    },
-	    boxWhenSwitched: {
-	      transition: _transitions2.default.easeOut('100ms', null, '0ms'),
-	      fill: checkbox.checkedColor
-	    },
-	    checkWhenDisabled: {
-	      fill: checkbox.disabledColor,
-	      cursor: 'not-allowed'
-	    },
-	    boxWhenDisabled: {
-	      fill: props.checked ? 'transparent' : checkbox.disabledColor,
-	      cursor: 'not-allowed'
-	    },
-	    label: {
-	      color: props.disabled ? checkbox.labelDisabledColor : checkbox.labelColor
-	    }
-	  };
-	}
-	
-	var Checkbox = function (_Component) {
-	  _inherits(Checkbox, _Component);
-	
-	  function Checkbox() {
-	    var _Object$getPrototypeO;
-	
-	    var _temp, _this, _ret;
-	
-	    _classCallCheck(this, Checkbox);
-	
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-	
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Checkbox)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = { switched: false }, _this.handleCheck = function (event, isInputChecked) {
-	      if (_this.props.onCheck) _this.props.onCheck(event, isInputChecked);
-	    }, _this.handleStateChange = function (newSwitched) {
-	      _this.setState({ switched: newSwitched });
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
-	  }
-	
-	  _createClass(Checkbox, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      var _props = this.props;
-	      var checked = _props.checked;
-	      var defaultChecked = _props.defaultChecked;
-	      var valueLink = _props.valueLink;
-	
-	
-	      if (checked || defaultChecked || valueLink && valueLink.value) {
-	        this.setState({ switched: true });
-	      }
-	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      this.setState({
-	        switched: this.props.checked !== nextProps.checked ? nextProps.checked : this.state.switched
-	      });
-	    }
-	  }, {
-	    key: 'isChecked',
-	    value: function isChecked() {
-	      return this.refs.enhancedSwitch.isSwitched();
-	    }
-	  }, {
-	    key: 'setChecked',
-	    value: function setChecked(newCheckedValue) {
-	      this.refs.enhancedSwitch.setSwitched(newCheckedValue);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _props2 = this.props;
-	      var iconStyle = _props2.iconStyle;
-	      var onCheck = _props2.onCheck;
-	      var checkedIcon = _props2.checkedIcon;
-	      var uncheckedIcon = _props2.uncheckedIcon;
-	      var unCheckedIcon = _props2.unCheckedIcon;
-	
-	      var other = _objectWithoutProperties(_props2, ['iconStyle', 'onCheck', 'checkedIcon', 'uncheckedIcon', 'unCheckedIcon']);
-	
-	      var styles = getStyles(this.props, this.context);
-	      var boxStyles = (0, _simpleAssign2.default)(styles.box, this.state.switched && styles.boxWhenSwitched, iconStyle, this.props.disabled && styles.boxWhenDisabled);
-	      var checkStyles = (0, _simpleAssign2.default)(styles.check, this.state.switched && styles.checkWhenSwitched, iconStyle, this.props.disabled && styles.checkWhenDisabled);
-	
-	      var checkedElement = checkedIcon ? _react2.default.cloneElement(checkedIcon, {
-	        style: (0, _simpleAssign2.default)(checkStyles, checkedIcon.props.style)
-	      }) : _react2.default.createElement(_checkBox2.default, {
-	        style: checkStyles
-	      });
-	
-	      var unCheckedElement = unCheckedIcon || uncheckedIcon ? _react2.default.cloneElement(unCheckedIcon || uncheckedIcon, {
-	        style: (0, _simpleAssign2.default)(boxStyles, (unCheckedIcon || uncheckedIcon).props.style)
-	      }) : _react2.default.createElement(_checkBoxOutlineBlank2.default, {
-	        style: boxStyles
-	      });
-	
-	      var checkboxElement = _react2.default.createElement(
-	        'div',
-	        null,
-	        unCheckedElement,
-	        checkedElement
-	      );
-	
-	      var rippleColor = this.state.switched ? checkStyles.fill : boxStyles.fill;
-	      var mergedIconStyle = (0, _simpleAssign2.default)(styles.icon, iconStyle);
-	
-	      var labelStyle = (0, _simpleAssign2.default)(styles.label, this.props.labelStyle);
-	
-	      var enhancedSwitchProps = {
-	        ref: 'enhancedSwitch',
-	        inputType: 'checkbox',
-	        switched: this.state.switched,
-	        switchElement: checkboxElement,
-	        rippleColor: rippleColor,
-	        iconStyle: mergedIconStyle,
-	        onSwitch: this.handleCheck,
-	        labelStyle: labelStyle,
-	        onParentShouldUpdate: this.handleStateChange,
-	        labelPosition: this.props.labelPosition
-	      };
-	
-	      return _react2.default.createElement(_EnhancedSwitch2.default, _extends({}, other, enhancedSwitchProps));
-	    }
-	  }]);
-	
-	  return Checkbox;
-	}(_react.Component);
-	
-	Checkbox.propTypes = {
-	  /**
-	   * Checkbox is checked if true.
-	   */
-	  checked: _react.PropTypes.bool,
-	  /**
-	   * The SvgIcon to use for the checked state.
-	   * This is useful to create icon toggles.
-	   */
-	  checkedIcon: _react.PropTypes.element,
-	  /**
-	   * The default state of our checkbox component.
-	   * **Warning:** This cannot be used in conjunction with `checked`.
-	   * Decide between using a controlled or uncontrolled input element and remove one of these props.
-	   * More info: https://fb.me/react-controlled-components
-	   */
-	  defaultChecked: _react.PropTypes.bool,
-	  /**
-	   * Disabled if true.
-	   */
-	  disabled: _react.PropTypes.bool,
-	  /**
-	   * Overrides the inline-styles of the icon element.
-	   */
-	  iconStyle: _react.PropTypes.object,
-	  /**
-	   * Overrides the inline-styles of the input element.
-	   */
-	  inputStyle: _react.PropTypes.object,
-	  /**
-	   * Where the label will be placed next to the checkbox.
-	   */
-	  labelPosition: _react.PropTypes.oneOf(['left', 'right']),
-	  /**
-	   * Overrides the inline-styles of the Checkbox element label.
-	   */
-	  labelStyle: _react.PropTypes.object,
-	  /**
-	   * Callback function that is fired when the checkbox is checked.
-	   *
-	   * @param {object} event `change` event targeting the underlying checkbox `input`.
-	   * @param {boolean} isInputChecked The `checked` value of the underlying checkbox `input`.
-	   */
-	  onCheck: _react.PropTypes.func,
-	  /**
-	   * Override the inline-styles of the root element.
-	   */
-	  style: _react.PropTypes.object,
-	  /**
-	   * The SvgIcon to use for the unchecked state.
-	   * This is useful to create icon toggles.
-	   */
-	  unCheckedIcon: (0, _deprecatedPropType2.default)(_react.PropTypes.element, 'Use uncheckedIcon instead. It will be removed with v0.16.0.'),
-	  /**
-	   * The SvgIcon to use for the unchecked state.
-	   * This is useful to create icon toggles.
-	   */
-	  uncheckedIcon: _react.PropTypes.element,
-	  /**
-	   * ValueLink for when using controlled checkbox.
-	   */
-	  valueLink: _react.PropTypes.object
-	};
-	Checkbox.defaultProps = {
-	  labelPosition: 'right',
-	  disabled: false
-	};
-	Checkbox.contextTypes = {
-	  muiTheme: _react.PropTypes.object.isRequired
-	};
-	exports.default = Checkbox;
-
-/***/ },
-/* 478 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _simpleAssign = __webpack_require__(363);
-	
-	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactEventListener = __webpack_require__(366);
-	
-	var _reactEventListener2 = _interopRequireDefault(_reactEventListener);
-	
-	var _keycode = __webpack_require__(367);
-	
-	var _keycode2 = _interopRequireDefault(_keycode);
-	
-	var _transitions = __webpack_require__(369);
-	
-	var _transitions2 = _interopRequireDefault(_transitions);
-	
-	var _FocusRipple = __webpack_require__(378);
-	
-	var _FocusRipple2 = _interopRequireDefault(_FocusRipple);
-	
-	var _TouchRipple = __webpack_require__(386);
-	
-	var _TouchRipple2 = _interopRequireDefault(_TouchRipple);
-	
-	var _Paper = __webpack_require__(423);
-	
-	var _Paper2 = _interopRequireDefault(_Paper);
-	
-	var _warning = __webpack_require__(351);
-	
-	var _warning2 = _interopRequireDefault(_warning);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	function getStyles(props, context) {
-	  var baseTheme = context.muiTheme.baseTheme;
-	
-	
-	  return {
-	    root: {
-	      position: 'relative',
-	      cursor: props.disabled ? 'default' : 'pointer',
-	      overflow: 'visible',
-	      display: 'table',
-	      height: 'auto',
-	      width: '100%'
-	    },
-	    input: {
-	      position: 'absolute',
-	      cursor: props.disabled ? 'default' : 'pointer',
-	      pointerEvents: 'all',
-	      opacity: 0,
-	      width: '100%',
-	      height: '100%',
-	      zIndex: 2,
-	      left: 0,
-	      boxSizing: 'border-box',
-	      padding: 0,
-	      margin: 0
-	    },
-	    controls: {
-	      display: 'flex',
-	      width: '100%',
-	      height: '100%'
-	    },
-	    label: {
-	      float: 'left',
-	      position: 'relative',
-	      display: 'block',
-	      width: 'calc(100% - 60px)',
-	      lineHeight: '24px',
-	      color: baseTheme.palette.textColor,
-	      fontFamily: baseTheme.fontFamily
-	    },
-	    wrap: {
-	      transition: _transitions2.default.easeOut(),
-	      float: 'left',
-	      position: 'relative',
-	      display: 'block',
-	      flexShrink: 0,
-	      width: 60 - baseTheme.spacing.desktopGutterLess,
-	      marginRight: props.labelPosition === 'right' ? baseTheme.spacing.desktopGutterLess : 0,
-	      marginLeft: props.labelPosition === 'left' ? baseTheme.spacing.desktopGutterLess : 0
-	    },
-	    ripple: {
-	      color: props.rippleColor || baseTheme.palette.primary1Color,
-	      height: '200%',
-	      width: '200%',
-	      top: -12,
-	      left: -12
-	    }
-	  };
-	}
-	
-	var EnhancedSwitch = function (_Component) {
-	  _inherits(EnhancedSwitch, _Component);
-	
-	  function EnhancedSwitch() {
-	    var _Object$getPrototypeO;
-	
-	    var _temp, _this, _ret;
-	
-	    _classCallCheck(this, EnhancedSwitch);
-	
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-	
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(EnhancedSwitch)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
-	      isKeyboardFocused: false
-	    }, _this.handleChange = function (event) {
-	      _this.tabPressed = false;
-	      _this.setState({
-	        isKeyboardFocused: false
-	      });
-	
-	      var isInputChecked = _this.refs.checkbox.checked;
-	
-	      if (!_this.props.hasOwnProperty('checked') && _this.props.onParentShouldUpdate) {
-	        _this.props.onParentShouldUpdate(isInputChecked);
-	      }
-	      if (_this.props.onSwitch) {
-	        _this.props.onSwitch(event, isInputChecked);
-	      }
-	    }, _this.handleKeyDown = function (event) {
-	      var code = (0, _keycode2.default)(event);
-	
-	      if (code === 'tab') {
-	        _this.tabPressed = true;
-	      }
-	      if (_this.state.isKeyboardFocused && code === 'space') {
-	        _this.handleChange(event);
-	      }
-	    }, _this.handleKeyUp = function (event) {
-	      if (_this.state.isKeyboardFocused && (0, _keycode2.default)(event) === 'space') {
-	        _this.handleChange(event);
-	      }
-	    }, _this.handleMouseDown = function (event) {
-	      // only listen to left clicks
-	      if (event.button === 0) {
-	        _this.refs.touchRipple.start(event);
-	      }
-	    }, _this.handleMouseUp = function () {
-	      _this.refs.touchRipple.end();
-	    }, _this.handleMouseLeave = function () {
-	      _this.refs.touchRipple.end();
-	    }, _this.handleTouchStart = function (event) {
-	      _this.refs.touchRipple.start(event);
-	    }, _this.handleTouchEnd = function () {
-	      _this.refs.touchRipple.end();
-	    }, _this.handleBlur = function (event) {
-	      _this.setState({
-	        isKeyboardFocused: false
-	      });
-	
-	      if (_this.props.onBlur) {
-	        _this.props.onBlur(event);
-	      }
-	    }, _this.handleFocus = function (event) {
-	      // setTimeout is needed becuase the focus event fires first
-	      // Wait so that we can capture if this was a keyboard focus
-	      // or touch focus
-	      setTimeout(function () {
-	        if (_this.tabPressed) {
-	          _this.setState({
-	            isKeyboardFocused: true
-	          });
-	        }
-	      }, 150);
-	
-	      if (_this.props.onFocus) {
-	        _this.props.onFocus(event);
-	      }
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
-	  }
-	
-	  _createClass(EnhancedSwitch, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var inputNode = this.refs.checkbox;
-	      if ((!this.props.switched || inputNode.checked !== this.props.switched) && this.props.onParentShouldUpdate) {
-	        this.props.onParentShouldUpdate(inputNode.checked);
-	      }
-	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      var hasCheckedProp = nextProps.hasOwnProperty('checked');
-	      var hasToggledProp = nextProps.hasOwnProperty('toggled');
-	      var hasNewDefaultProp = nextProps.hasOwnProperty('defaultChecked') && nextProps.defaultChecked !== this.props.defaultChecked;
-	
-	      if (hasCheckedProp || hasToggledProp || hasNewDefaultProp) {
-	        var switched = nextProps.checked || nextProps.toggled || nextProps.defaultChecked || false;
-	
-	        this.setState({
-	          switched: switched
-	        });
-	
-	        if (this.props.onParentShouldUpdate && switched !== this.props.switched) {
-	          this.props.onParentShouldUpdate(switched);
-	        }
-	      }
-	    }
-	  }, {
-	    key: 'isSwitched',
-	    value: function isSwitched() {
-	      return this.refs.checkbox.checked;
-	    }
-	
-	    // no callback here because there is no event
-	
-	  }, {
-	    key: 'setSwitched',
-	    value: function setSwitched(newSwitchedValue) {
-	      if (!this.props.hasOwnProperty('checked') || this.props.checked === false) {
-	        if (this.props.onParentShouldUpdate) {
-	          this.props.onParentShouldUpdate(newSwitchedValue);
-	        }
-	        this.refs.checkbox.checked = newSwitchedValue;
-	      } else {
-	        process.env.NODE_ENV !== "production" ? (0, _warning2.default)(false, 'Cannot call set method while checked is defined as a property.') : void 0;
-	      }
-	    }
-	  }, {
-	    key: 'getValue',
-	    value: function getValue() {
-	      return this.refs.checkbox.value;
-	    }
-	
-	    // Checkbox inputs only use SPACE to change their state. Using ENTER will
-	    // update the ui but not the input.
-	
-	
-	    /**
-	     * Because both the ripples and the checkbox input cannot share pointer
-	     * events, the checkbox input takes control of pointer events and calls
-	     * ripple animations manually.
-	     */
-	
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _props = this.props;
-	      var name = _props.name;
-	      var value = _props.value;
-	      var iconStyle = _props.iconStyle;
-	      var inputStyle = _props.inputStyle;
-	      var inputType = _props.inputType;
-	      var label = _props.label;
-	      var labelStyle = _props.labelStyle;
-	      var labelPosition = _props.labelPosition;
-	      var onSwitch = _props.onSwitch;
-	      var onBlur = _props.onBlur;
-	      var onFocus = _props.onFocus;
-	      var onMouseUp = _props.onMouseUp;
-	      var onMouseDown = _props.onMouseDown;
-	      var onMouseLeave = _props.onMouseLeave;
-	      var onTouchStart = _props.onTouchStart;
-	      var onTouchEnd = _props.onTouchEnd;
-	      var onParentShouldUpdate = _props.onParentShouldUpdate;
-	      var disabled = _props.disabled;
-	      var disableTouchRipple = _props.disableTouchRipple;
-	      var disableFocusRipple = _props.disableFocusRipple;
-	      var className = _props.className;
-	      var rippleColor = _props.rippleColor;
-	      var rippleStyle = _props.rippleStyle;
-	      var style = _props.style;
-	      var switched = _props.switched;
-	      var switchElement = _props.switchElement;
-	      var thumbStyle = _props.thumbStyle;
-	      var trackStyle = _props.trackStyle;
-	
-	      var other = _objectWithoutProperties(_props, ['name', 'value', 'iconStyle', 'inputStyle', 'inputType', 'label', 'labelStyle', 'labelPosition', 'onSwitch', 'onBlur', 'onFocus', 'onMouseUp', 'onMouseDown', 'onMouseLeave', 'onTouchStart', 'onTouchEnd', 'onParentShouldUpdate', 'disabled', 'disableTouchRipple', 'disableFocusRipple', 'className', 'rippleColor', 'rippleStyle', 'style', 'switched', 'switchElement', 'thumbStyle', 'trackStyle']);
-	
-	      var prepareStyles = this.context.muiTheme.prepareStyles;
-	
-	      var styles = getStyles(this.props, this.context);
-	      var wrapStyles = (0, _simpleAssign2.default)(styles.wrap, iconStyle);
-	      var mergedRippleStyle = (0, _simpleAssign2.default)(styles.ripple, rippleStyle);
-	
-	      if (thumbStyle) {
-	        wrapStyles.marginLeft /= 2;
-	        wrapStyles.marginRight /= 2;
-	      }
-	
-	      var labelElement = label && _react2.default.createElement(
-	        'label',
-	        { style: prepareStyles((0, _simpleAssign2.default)(styles.label, labelStyle)) },
-	        label
-	      );
-	
-	      var showTouchRipple = !disabled && !disableTouchRipple;
-	      var showFocusRipple = !disabled && !disableFocusRipple;
-	
-	      var touchRipple = _react2.default.createElement(_TouchRipple2.default, {
-	        ref: 'touchRipple',
-	        key: 'touchRipple',
-	        style: mergedRippleStyle,
-	        color: mergedRippleStyle.color,
-	        muiTheme: this.context.muiTheme,
-	        centerRipple: true
-	      });
-	
-	      var focusRipple = _react2.default.createElement(_FocusRipple2.default, {
-	        key: 'focusRipple',
-	        innerStyle: mergedRippleStyle,
-	        color: mergedRippleStyle.color,
-	        muiTheme: this.context.muiTheme,
-	        show: this.state.isKeyboardFocused
-	      });
-	
-	      var ripples = [showTouchRipple ? touchRipple : null, showFocusRipple ? focusRipple : null];
-	
-	      var inputElement = _react2.default.createElement('input', _extends({}, other, {
-	        ref: 'checkbox',
-	        type: inputType,
-	        style: prepareStyles((0, _simpleAssign2.default)(styles.input, inputStyle)),
-	        name: name,
-	        value: value,
-	        disabled: disabled,
-	        onBlur: this.handleBlur,
-	        onFocus: this.handleFocus,
-	        onChange: this.handleChange,
-	        onMouseUp: showTouchRipple && this.handleMouseUp,
-	        onMouseDown: showTouchRipple && this.handleMouseDown,
-	        onMouseLeave: showTouchRipple && this.handleMouseLeave,
-	        onTouchStart: showTouchRipple && this.handleTouchStart,
-	        onTouchEnd: showTouchRipple && this.handleTouchEnd
-	      }));
-	
-	      // If toggle component (indicated by whether the style includes thumb) manually lay out
-	      // elements in order to nest ripple elements
-	      var switchOrThumbElement = !thumbStyle ? _react2.default.createElement(
-	        'div',
-	        { style: prepareStyles(wrapStyles) },
-	        switchElement,
-	        ripples
-	      ) : _react2.default.createElement(
-	        'div',
-	        { style: prepareStyles(wrapStyles) },
-	        _react2.default.createElement('div', { style: prepareStyles((0, _simpleAssign2.default)({}, trackStyle)) }),
-	        _react2.default.createElement(
-	          _Paper2.default,
-	          { style: thumbStyle, zDepth: 1, circle: true },
-	          ' ',
-	          ripples,
-	          ' '
-	        )
-	      );
-	
-	      var elementsInOrder = labelPosition === 'right' ? _react2.default.createElement(
-	        'div',
-	        { style: styles.controls },
-	        switchOrThumbElement,
-	        labelElement
-	      ) : _react2.default.createElement(
-	        'div',
-	        { style: styles.controls },
-	        labelElement,
-	        switchOrThumbElement
-	      );
-	
-	      return _react2.default.createElement(
-	        'div',
-	        { ref: 'root', className: className, style: prepareStyles((0, _simpleAssign2.default)(styles.root, style)) },
-	        _react2.default.createElement(_reactEventListener2.default, {
-	          target: 'window',
-	          onKeyDown: this.handleKeyDown,
-	          onKeyUp: this.handleKeyUp
-	        }),
-	        inputElement,
-	        elementsInOrder
-	      );
-	    }
-	  }]);
-	
-	  return EnhancedSwitch;
-	}(_react.Component);
-	
-	EnhancedSwitch.propTypes = {
-	  checked: _react.PropTypes.bool,
-	  className: _react.PropTypes.string,
-	  defaultChecked: _react.PropTypes.bool,
-	  disableFocusRipple: _react.PropTypes.bool,
-	  disableTouchRipple: _react.PropTypes.bool,
-	  disabled: _react.PropTypes.bool,
-	  iconStyle: _react.PropTypes.object,
-	  inputStyle: _react.PropTypes.object,
-	  inputType: _react.PropTypes.string.isRequired,
-	  label: _react.PropTypes.node,
-	  labelPosition: _react.PropTypes.oneOf(['left', 'right']),
-	  labelStyle: _react.PropTypes.object,
-	  name: _react.PropTypes.string,
-	  onBlur: _react.PropTypes.func,
-	  onFocus: _react.PropTypes.func,
-	  onMouseDown: _react.PropTypes.func,
-	  onMouseLeave: _react.PropTypes.func,
-	  onMouseUp: _react.PropTypes.func,
-	  onParentShouldUpdate: _react.PropTypes.func,
-	  onSwitch: _react.PropTypes.func,
-	  onTouchEnd: _react.PropTypes.func,
-	  onTouchStart: _react.PropTypes.func,
-	  rippleColor: _react.PropTypes.string,
-	  rippleStyle: _react.PropTypes.object,
-	  style: _react.PropTypes.object,
-	  switchElement: _react.PropTypes.element.isRequired,
-	  switched: _react.PropTypes.bool.isRequired,
-	  thumbStyle: _react.PropTypes.object,
-	  trackStyle: _react.PropTypes.object,
-	  value: _react.PropTypes.any
-	};
-	EnhancedSwitch.contextTypes = {
-	  muiTheme: _react.PropTypes.object.isRequired
-	};
-	exports.default = EnhancedSwitch;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
-
-/***/ },
-/* 479 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _pure = __webpack_require__(403);
-	
-	var _pure2 = _interopRequireDefault(_pure);
-	
-	var _SvgIcon = __webpack_require__(412);
-	
-	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var ToggleCheckBoxOutlineBlank = function ToggleCheckBoxOutlineBlank(props) {
-	  return _react2.default.createElement(
-	    _SvgIcon2.default,
-	    props,
-	    _react2.default.createElement('path', { d: 'M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z' })
-	  );
-	};
-	ToggleCheckBoxOutlineBlank = (0, _pure2.default)(ToggleCheckBoxOutlineBlank);
-	ToggleCheckBoxOutlineBlank.displayName = 'ToggleCheckBoxOutlineBlank';
-	ToggleCheckBoxOutlineBlank.muiName = 'SvgIcon';
-	
-	exports.default = ToggleCheckBoxOutlineBlank;
-
-/***/ },
-/* 480 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _pure = __webpack_require__(403);
-	
-	var _pure2 = _interopRequireDefault(_pure);
-	
-	var _SvgIcon = __webpack_require__(412);
-	
-	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var ToggleCheckBox = function ToggleCheckBox(props) {
-	  return _react2.default.createElement(
-	    _SvgIcon2.default,
-	    props,
-	    _react2.default.createElement('path', { d: 'M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z' })
-	  );
-	};
-	ToggleCheckBox = (0, _pure2.default)(ToggleCheckBox);
-	ToggleCheckBox.displayName = 'ToggleCheckBox';
-	ToggleCheckBox.muiName = 'SvgIcon';
-	
-	exports.default = ToggleCheckBox;
-
-/***/ },
-/* 481 */
+/* 469 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45573,7 +44650,7 @@
 	exports.default = ContentAdd;
 
 /***/ },
-/* 482 */
+/* 470 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45583,7 +44660,7 @@
 	});
 	exports.default = undefined;
 	
-	var _FloatingActionButton = __webpack_require__(483);
+	var _FloatingActionButton = __webpack_require__(471);
 	
 	var _FloatingActionButton2 = _interopRequireDefault(_FloatingActionButton);
 	
@@ -45592,7 +44669,7 @@
 	exports.default = _FloatingActionButton2.default;
 
 /***/ },
-/* 483 */
+/* 471 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -45950,7 +45027,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 484 */
+/* 472 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45960,7 +45037,7 @@
 	});
 	exports.default = undefined;
 	
-	var _SelectField = __webpack_require__(485);
+	var _SelectField = __webpack_require__(473);
 	
 	var _SelectField2 = _interopRequireDefault(_SelectField);
 	
@@ -45969,7 +45046,7 @@
 	exports.default = _SelectField2.default;
 
 /***/ },
-/* 485 */
+/* 473 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46234,6 +45311,180 @@
 	  muiTheme: _react.PropTypes.object.isRequired
 	};
 	exports.default = SelectField;
+
+/***/ },
+/* 474 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = exports.MenuItem = exports.Menu = undefined;
+	
+	var _Menu2 = __webpack_require__(448);
+	
+	var _Menu3 = _interopRequireDefault(_Menu2);
+	
+	var _MenuItem2 = __webpack_require__(462);
+	
+	var _MenuItem3 = _interopRequireDefault(_MenuItem2);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.Menu = _Menu3.default;
+	exports.MenuItem = _MenuItem3.default;
+	exports.default = _Menu3.default;
+
+/***/ },
+/* 475 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(403);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(412);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var EditorBorderColor = function EditorBorderColor(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M17.75 7L14 3.25l-10 10V17h3.75l10-10zm2.96-2.96c.39-.39.39-1.02 0-1.41L18.37.29c-.39-.39-1.02-.39-1.41 0L15 2.25 18.75 6l1.96-1.96z' }),
+	    _react2.default.createElement('path', { fillOpacity: '.36', d: 'M0 20h24v4H0z' })
+	  );
+	};
+	EditorBorderColor = (0, _pure2.default)(EditorBorderColor);
+	EditorBorderColor.displayName = 'EditorBorderColor';
+	EditorBorderColor.muiName = 'SvgIcon';
+	
+	exports.default = EditorBorderColor;
+
+/***/ },
+/* 476 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(403);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(412);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var MapsDirectionsRun = function MapsDirectionsRun(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z' })
+	  );
+	};
+	MapsDirectionsRun = (0, _pure2.default)(MapsDirectionsRun);
+	MapsDirectionsRun.displayName = 'MapsDirectionsRun';
+	MapsDirectionsRun.muiName = 'SvgIcon';
+	
+	exports.default = MapsDirectionsRun;
+
+/***/ },
+/* 477 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(403);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(412);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ActionQuestionAnswer = function ActionQuestionAnswer(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z' })
+	  );
+	};
+	ActionQuestionAnswer = (0, _pure2.default)(ActionQuestionAnswer);
+	ActionQuestionAnswer.displayName = 'ActionQuestionAnswer';
+	ActionQuestionAnswer.muiName = 'SvgIcon';
+	
+	exports.default = ActionQuestionAnswer;
+
+/***/ },
+/* 478 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(403);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(412);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ActionTrendingUp = function ActionTrendingUp(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z' })
+	  );
+	};
+	ActionTrendingUp = (0, _pure2.default)(ActionTrendingUp);
+	ActionTrendingUp.displayName = 'ActionTrendingUp';
+	ActionTrendingUp.muiName = 'SvgIcon';
+	
+	exports.default = ActionTrendingUp;
 
 /***/ }
 /******/ ]);

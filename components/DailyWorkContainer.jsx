@@ -1,7 +1,7 @@
 import React from 'react';
 
 import DailyWork from './DailyWork';
-import Reinforcers from './Reinforcers';
+import ReinforcerList from './ReinforcerList';
 
 
 class DailyWorkContainer extends React.Component{
@@ -15,12 +15,13 @@ class DailyWorkContainer extends React.Component{
         <DailyWork
           studentName={this.props.studentName}
            />
-         <Reinforcers
-           reinforcerKind={this.props.reinreinforcerKind}
-           reinforcerChecked={this.props.reinforcerChecked} />
+         <ReinforcerList reinforcersArray={this.props.reinforcersArray}/>
       </div>
     );
   };
 };
 
 module.exports = DailyWorkContainer;
+
+// reinforcerKind={this.props.reinreinforcerKind}
+// reinforcerChecked={this.props.reinforcerChecked}

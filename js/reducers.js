@@ -6,6 +6,7 @@ var reportState = {
   mood: 'Very Happy',
   servicesArray: [],
   work: '',
+  reinforcer: '',
   reinforcersArray: []
 }
 
@@ -37,10 +38,26 @@ var reportReducer = function(state, action){
   }
   else if (action.type === actions.SET_SERVICE) {
     var service = action.service;
+
     var servicesArray = state.servicesArray;
-    var servicesState = Object.assign({}, state, {
-      servicesArray: servicesArray.concat(service)
-    });
+    var index = servicesArray.indexOf(service);
+    console.log(index, 'from setService reducer');
+    var servicesState;
+
+    //doesn't quite work. check redux dev tools
+    if (index !== -1){
+      servicesState = Object.assign({}, state, {
+        servicesArray: servicesArray.splice(index, 1)
+      });
+    } else {
+      servicesState = Object.assign({}, state, {
+        servicesArray: servicesArray.concat(service)
+      });
+    }
+
+    // var servicesState = Object.assign({}, state, {
+    //   servicesArray: servicesArray.concat(service)
+    // });
     return servicesState;
   }
   else if (action.type === actions.SET_WORK) {
@@ -51,24 +68,33 @@ var reportReducer = function(state, action){
     return workState;
   }
   else if (action.type === actions.SET_REINFORCER) {
-    var reinforcer = {
-      kind: action.reinforcerObj.kind,
-      checked: action.reinforcerObj.checked
-    }
+    var reinforcer = action.reinforcer;
     var reinforcersArray = state.reinforcersArray;
     var reinforcersState = Object.assign({}, state, {
       reinforcersArray: reinforcersArray.concat(reinforcer)
     });
     return reinforcersState;
-    // var reinforcer = action.reinforcerObj.kind;
-    // var checkedStatus = action.reinforcerObj.checked;
-    // var reinforcersArray = state.reinforcersArray;
-    // var reinforcersState = Object.assign({}, state, {
-    //   reinforcersArray: reinforcersArray.concat(reinforcer)
-    // });
-    // return reinforcersState;
   }
   return state;
 }
 
 exports.reportReducer = reportReducer;
+
+
+
+// var reinforcer = {
+//   kind: action.reinforcerObj.kind,
+//   checked: action.reinforcerObj.checked
+// }
+// var reinforcersArray = state.reinforcersArray;
+// var reinforcersState = Object.assign({}, state, {
+//   reinforcersArray: reinforcersArray.concat(reinforcer)
+// });
+// return reinforcersState;
+// var reinforcer = action.reinforcerObj.kind;
+// var checkedStatus = action.reinforcerObj.checked;
+// var reinforcersArray = state.reinforcersArray;
+// var reinforcersState = Object.assign({}, state, {
+//   reinforcersArray: reinforcersArray.concat(reinforcer)
+// });
+// return reinforcersState;

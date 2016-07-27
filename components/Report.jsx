@@ -24,7 +24,8 @@ class Report extends React.Component{
 
         <ServicesContainer studentName={this.props.name} />
 
-        <DailyWorkContainer studentName={this.props.name} reinforcerKind={this.props.reinforcersArray.kind} reinforcerChecked={this.props.reinforcersArray.checked} />
+        <DailyWorkContainer studentName={this.props.name}
+          reinforcersArray={this.props.reinforcersArray}  />
       </div>
     );
   };
@@ -37,6 +38,7 @@ var mapStateToProps = function(state, props){
     mood: state.mood,
     servicesArray: state.servicesArray,
     work: state.work,
+    reinforcer: state.reinforcer,
     reinforcersArray: state.reinforcersArray
   }
 }
@@ -44,3 +46,6 @@ var mapStateToProps = function(state, props){
 var Container = connect(mapStateToProps)(Report);
 
 module.exports = Container;
+
+// reinforcerKind={this.props.reinforcersArray.kind}
+// reinforcerChecked={this.props.reinforcersArray.checked}
