@@ -22,7 +22,8 @@ class Report extends React.Component{
 
         <StudentMoodContainer mood={this.props.mood} studentName={this.props.name} />
 
-        <ServicesContainer studentName={this.props.name} />
+        <ServicesContainer studentName={this.props.name}
+          servicesArray={this.props.servicesArray} />
 
         <DailyWorkContainer studentName={this.props.name}
           reinforcersArray={this.props.reinforcersArray}  />

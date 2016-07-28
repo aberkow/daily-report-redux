@@ -13,7 +13,8 @@ class ServicesContainer extends React.Component{
     }
     return(
       <div style={studentServicesStyle}>
-        <Services studentName={this.props.studentName} />
+        <Services studentName={this.props.studentName}
+          servicesArray={this.props.servicesArray} />
       </div>
     );
   };

@@ -74,42 +74,6 @@
 	
 	var _Report2 = _interopRequireDefault(_Report);
 	
-	var _sentimentVerySatisfied = __webpack_require__(441);
-	
-	var _sentimentVerySatisfied2 = _interopRequireDefault(_sentimentVerySatisfied);
-	
-	var _sentimentSatisfied = __webpack_require__(442);
-	
-	var _sentimentSatisfied2 = _interopRequireDefault(_sentimentSatisfied);
-	
-	var _sentimentDissatisfied = __webpack_require__(443);
-	
-	var _sentimentDissatisfied2 = _interopRequireDefault(_sentimentDissatisfied);
-	
-	var _sentimentVeryDissatisfied = __webpack_require__(444);
-	
-	var _sentimentVeryDissatisfied2 = _interopRequireDefault(_sentimentVeryDissatisfied);
-	
-	var _add = __webpack_require__(474);
-	
-	var _add2 = _interopRequireDefault(_add);
-	
-	var _DatePicker = __webpack_require__(361);
-	
-	var _DatePicker2 = _interopRequireDefault(_DatePicker);
-	
-	var _FloatingActionButton = __webpack_require__(475);
-	
-	var _FloatingActionButton2 = _interopRequireDefault(_FloatingActionButton);
-	
-	var _SelectField = __webpack_require__(479);
-	
-	var _SelectField2 = _interopRequireDefault(_SelectField);
-	
-	var _TextField = __webpack_require__(433);
-	
-	var _TextField2 = _interopRequireDefault(_TextField);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -117,18 +81,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	//icon imports
-	
-	
-	//
-	// import DailyWorkContainer from './components/DailyWorkContainer';
-	// import Header from './components/Header';
-	// import ServicesContainer from './components/ServicesContainer';
-	// import StudentMoodContainer from './components/StudentMoodContainer';
-	
-	//component imports - menu multi-select available
-	//set <Menu multiple={true} />
-	
 	
 	//required to get components to register clicks & display dialogs.
 	(0, _reactTapEventPlugin2.default)();
@@ -269,6 +221,26 @@
 	//   evt.preventDefault();
 	//   console.log(evt.target);
 	// }
+	
+	//icon imports
+	// import SocialSentimentVerySatisfied from 'material-ui/svg-icons/social/sentiment-very-satisfied';
+	// import SocialSentimentSatisfied from 'material-ui/svg-icons/social/sentiment-satisfied';
+	// import SocialSentimentDissatisfied from 'material-ui/svg-icons/social/sentiment-dissatisfied';
+	// import SocialSentimentVeryDissatisfied from 'material-ui/svg-icons/social/sentiment-very-dissatisfied';
+	
+	//
+	// import DailyWorkContainer from './components/DailyWorkContainer';
+	// import Header from './components/Header';
+	// import ServicesContainer from './components/ServicesContainer';
+	// import StudentMoodContainer from './components/StudentMoodContainer';
+	
+	//component imports - menu multi-select available
+	//set <Menu multiple={true} />
+	// import ContentAdd from 'material-ui/svg-icons/content/add';
+	// import DatePicker from 'material-ui/DatePicker';
+	// import FloatingActionButton from 'material-ui/FloatingActionButton';
+	// import SelectField from 'material-ui/SelectField';
+	// import TextField from 'material-ui/TextField';
 
 /***/ },
 /* 1 */
@@ -30270,7 +30242,7 @@
 	
 	var _ServicesContainer2 = _interopRequireDefault(_ServicesContainer);
 	
-	var _DailyWorkContainer = __webpack_require__(470);
+	var _DailyWorkContainer = __webpack_require__(471);
 	
 	var _DailyWorkContainer2 = _interopRequireDefault(_DailyWorkContainer);
 	
@@ -30306,7 +30278,8 @@
 	        null,
 	        _react2.default.createElement(_Header2.default, null),
 	        _react2.default.createElement(_StudentMoodContainer2.default, { mood: this.props.mood, studentName: this.props.name }),
-	        _react2.default.createElement(_ServicesContainer2.default, { studentName: this.props.name }),
+	        _react2.default.createElement(_ServicesContainer2.default, { studentName: this.props.name,
+	          servicesArray: this.props.servicesArray }),
 	        _react2.default.createElement(_DailyWorkContainer2.default, { studentName: this.props.name,
 	          reinforcersArray: this.props.reinforcersArray })
 	      );
@@ -44030,7 +44003,8 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { style: studentServicesStyle },
-	        _react2.default.createElement(_Services2.default, { studentName: this.props.studentName })
+	        _react2.default.createElement(_Services2.default, { studentName: this.props.studentName,
+	          servicesArray: this.props.servicesArray })
 	      );
 	    }
 	  }]);
@@ -44093,6 +44067,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var actions = __webpack_require__(358);
+	var classNames = __webpack_require__(470);
 	
 	var Services = function (_React$Component) {
 	  _inherits(Services, _React$Component);
@@ -44102,21 +44077,18 @@
 	
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Services).call(this, props));
 	
-	    _this.state = {
-	      highlighted: false
-	    };
 	    _this.highlightServices = _this.highlightServices.bind(_this);
 	    return _this;
 	  }
-	  //needs better selection of elements...
-	
 	
 	  _createClass(Services, [{
 	    key: 'highlightServices',
 	    value: function highlightServices(evt) {
 	      var service = evt.target.innerText;
-	      console.log(service, 'from highlightServices');
-	
+	      var target = evt.target;
+	      var paper = evt.target.parentNode.parentNode;
+	      //console.log(service, target, paper, paper.classList, 'from highlightServices');
+	      paper.classList.toggle("highlighted");
 	      this.props.dispatch(actions.setService(service));
 	    }
 	  }, {
@@ -44136,8 +44108,6 @@
 	        textAlign: 'center',
 	        display: 'inline-block'
 	      };
-	
-	      //add css file to set className to highlightServices
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -44152,23 +44122,21 @@
 	          'div',
 	          null,
 	          _react2.default.createElement(_Paper2.default, {
-	
-	            className: this.state.highlighted ? 'highlighted' : '',
-	            onClick: this.highlightServices,
 	            style: paperStyle,
 	            children: _react2.default.createElement(
 	              'div',
 	              null,
 	              _react2.default.createElement(
 	                'p',
-	                { style: textStyle },
+	                { onClick: this.highlightServices,
+	
+	                  style: textStyle },
 	                'OT'
 	              ),
 	              _react2.default.createElement(_borderColor2.default, { style: iconStyle })
 	            ) }),
 	          _react2.default.createElement(_Paper2.default, {
 	
-	            className: this.state.highlighted ? 'highlighted' : '',
 	            onClick: this.highlightServices,
 	            style: paperStyle,
 	            children: _react2.default.createElement(
@@ -44183,7 +44151,6 @@
 	            ) }),
 	          _react2.default.createElement(_Paper2.default, {
 	
-	            className: this.state.highlighted ? 'highlighted' : '',
 	            onClick: this.highlightServices,
 	            style: paperStyle,
 	            children: _react2.default.createElement(
@@ -44198,7 +44165,6 @@
 	            ) }),
 	          _react2.default.createElement(_Paper2.default, {
 	
-	            className: this.state.highlighted ? 'highlighted' : '',
 	            onClick: this.highlightServices,
 	            style: paperStyle,
 	            children: _react2.default.createElement(
@@ -44223,6 +44189,11 @@
 	
 	var Container = (0, _reactRedux.connect)()(Services);
 	module.exports = Container;
+	
+	// className={paperClass}
+	// className={paperClass}
+	// className={paperClass}
+	// className={paperClass}
 	
 	// <Paper
 	//   key={index}
@@ -44453,6 +44424,60 @@
 /* 470 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2016 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+	/* global define */
+	
+	(function () {
+		'use strict';
+	
+		var hasOwn = {}.hasOwnProperty;
+	
+		function classNames () {
+			var classes = [];
+	
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+	
+				var argType = typeof arg;
+	
+				if (argType === 'string' || argType === 'number') {
+					classes.push(arg);
+				} else if (Array.isArray(arg)) {
+					classes.push(classNames.apply(null, arg));
+				} else if (argType === 'object') {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes.push(key);
+						}
+					}
+				}
+			}
+	
+			return classes.join(' ');
+		}
+	
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if (true) {
+			// register as 'classnames', consistent with npm package name
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+			window.classNames = classNames;
+		}
+	}());
+
+
+/***/ },
+/* 471 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -44461,11 +44486,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _DailyWork = __webpack_require__(471);
+	var _DailyWork = __webpack_require__(472);
 	
 	var _DailyWork2 = _interopRequireDefault(_DailyWork);
 	
-	var _ReinforcerList = __webpack_require__(473);
+	var _ReinforcerList = __webpack_require__(474);
 	
 	var _ReinforcerList2 = _interopRequireDefault(_ReinforcerList);
 	
@@ -44512,7 +44537,7 @@
 	// reinforcerChecked={this.props.reinforcerChecked}
 
 /***/ },
-/* 471 */
+/* 472 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44533,7 +44558,7 @@
 	
 	var _Paper2 = _interopRequireDefault(_Paper);
 	
-	var _schoolWork = __webpack_require__(472);
+	var _schoolWork = __webpack_require__(473);
 	
 	var _schoolWork2 = _interopRequireDefault(_schoolWork);
 	
@@ -44615,7 +44640,7 @@
 	module.exports = Container;
 
 /***/ },
-/* 472 */
+/* 473 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44654,7 +44679,7 @@
 
 
 /***/ },
-/* 473 */
+/* 474 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44667,15 +44692,15 @@
 	
 	var _reactRedux = __webpack_require__(172);
 	
-	var _add = __webpack_require__(474);
+	var _add = __webpack_require__(475);
 	
 	var _add2 = _interopRequireDefault(_add);
 	
-	var _FloatingActionButton = __webpack_require__(475);
+	var _FloatingActionButton = __webpack_require__(476);
 	
 	var _FloatingActionButton2 = _interopRequireDefault(_FloatingActionButton);
 	
-	var _RaisedButton = __webpack_require__(477);
+	var _RaisedButton = __webpack_require__(478);
 	
 	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
 	
@@ -44873,7 +44898,7 @@
 	//   label='Other' />
 
 /***/ },
-/* 474 */
+/* 475 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44910,7 +44935,7 @@
 	exports.default = ContentAdd;
 
 /***/ },
-/* 475 */
+/* 476 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44920,7 +44945,7 @@
 	});
 	exports.default = undefined;
 	
-	var _FloatingActionButton = __webpack_require__(476);
+	var _FloatingActionButton = __webpack_require__(477);
 	
 	var _FloatingActionButton2 = _interopRequireDefault(_FloatingActionButton);
 	
@@ -44929,7 +44954,7 @@
 	exports.default = _FloatingActionButton2.default;
 
 /***/ },
-/* 476 */
+/* 477 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -45287,7 +45312,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 477 */
+/* 478 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45297,7 +45322,7 @@
 	});
 	exports.default = undefined;
 	
-	var _RaisedButton = __webpack_require__(478);
+	var _RaisedButton = __webpack_require__(479);
 	
 	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
 	
@@ -45306,7 +45331,7 @@
 	exports.default = _RaisedButton2.default;
 
 /***/ },
-/* 478 */
+/* 479 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -45757,292 +45782,6 @@
 	};
 	exports.default = RaisedButton;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
-
-/***/ },
-/* 479 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = undefined;
-	
-	var _SelectField = __webpack_require__(480);
-	
-	var _SelectField2 = _interopRequireDefault(_SelectField);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = _SelectField2.default;
-
-/***/ },
-/* 480 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _simpleAssign = __webpack_require__(363);
-	
-	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _TextField = __webpack_require__(433);
-	
-	var _TextField2 = _interopRequireDefault(_TextField);
-	
-	var _DropDownMenu = __webpack_require__(445);
-	
-	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
-	
-	var _deprecatedPropType = __webpack_require__(389);
-	
-	var _deprecatedPropType2 = _interopRequireDefault(_deprecatedPropType);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	function getStyles(props) {
-	  return {
-	    label: {
-	      paddingLeft: 0,
-	      top: props.floatingLabelText ? 6 : -4
-	    },
-	    icon: {
-	      right: 0,
-	      top: props.floatingLabelText ? 22 : 14
-	    },
-	    hideDropDownUnderline: {
-	      borderTop: 'none'
-	    },
-	    dropDownMenu: {
-	      display: 'block'
-	    }
-	  };
-	}
-	
-	var SelectField = function (_Component) {
-	  _inherits(SelectField, _Component);
-	
-	  function SelectField() {
-	    _classCallCheck(this, SelectField);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(SelectField).apply(this, arguments));
-	  }
-	
-	  _createClass(SelectField, [{
-	    key: 'render',
-	    value: function render() {
-	      var _props = this.props;
-	      var autoWidth = _props.autoWidth;
-	      var children = _props.children;
-	      var style = _props.style;
-	      var labelStyle = _props.labelStyle;
-	      var iconStyle = _props.iconStyle;
-	      var id = _props.id;
-	      var underlineDisabledStyle = _props.underlineDisabledStyle;
-	      var underlineFocusStyle = _props.underlineFocusStyle;
-	      var underlineStyle = _props.underlineStyle;
-	      var errorStyle = _props.errorStyle;
-	      var selectFieldRoot = _props.selectFieldRoot;
-	      var disabled = _props.disabled;
-	      var floatingLabelFixed = _props.floatingLabelFixed;
-	      var floatingLabelText = _props.floatingLabelText;
-	      var floatingLabelStyle = _props.floatingLabelStyle;
-	      var hintStyle = _props.hintStyle;
-	      var hintText = _props.hintText;
-	      var fullWidth = _props.fullWidth;
-	      var errorText = _props.errorText;
-	      var maxHeight = _props.maxHeight;
-	      var menuStyle = _props.menuStyle;
-	      var onFocus = _props.onFocus;
-	      var onBlur = _props.onBlur;
-	      var onChange = _props.onChange;
-	      var value = _props.value;
-	
-	      var other = _objectWithoutProperties(_props, ['autoWidth', 'children', 'style', 'labelStyle', 'iconStyle', 'id', 'underlineDisabledStyle', 'underlineFocusStyle', 'underlineStyle', 'errorStyle', 'selectFieldRoot', 'disabled', 'floatingLabelFixed', 'floatingLabelText', 'floatingLabelStyle', 'hintStyle', 'hintText', 'fullWidth', 'errorText', 'maxHeight', 'menuStyle', 'onFocus', 'onBlur', 'onChange', 'value']);
-	
-	      var styles = getStyles(this.props, this.context);
-	
-	      return _react2.default.createElement(
-	        _TextField2.default,
-	        _extends({}, other, {
-	          style: style,
-	          disabled: disabled,
-	          floatingLabelFixed: floatingLabelFixed,
-	          floatingLabelText: floatingLabelText,
-	          floatingLabelStyle: floatingLabelStyle,
-	          hintStyle: hintStyle,
-	          hintText: !hintText && !floatingLabelText ? ' ' : hintText,
-	          fullWidth: fullWidth,
-	          errorText: errorText,
-	          underlineStyle: underlineStyle,
-	          errorStyle: errorStyle,
-	          onFocus: onFocus,
-	          onBlur: onBlur,
-	          id: id,
-	          underlineDisabledStyle: underlineDisabledStyle,
-	          underlineFocusStyle: underlineFocusStyle
-	        }),
-	        _react2.default.createElement(
-	          _DropDownMenu2.default,
-	          {
-	            disabled: disabled,
-	            style: (0, _simpleAssign2.default)(styles.dropDownMenu, selectFieldRoot, menuStyle),
-	            labelStyle: (0, _simpleAssign2.default)(styles.label, labelStyle),
-	            iconStyle: (0, _simpleAssign2.default)(styles.icon, iconStyle),
-	            underlineStyle: styles.hideDropDownUnderline,
-	            autoWidth: autoWidth,
-	            value: value,
-	            onChange: onChange,
-	            maxHeight: maxHeight
-	          },
-	          children
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return SelectField;
-	}(_react.Component);
-	
-	SelectField.propTypes = {
-	  /**
-	   * If true, the width will automatically be set according to the
-	   * items inside the menu.
-	   * To control the width in CSS instead, leave this prop set to `false`.
-	   */
-	  autoWidth: _react.PropTypes.bool,
-	  /**
-	   * The `MenuItem` elements to populate the select field with.
-	   * If the menu items have a `label` prop, that value will
-	   * represent the selected menu item in the rendered select field.
-	   */
-	  children: _react.PropTypes.node,
-	  /**
-	   * If true, the select field will be disabled.
-	   */
-	  disabled: _react.PropTypes.bool,
-	  /**
-	   * Override the inline-styles of the error element.
-	   */
-	  errorStyle: _react.PropTypes.object,
-	  /**
-	   * The error content to display.
-	   */
-	  errorText: _react.PropTypes.node,
-	  /**
-	   * If true, the floating label will float even when no value is selected.
-	   */
-	  floatingLabelFixed: _react.PropTypes.bool,
-	  /**
-	   * Override the inline-styles of the floating label.
-	   */
-	  floatingLabelStyle: _react.PropTypes.object,
-	  /**
-	   * The content of the floating label.
-	   */
-	  floatingLabelText: _react.PropTypes.node,
-	  /**
-	   * If true, the select field will take up the full width of its container.
-	   */
-	  fullWidth: _react.PropTypes.bool,
-	  /**
-	   * Override the inline-styles of the hint element.
-	   */
-	  hintStyle: _react.PropTypes.object,
-	  /**
-	   * The hint content to display.
-	   */
-	  hintText: _react.PropTypes.node,
-	  /**
-	   * Override the inline-styles of the icon element.
-	   */
-	  iconStyle: _react.PropTypes.object,
-	  /**
-	   * The id prop for the text field.
-	   */
-	  id: _react.PropTypes.string,
-	  /**
-	   * Override the label style when the select field is inactive.
-	   */
-	  labelStyle: _react.PropTypes.object,
-	  /**
-	   * Override the default max-height of the underlying `DropDownMenu` element.
-	   */
-	  maxHeight: _react.PropTypes.number,
-	  /**
-	   * Override the inline-styles of the underlying `DropDownMenu` element.
-	   */
-	  menuStyle: _react.PropTypes.object,
-	  /** @ignore */
-	  onBlur: _react.PropTypes.func,
-	  /**
-	   * Callback function fired when a menu item is selected.
-	   *
-	   * @param {object} event TouchTap event targeting the menu item
-	   * that was selected.
-	   * @param {number} key The index of the selected menu item.
-	   * @param {any} payload The `value` prop of the selected menu item.
-	   */
-	  onChange: _react.PropTypes.func,
-	  /** @ignore */
-	  onFocus: _react.PropTypes.func,
-	  /**
-	   * Override the inline-styles of the underlying `DropDownMenu` element.
-	   */
-	  selectFieldRoot: (0, _deprecatedPropType2.default)(_react.PropTypes.object, 'Instead, use `menuStyle`. It will be removed with v0.16.0.'),
-	  /**
-	   * Override the inline-styles of the root element.
-	   */
-	  style: _react.PropTypes.object,
-	  /**
-	   * Override the inline-styles of the underline element when the select
-	   * field is disabled.
-	   */
-	  underlineDisabledStyle: _react.PropTypes.object,
-	  /**
-	   * Override the inline-styles of the underline element when the select field
-	   * is focused.
-	   */
-	  underlineFocusStyle: _react.PropTypes.object,
-	  /**
-	   * Override the inline-styles of the underline element.
-	   */
-	  underlineStyle: _react.PropTypes.object,
-	  /**
-	   * The value that is currently selected.
-	   */
-	  value: _react.PropTypes.any
-	};
-	SelectField.defaultProps = {
-	  autoWidth: false,
-	  disabled: false,
-	  fullWidth: false
-	};
-	SelectField.contextTypes = {
-	  muiTheme: _react.PropTypes.object.isRequired
-	};
-	exports.default = SelectField;
 
 /***/ }
 /******/ ]);

@@ -15,18 +15,18 @@ import TrendingUp from 'material-ui/svg-icons/action/trending-up';
 class Services extends React.Component{
   constructor(props){
     super(props);
-    this.state = {
-      highlighted: false
-    }
     this.highlightServices = this.highlightServices.bind(this);
   }
-  //needs better selection of elements...
+
   highlightServices(evt){
     var service = evt.target.innerText;
-    console.log(service, 'from highlightServices');
-
+    var target = evt.target;
+    var paper = evt.target.parentNode.parentNode;
+    //console.log(service, target, paper, paper.classList, 'from highlightServices');
+    paper.classList.toggle("highlighted");
     this.props.dispatch(actions.setService(service))
   }
+
   render(){
     const iconStyle = {
       height: 24,
@@ -42,26 +42,23 @@ class Services extends React.Component{
       textAlign: 'center',
       display: 'inline-block'
     };
-
-    //add css file to set className to highlightServices
     return(
       <div>
         <h3>Today, {this.props.studentName} went to:</h3>
         <div>
+            <Paper
+              style={paperStyle}
+              children={
+                <div>
+                  <p onClick={this.highlightServices}
+
+                     style={textStyle}>OT</p>
+                  <BorderColor style={iconStyle} />
+                </div>
+              } />
           <Paper
 
-            className={this.state.highlighted ? 'highlighted' : ''}
-            onClick={this.highlightServices}
-            style={paperStyle}
-            children={
-              <div>
-                <p style={textStyle}>OT</p>
-                <BorderColor style={iconStyle} />
-              </div>
-            } />
-          <Paper
 
-            className={this.state.highlighted ? 'highlighted' : ''}
             onClick={this.highlightServices}
             style={paperStyle}
             children={
@@ -72,7 +69,7 @@ class Services extends React.Component{
             } />
           <Paper
 
-            className={this.state.highlighted ? 'highlighted' : ''}
+
             onClick={this.highlightServices}
             style={paperStyle}
             children={
@@ -83,7 +80,7 @@ class Services extends React.Component{
             } />
           <Paper
 
-            className={this.state.highlighted ? 'highlighted' : ''}
+
             onClick={this.highlightServices}
             style={paperStyle}
             children={
@@ -100,6 +97,12 @@ class Services extends React.Component{
 
 var Container = connect()(Services);
 module.exports = Container;
+
+
+// className={paperClass}
+// className={paperClass}
+// className={paperClass}
+// className={paperClass}
 
 // <Paper
 //   key={index}
