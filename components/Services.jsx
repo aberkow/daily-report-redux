@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 const actions = require('../js/actions');
+const classNames = require('classnames');
 
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';

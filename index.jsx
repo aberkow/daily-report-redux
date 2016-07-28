@@ -7,25 +7,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import store from './js/store';
 
 import Report from './components/Report';
-//icon imports
-import SocialSentimentVerySatisfied from 'material-ui/svg-icons/social/sentiment-very-satisfied';
-import SocialSentimentSatisfied from 'material-ui/svg-icons/social/sentiment-satisfied';
-import SocialSentimentDissatisfied from 'material-ui/svg-icons/social/sentiment-dissatisfied';
-import SocialSentimentVeryDissatisfied from 'material-ui/svg-icons/social/sentiment-very-dissatisfied';
-
-//
-// import DailyWorkContainer from './components/DailyWorkContainer';
-// import Header from './components/Header';
-// import ServicesContainer from './components/ServicesContainer';
-// import StudentMoodContainer from './components/StudentMoodContainer';
-
-//component imports - menu multi-select available
-//set <Menu multiple={true} />
-import ContentAdd from 'material-ui/svg-icons/content/add';
-import DatePicker from 'material-ui/DatePicker';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import SelectField from 'material-ui/SelectField';
-import TextField from 'material-ui/TextField';
 
 //required to get components to register clicks & display dialogs.
 injectTapEventPlugin();
@@ -152,3 +133,23 @@ document.addEventListener('DOMContentLoaded', function(){
 //   evt.preventDefault();
 //   console.log(evt.target);
 // }
+
+//icon imports
+// import SocialSentimentVerySatisfied from 'material-ui/svg-icons/social/sentiment-very-satisfied';
+// import SocialSentimentSatisfied from 'material-ui/svg-icons/social/sentiment-satisfied';
+// import SocialSentimentDissatisfied from 'material-ui/svg-icons/social/sentiment-dissatisfied';
+// import SocialSentimentVeryDissatisfied from 'material-ui/svg-icons/social/sentiment-very-dissatisfied';
+
+//
+// import DailyWorkContainer from './components/DailyWorkContainer';
+// import Header from './components/Header';
+// import ServicesContainer from './components/ServicesContainer';
+// import StudentMoodContainer from './components/StudentMoodContainer';
+
+//component imports - menu multi-select available
+//set <Menu multiple={true} />
+// import ContentAdd from 'material-ui/svg-icons/content/add';
+// import DatePicker from 'material-ui/DatePicker';
+// import FloatingActionButton from 'material-ui/FloatingActionButton';
+// import SelectField from 'material-ui/SelectField';
+// import TextField from 'material-ui/TextField';
