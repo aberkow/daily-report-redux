@@ -2,7 +2,7 @@ var actions = require('./actions');
 
 var reportState = {
   name: '',
-  date: '',
+  date: {},
   mood: 'Very Happy',
   servicesArray: [],
   work: '',

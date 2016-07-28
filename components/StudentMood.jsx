@@ -51,16 +51,16 @@ class StudentMood extends React.Component{
   }
   render(){
     return(
-      <div>
-        <h3>{this.props.studentName} was</h3>
+      <div id='student-mood'>
+        <h3 className='report__subheader'>{this.props.studentName} was</h3>
 
-        <DropDownMenu value={this.props.value} onChange={this.setStudentMood}>
+        <DropDownMenu className='student-mood__dropdown' value={this.props.value} onChange={this.setStudentMood}>
           <MenuItem value='Very Happy' primaryText='Very Happy' leftIcon={<SocialSentimentVerySatisfied />} />
           <MenuItem value='Happy' primaryText='Happy' leftIcon={<SocialSentimentSatisfied />} />
           <MenuItem value='Sad' primaryText='Sad' leftIcon={<SocialSentimentDissatisfied />} />
           <MenuItem value='Mad' primaryText='Mad' leftIcon={<SocialSentimentVeryDissatisfied />} />
         </DropDownMenu>
-        <Paper zDepth={2} style={paperStyle} children={this.moodIconHandler(this.props.value)} />
+        <Paper className='student-mood__icon-container' zDepth={2} style={paperStyle} children={this.moodIconHandler(this.props.value)} />
       </div>
     );
   };

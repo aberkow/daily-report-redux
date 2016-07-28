@@ -27,6 +27,7 @@ class ReinforcerList extends React.Component{
     //call getValue() instead of value.
     var reinforcer = this.refs.reinforcer.getValue();
     this.props.dispatch(actions.setReinforcer(reinforcer));
+    this.refs.reinforcerForm.reset();
   }
   render(){
     var reinforcerItem = this.props.reinforcersArray.map(function(reinforcer, index){
@@ -45,8 +46,8 @@ class ReinforcerList extends React.Component{
       );
     }, this);
     return(
-      <div>
-        <form onSubmit={this.submitReinforcer}>
+      <div id='student-reinforcer-container'>
+        <form ref='reinforcerForm' onSubmit={this.submitReinforcer}>
           <TextField
             hintText='Add reinforcers'
             floatingLabelText='Reinforcers'

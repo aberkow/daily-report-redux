@@ -29990,7 +29990,7 @@
 	
 	var reportState = {
 	  name: '',
-	  date: '',
+	  date: {},
 	  mood: 'Very Happy',
 	  servicesArray: [],
 	  work: '',
@@ -30276,7 +30276,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_Header2.default, null),
+	        _react2.default.createElement(_Header2.default, { date: this.props.date }),
 	        _react2.default.createElement(_StudentMoodContainer2.default, { mood: this.props.mood, studentName: this.props.name }),
 	        _react2.default.createElement(_ServicesContainer2.default, { studentName: this.props.name,
 	          servicesArray: this.props.servicesArray }),
@@ -30351,11 +30351,24 @@
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Header).call(this, props));
 	
 	    console.log(_this.props, 'from Header');
+	    _this.setDate = _this.setDate.bind(_this);
 	    _this.setStudentName = _this.setStudentName.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(Header, [{
+	    key: 'setDate',
+	    value: function setDate(reserved, date) {
+	      //reserved needs to be the first argument. It's actually null as per
+	      //the material-ui docs.
+	      console.log(date, 'from header setDate');
+	      //evt.preventDefault();
+	      // var date = this.refs.input.value;
+	      // console.log(date, 'from Header setDate');
+	
+	      this.props.dispatch(actions.setDate(date));
+	    }
+	  }, {
 	    key: 'setStudentName',
 	    value: function setStudentName(evt) {
 	      evt.preventDefault();
@@ -30367,7 +30380,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { id: 'header' },
 	        _react2.default.createElement(
 	          'header',
 	          null,
@@ -30384,8 +30397,7 @@
 	              autoOk: true,
 	              hintText: 'Today\'s Date',
 	              shouldDisableDate: this.disableWeekends,
-	              value: this.props.currentDate,
-	              onChange: this.props.setReportDate })
+	              onChange: this.setDate })
 	          )
 	        )
 	      );
@@ -30399,6 +30411,9 @@
 	
 	var Container = (0, _reactRedux.connect)()(Header);
 	module.exports = Container;
+	
+	// value={this.props.currentDate}
+	//onChange={this.props.setReportDate}
 
 /***/ },
 /* 361 */
@@ -40727,22 +40742,22 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { id: 'student-mood' },
 	        _react2.default.createElement(
 	          'h3',
-	          null,
+	          { className: 'report__subheader' },
 	          this.props.studentName,
 	          ' was'
 	        ),
 	        _react2.default.createElement(
 	          _DropDownMenu2.default,
-	          { value: this.props.value, onChange: this.setStudentMood },
+	          { className: 'student-mood__dropdown', value: this.props.value, onChange: this.setStudentMood },
 	          _react2.default.createElement(_MenuItem2.default, { value: 'Very Happy', primaryText: 'Very Happy', leftIcon: _react2.default.createElement(_sentimentVerySatisfied2.default, null) }),
 	          _react2.default.createElement(_MenuItem2.default, { value: 'Happy', primaryText: 'Happy', leftIcon: _react2.default.createElement(_sentimentSatisfied2.default, null) }),
 	          _react2.default.createElement(_MenuItem2.default, { value: 'Sad', primaryText: 'Sad', leftIcon: _react2.default.createElement(_sentimentDissatisfied2.default, null) }),
 	          _react2.default.createElement(_MenuItem2.default, { value: 'Mad', primaryText: 'Mad', leftIcon: _react2.default.createElement(_sentimentVeryDissatisfied2.default, null) })
 	        ),
-	        _react2.default.createElement(_Paper2.default, { zDepth: 2, style: paperStyle, children: this.moodIconHandler(this.props.value) })
+	        _react2.default.createElement(_Paper2.default, { className: 'student-mood__icon-container', zDepth: 2, style: paperStyle, children: this.moodIconHandler(this.props.value) })
 	      );
 	    }
 	  }]);
@@ -44084,9 +44099,9 @@
 	  _createClass(Services, [{
 	    key: 'highlightServices',
 	    value: function highlightServices(evt) {
-	      var service = evt.target.innerText;
 	      var target = evt.target;
-	      var paper = evt.target.parentNode.parentNode;
+	      var service = target.innerText;
+	      var paper = target.parentNode.parentNode;
 	      //console.log(service, target, paper, paper.classList, 'from highlightServices');
 	      paper.classList.toggle("highlighted");
 	      this.props.dispatch(actions.setService(service));
@@ -44113,7 +44128,7 @@
 	        null,
 	        _react2.default.createElement(
 	          'h3',
-	          null,
+	          { className: 'report__subheader' },
 	          'Today, ',
 	          this.props.studentName,
 	          ' went to:'
@@ -44608,14 +44623,14 @@
 	      };
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { id: 'student-work-container' },
 	        _react2.default.createElement(_Paper2.default, { style: paperStyle, children: _react2.default.createElement(_schoolWork2.default, { style: iconStyle }) }),
 	        _react2.default.createElement(
 	          'div',
-	          null,
+	          { className: 'student-work-text-container' },
 	          _react2.default.createElement(
 	            'h3',
-	            null,
+	            { className: 'report__subheader' },
 	            this.props.studentName,
 	            ' worked on'
 	          ),
@@ -44749,6 +44764,7 @@
 	      //call getValue() instead of value.
 	      var reinforcer = this.refs.reinforcer.getValue();
 	      this.props.dispatch(actions.setReinforcer(reinforcer));
+	      this.refs.reinforcerForm.reset();
 	    }
 	  }, {
 	    key: 'render',
@@ -44778,10 +44794,10 @@
 	      }, this);
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { id: 'student-reinforcer-container' },
 	        _react2.default.createElement(
 	          'form',
-	          { onSubmit: this.submitReinforcer },
+	          { ref: 'reinforcerForm', onSubmit: this.submitReinforcer },
 	          _react2.default.createElement(_TextField2.default, {
 	            hintText: 'Add reinforcers',
 	            floatingLabelText: 'Reinforcers',

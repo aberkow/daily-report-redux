@@ -9,7 +9,18 @@ class Header extends React.Component{
   constructor(props){
     super(props);
     console.log(this.props, 'from Header');
+    this.setDate = this.setDate.bind(this);
     this.setStudentName = this.setStudentName.bind(this);
+  }
+  setDate(reserved, date){
+    //reserved needs to be the first argument. It's actually null as per
+    //the material-ui docs.
+    console.log(date, 'from header setDate');
+    //evt.preventDefault();
+    // var date = this.refs.input.value;
+    // console.log(date, 'from Header setDate');
+
+    this.props.dispatch(actions.setDate(date));
   }
   setStudentName(evt){
     evt.preventDefault();
@@ -18,7 +29,7 @@ class Header extends React.Component{
   }
   render(){
     return(
-      <div>
+      <div id='header'>
         <header>
           <form onSubmit={this.props.submitNameAndDate}>
             <TextField
@@ -31,8 +42,7 @@ class Header extends React.Component{
               autoOk={true}
               hintText="Today's Date"
               shouldDisableDate={this.disableWeekends}
-              value={this.props.currentDate}
-              onChange={this.props.setReportDate} />
+              onChange={this.setDate} />
           </form>
         </header>
       </div>
@@ -42,3 +52,6 @@ class Header extends React.Component{
 
 var Container = connect()(Header);
 module.exports = Container;
+
+// value={this.props.currentDate}
+//onChange={this.props.setReportDate}

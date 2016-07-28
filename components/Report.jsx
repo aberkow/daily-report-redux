@@ -18,7 +18,7 @@ class Report extends React.Component{
   render(){
     return(
       <div>
-        <Header />
+        <Header date={this.props.date} />
 
         <StudentMoodContainer mood={this.props.mood} studentName={this.props.name} />
 

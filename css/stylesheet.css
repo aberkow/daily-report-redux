@@ -1,0 +1,43 @@
+* {
+  box-sizing: border-box;
+}
+
+#header {
+  margin: 1rem;
+  box-shadow: 4px 6px 23px lightgrey;
+}
+
+#student-mood {
+  margin: 1rem;
+}
+
+#student-work-container {
+  margin: 1rem;
+
+}
+
+#student-reinforcer-container {
+  margin: 1rem;
+}
+
+.student-mood__icon-container {
+  margin-top: 1.5rem;
+  margin-left: 1rem;
+}
+
+.student-mood__dropdown {
+  box-shadow: 4px 6px 23px lightgrey;
+}
+
+.student-work-text-container {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+.report__subheader {
+  margin-left: 1rem;
+}
+
+.highlighted {
+  background-color: #00BCD4 !important;
+}

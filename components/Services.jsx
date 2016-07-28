@@ -19,9 +19,9 @@ class Services extends React.Component{
   }
 
   highlightServices(evt){
-    var service = evt.target.innerText;
     var target = evt.target;
-    var paper = evt.target.parentNode.parentNode;
+    var service = target.innerText;
+    var paper = target.parentNode.parentNode;
     //console.log(service, target, paper, paper.classList, 'from highlightServices');
     paper.classList.toggle("highlighted");
     this.props.dispatch(actions.setService(service))
@@ -44,7 +44,7 @@ class Services extends React.Component{
     };
     return(
       <div>
-        <h3>Today, {this.props.studentName} went to:</h3>
+        <h3 className='report__subheader'>Today, {this.props.studentName} went to:</h3>
         <div>
             <Paper
               style={paperStyle}

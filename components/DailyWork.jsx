@@ -31,10 +31,10 @@ class DailyWork extends React.Component{
       display: 'inline-block'
     }
     return(
-      <div>
+      <div id='student-work-container'>
         <Paper style={paperStyle} children={<SchoolWork style={iconStyle} />} />
-        <div>
-          <h3>{this.props.studentName} worked on</h3>
+        <div className='student-work-text-container'>
+          <h3 className='report__subheader'>{this.props.studentName} worked on</h3>
           <TextField
             multiLine={true}
             hintText="Today's classwork"
