@@ -15,10 +15,6 @@ class Header extends React.Component{
   setDate(reserved, date){
     //reserved needs to be the first argument. It's actually null as per
     //the material-ui docs.
-    console.log(date, 'from header setDate');
-    //evt.preventDefault();
-    // var date = this.refs.input.value;
-    // console.log(date, 'from Header setDate');
 
     this.props.dispatch(actions.setDate(date));
     this.props.dispatch(actions.fetchDateFact(date));
@@ -38,13 +34,17 @@ class Header extends React.Component{
               floatingLabelText="Student's name"
               name='name'
               id='student-name'
-              onChange={this.setStudentName} />
+              onChange={this.setStudentName}
+              className='header__padding' />
             <DatePicker
               autoOk={true}
               hintText="Today's Date"
               shouldDisableDate={this.disableWeekends}
-              onChange={this.setDate} />
+              onChange={this.setDate}
+              className='header__padding' />
           </form>
+          <h3 className='header__padding'>Daily fact!</h3>
+          <p className='header__padding-text'>{this.props.dateFact}</p>
         </header>
       </div>
     );

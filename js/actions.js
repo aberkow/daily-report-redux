@@ -2,8 +2,6 @@ const fetch = require('isomorphic-fetch');
 const url = 'http://numbersapi.com/';
 const type = 'date';
 
-
-
 const SET_NAME = 'SET_NAME';
 const setName = function(name){
   return {
@@ -94,7 +92,7 @@ var fetchDateFact = function(dateForFact){
       return response.json();
     })
     .then(function(data){
-      console.log(data, 'from fetchDateFact');
+      console.log(data, 'from fetchDateFact action');
       var dateFact = data.text;
       return dispatch(fetchDateFactSuccess(dateFact));
     })

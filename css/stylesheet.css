@@ -13,11 +13,22 @@
 
 #student-work-container {
   margin: 1rem;
-
 }
 
 #student-reinforcer-container {
   margin: 1rem;
+}
+
+#reinforcerList {
+  padding-left: 0;
+}
+
+.header__padding {
+  padding: 0 1rem;
+}
+
+.header__padding-text {
+  padding: 0 1rem 1rem;
 }
 
 .student-mood__icon-container {
@@ -32,6 +43,28 @@
 .student-work-text-container {
   display: inline-block;
   margin-left: 1rem;
+}
+
+/*.reinforcer__list {
+  padding-left: 0;
+}*/
+
+.reinforcer__list-item-container {
+  margin: 0.5rem auto;
+}
+
+.reinforcer__list-item {
+  list-style: none;
+}
+
+.reinforcer__list-span {
+  margin-left: 1rem;
+}
+
+.reinforcer__list-delete-button {
+  background-color: #00bcd4;
+  border: 1px solid #00bcd4;
+  box-shadow: 2px 2px 3px lightgrey;
 }
 
 .report__subheader {

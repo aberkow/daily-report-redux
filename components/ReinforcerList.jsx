@@ -32,13 +32,14 @@ class ReinforcerList extends React.Component{
   render(){
     var reinforcerItem = this.props.reinforcersArray.map(function(reinforcer, index){
       return(
-        <div key={index} id={reinforcer}>
-          <li key={'item' + index}>
+        <div className='reinforcer__list-item-container' key={index} id={reinforcer}>
+          <li className='reinforcer__list-item' key={'item' + index}>
             {reinforcer}
-            <span>
+            <span className='reinforcer__list-span'>
               <button
               type='button'
               key={'deleteButton' + index}
+              className='reinforcer__list-delete-button'
               onClick={this.deleteReinforcer}>Delete</button>
             </span>
           </li>
