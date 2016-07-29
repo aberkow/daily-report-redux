@@ -1,5 +1,6 @@
-const fetch = require('isomorphic-fetch');
-const url = 'http://numbersapi.com/';
+//const fetch = require('isomorphic-fetch');
+const axios = require('axios');
+const url = 'https://numbersapi.p.mashape.com/';
 const type = 'date';
 
 const SET_NAME = 'SET_NAME';
@@ -75,13 +76,49 @@ const fetchDateFactError = function(dateForFact, error){
   }
 }
 
+// var fetchDateFact = function(dateForFact){
+//   var fullDate = new Date(dateForFact);
+//   var date = fullDate.getDate();
+//   var month = fullDate.getMonth();
+//   return function(dispatch){
+//     return fetch(url + month + '/' + date + '/' + type + '?json').then(function(response){
+//       if (response.state < 200 || response.status >= 300){
+//         var error = new Error(response.statusText)
+//         error.response = response
+//         throw error;
+//       }
+//       return response;
+//     })
+//     .then(function(response){
+//       return response.json();
+//     })
+//     .then(function(data){
+//       console.log(data, 'from fetchDateFact action');
+//       var dateFact = data.text;
+//       return dispatch(fetchDateFactSuccess(dateFact));
+//     })
+//     .catch(function(error){
+//       return dispatch(fetchDateFactError(dateForFact, error));
+//     });
+//   };
+// };
+
 var fetchDateFact = function(dateForFact){
   var fullDate = new Date(dateForFact);
-  var date = fullDate.getDate();
-  var month = fullDate.getMonth();
+  var date = fullDate.getMonth();
+  var month = fullDate.getMonth() + 1;
   return function(dispatch){
-    return fetch(url + month + '/' + date + '/' + type + '?json').then(function(response){
+    return axios({
+      method: 'GET',
+      url: url + month + '/' + date + '/' + type,
+      responseType: 'json',
+      headers: {
+        "X-Mashape-Authorization": "a4rloA0evJmshxsK2DJN9DhfCJWtp1yeykrjsnUpv67qQqd1l7"
+      }
+    })
+    .then(function(response){
       if (response.state < 200 || response.status >= 300){
+        console.log(response, 'response');
         var error = new Error(response.statusText)
         error.response = response
         throw error;
@@ -89,6 +126,7 @@ var fetchDateFact = function(dateForFact){
       return response;
     })
     .then(function(response){
+      console.log(response, 'response.json');
       return response.json();
     })
     .then(function(data){
@@ -99,8 +137,8 @@ var fetchDateFact = function(dateForFact){
     .catch(function(error){
       return dispatch(fetchDateFactError(dateForFact, error));
     });
-  };
-};
+  }
+}
 
 exports.SET_NAME = SET_NAME;
 exports.setName = setName;
