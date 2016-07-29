@@ -1,3 +1,12 @@
+const fetch = require('isomorphic-fetch');
+const url = 'http://numbersapi.com/';
+const type = 'date';
+
+var date = new Date();
+var today = date.getDate();
+var month = date.getMonth() + 1;
+
+
 const SET_NAME = 'SET_NAME';
 const setName = function(name){
   return {
@@ -7,9 +16,10 @@ const setName = function(name){
 };
 
 const SET_DATE = 'SET_DATE';
-const setDate = function(date){
+const setDate = function(reserved, date){
   return {
     type: SET_DATE,
+    reserved: reserved,
     date: date
   };
 };
@@ -54,6 +64,41 @@ const removeReinforcer = function(reinforcerToRemove){
   };
 };
 
+const FETCH_DATE_FACT_SUCCESS = 'FETCH_DATE_FACT_SUCCESS';
+const fetchDateFactSuccess = function(dateForFact){
+  type: FETCH_DATE_FACT_SUCCESS,
+  dateForFact: dateForFact
+}
+
+const FETCH_DATE_FACT_ERROR = 'FETCH_DATE_FACT_ERROR';
+const fetchDateFactError = function(dateForFact, error){
+  type: FETCH_DATE_FACT_ERROR,
+  dateForFact: dateForFact,
+  error: error
+}
+
+const fetchDateFact = function(dateForFact){
+  return function(dispatch){
+    return fetch(url).then(function(response){
+      if (response.state < 200 || response.status >= 300){
+        var error = new Error(response.statusText)
+        error.response = response
+        throw error;
+      }
+      return response;
+    })
+    .then(function(response){
+      return response.json();
+    })
+    .then(function(data){
+      console.log(data, 'from fetchDateFact');
+    })
+    .catch(function(error){
+      return dispatch(fetchDateFactError(dateForFact, error));
+    });
+  }
+}
+
 exports.SET_NAME = SET_NAME;
 exports.setName = setName;
 
@@ -74,3 +119,11 @@ exports.setReinforcer = setReinforcer;
 
 exports.REMOVE_REINFORCER = REMOVE_REINFORCER;
 exports.removeReinforcer = removeReinforcer;
+
+exports.FETCH_DATE_FACT_SUCCESS = FETCH_DATE_FACT_SUCCESS;
+exports.fetchDateFactSuccess = fetchDateFactSuccess;
+
+exports.FETCH_DATE_FACT_ERROR = FETCH_DATE_FACT_ERROR;
+exports.fetchFewestGuessError = fetchFewestGuessError;
+
+exports.fetchDateFact = fetchDateFact;

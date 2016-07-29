@@ -21,6 +21,7 @@ var reportReducer = function(state, action){
     return nameState;
   }
   else if (action.type === actions.SET_DATE){
+    //might need to handle the null that's returned from the date-picker.
     var date = actions.date;
     var dateState = Object.assign({}, state, {
       date: date
@@ -82,6 +83,9 @@ var reportReducer = function(state, action){
       reinforcersArray: reinforcersArray
     });
     return reinforcersArrayState;
+  }
+  else if (action.type === actions.) {
+
   }
   return state;
 }
