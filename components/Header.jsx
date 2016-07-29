@@ -21,6 +21,7 @@ class Header extends React.Component{
     // console.log(date, 'from Header setDate');
 
     this.props.dispatch(actions.setDate(date));
+    this.props.dispatch(actions.fetchDateFact(date));
   }
   setStudentName(evt){
     evt.preventDefault();

@@ -3,6 +3,7 @@ var actions = require('./actions');
 var reportState = {
   name: '',
   date: {},
+  dateForFact: '',
   mood: 'Very Happy',
   servicesArray: [],
   work: '',
@@ -85,7 +86,11 @@ var reportReducer = function(state, action){
     return reinforcersArrayState;
   }
   else if (action.type === actions.FETCH_DATE_FACT_SUCCESS) {
-
+    var dateForFact = action.dateForFact;
+    var dateForFactState = Object.assign({}, state, {
+      dateForFact: dateForFact
+    });
+    return dateForFactState;
   }
   else if (action.type === actions.FETCH_DATE_FACT_ERROR) {
     throw new Error("There was an error fetching the fact.")

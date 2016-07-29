@@ -36,6 +36,7 @@ var mapStateToProps = function(state, props){
   return{
     name: state.name,
     date: state.date,
+    dateForFact: state.dateForFact,
     mood: state.mood,
     servicesArray: state.servicesArray,
     work: state.work,

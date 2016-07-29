@@ -1,3 +1,9 @@
+const fetch = require('isomorphic-fetch');
+const url = 'http://numbersapi.com/';
+const type = 'date';
+
+
+
 const SET_NAME = 'SET_NAME';
 const setName = function(name){
   return {
@@ -54,6 +60,50 @@ const removeReinforcer = function(reinforcerToRemove){
   };
 };
 
+const FETCH_DATE_FACT_SUCCESS = 'FETCH_DATE_FACT_SUCCESS';
+const fetchDateFactSuccess = function(dateForFact){
+  return {
+    type: FETCH_DATE_FACT_SUCCESS,
+    dateForFact: dateForFact
+  }
+}
+
+const FETCH_DATE_FACT_ERROR = 'FETCH_DATE_FACT_ERROR';
+const fetchDateFactError = function(dateForFact, error){
+  return {
+    type: FETCH_DATE_FACT_ERROR,
+    error: error,
+    dateForFact: dateForFact
+  }
+}
+
+var fetchDateFact = function(dateForFact){
+  var fullDate = new Date(dateForFact);
+  var date = fullDate.getDate();
+  var month = fullDate.getMonth();
+  return function(dispatch){
+    return fetch(url + month + '/' + date + '/' + type + '?json').then(function(response){
+      if (response.state < 200 || response.status >= 300){
+        var error = new Error(response.statusText)
+        error.response = response
+        throw error;
+      }
+      return response;
+    })
+    .then(function(response){
+      return response.json();
+    })
+    .then(function(data){
+      console.log(data, 'from fetchDateFact');
+      var dateFact = data.text;
+      return dispatch(fetchDateFactSuccess(dateFact));
+    })
+    .catch(function(error){
+      return dispatch(fetchDateFactError(dateForFact, error));
+    });
+  };
+};
+
 exports.SET_NAME = SET_NAME;
 exports.setName = setName;
 
@@ -74,3 +124,11 @@ exports.setReinforcer = setReinforcer;
 
 exports.REMOVE_REINFORCER = REMOVE_REINFORCER;
 exports.removeReinforcer = removeReinforcer;
+
+exports.FETCH_DATE_FACT_SUCCESS = FETCH_DATE_FACT_SUCCESS;
+exports.fetchDateFactSuccess = fetchDateFactSuccess;
+
+exports.FETCH_DATE_FACT_ERROR = FETCH_DATE_FACT_ERROR;
+exports.fetchDateFactError = fetchDateFactError;
+
+exports.fetchDateFact = fetchDateFact;
