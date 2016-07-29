@@ -21,7 +21,8 @@ var reportReducer = function(state, action){
     return nameState;
   }
   else if (action.type === actions.SET_DATE){
-    var date = actions.date;
+    //might need to handle the null that's returned from the date-picker.
+    var date = action.date;
     var dateState = Object.assign({}, state, {
       date: date
     });
@@ -82,6 +83,12 @@ var reportReducer = function(state, action){
       reinforcersArray: reinforcersArray
     });
     return reinforcersArrayState;
+  }
+  else if (action.type === actions.FETCH_DATE_FACT_SUCCESS) {
+
+  }
+  else if (action.type === actions.FETCH_DATE_FACT_ERROR) {
+    throw new Error("There was an error fetching the fact.")
   }
   return state;
 }
