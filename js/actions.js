@@ -66,16 +66,20 @@ const removeReinforcer = function(reinforcerToRemove){
 
 const FETCH_DATE_FACT_SUCCESS = 'FETCH_DATE_FACT_SUCCESS';
 const fetchDateFactSuccess = function(dateForFact){
-  type: FETCH_DATE_FACT_SUCCESS,
-  dateForFact: dateForFact
-}
+  return {
+    type: FETCH_DATE_FACT_SUCCESS,
+    dateForFact: dateForFact
+  };
+};
 
 const FETCH_DATE_FACT_ERROR = 'FETCH_DATE_FACT_ERROR';
 const fetchDateFactError = function(dateForFact, error){
-  type: FETCH_DATE_FACT_ERROR,
-  dateForFact: dateForFact,
-  error: error
-}
+  return {
+    type: FETCH_DATE_FACT_ERROR,
+    dateForFact: dateForFact,
+    error: error
+  };
+};
 
 const fetchDateFact = function(dateForFact){
   return function(dispatch){
