@@ -60,7 +60,7 @@ const removeReinforcer = function(reinforcerToRemove){
 };
 
 const FETCH_DATE_FACT_SUCCESS = 'FETCH_DATE_FACT_SUCCESS';
-const fetchDateFactSuccess = function(dateForFact){
+const fetchDateFactSuccess = function( dateForFact){
   return {
     type: FETCH_DATE_FACT_SUCCESS,
     dateForFact: dateForFact
@@ -105,13 +105,13 @@ const fetchDateFactError = function(dateForFact, error){
 
 var fetchDateFact = function(dateForFact){
   var fullDate = new Date(dateForFact);
-  var date = fullDate.getMonth();
+  var date = fullDate.getDate();
   var month = fullDate.getMonth() + 1;
   return function(dispatch){
     return axios({
       method: 'GET',
-      url: url + month + '/' + date + '/' + type,
-      responseType: 'json',
+      url: url + month + '/' + date + '/' + type + '?json',
+      //responseType: 'json',
       headers: {
         "X-Mashape-Authorization": "a4rloA0evJmshxsK2DJN9DhfCJWtp1yeykrjsnUpv67qQqd1l7"
       }
@@ -125,16 +125,14 @@ var fetchDateFact = function(dateForFact){
       }
       return response;
     })
-    .then(function(response){
-      console.log(response, 'response.json');
-      return response.json();
-    })
     .then(function(data){
-      console.log(data, 'from fetchDateFact action');
-      var dateFact = data.text;
-      return dispatch(fetchDateFactSuccess(dateFact));
+      console.log(data, data.data.text, 'from fetchDateFact action');
+
+      var dateForFact = data.data.text;
+      return dispatch(fetchDateFactSuccess(dateForFact));
     })
     .catch(function(error){
+      console.log(error, dateForFact, 'from action error');
       return dispatch(fetchDateFactError(dateForFact, error));
     });
   }
@@ -168,3 +166,8 @@ exports.FETCH_DATE_FACT_ERROR = FETCH_DATE_FACT_ERROR;
 exports.fetchDateFactError = fetchDateFactError;
 
 exports.fetchDateFact = fetchDateFact;
+
+// .then(function(response){
+//   console.log(response, 'response.json');
+//   return response.json();
+// })
