@@ -8,8 +8,9 @@ var reportState = {
   servicesArray: [],
   work: '',
   reinforcer: '',
-  reinforcersArray: []
-}
+  reinforcersArray: [],
+  isDrawerOpen: false
+};
 
 //using var seems to be causing a problem...
 var reportReducer = function(state, action){
@@ -84,6 +85,12 @@ var reportReducer = function(state, action){
       reinforcersArray: reinforcersArray
     });
     return reinforcersArrayState;
+  }
+  else if (action.type === actions.TOGGLE_DRAWER) {
+    var drawerState = Object.assign({}, state, {
+      isDrawerOpen: !action.isOpen
+    });
+    return drawerState;
   }
   else if (action.type === actions.FETCH_DATE_FACT_SUCCESS) {
     var dateForFact = action.dateForFact;

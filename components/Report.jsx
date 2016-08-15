@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Header from './Header';
+import InfoBar from './InfoBar';
 import StudentMoodContainer from './StudentMoodContainer';
 import ServicesContainer from './ServicesContainer';
 import DailyWorkContainer from './DailyWorkContainer';
@@ -18,6 +19,7 @@ class Report extends React.Component{
   render(){
     return(
       <div>
+        <InfoBar open={this.props.isDrawerOpen} />
         <Header date={this.props.date}
           dateFact={this.props.dateForFact} />
 
@@ -42,7 +44,8 @@ var mapStateToProps = function(state, props){
     servicesArray: state.servicesArray,
     work: state.work,
     reinforcer: state.reinforcer,
-    reinforcersArray: state.reinforcersArray
+    reinforcersArray: state.reinforcersArray,
+    isDrawerOpen: state.isDrawerOpen
   }
 }
 
