@@ -16,8 +16,16 @@ class Services extends React.Component{
   constructor(props){
     super(props);
     this.highlightServices = this.highlightServices.bind(this);
+    this.clickTest = this.clickTest.bind(this);
   }
+  clickTest(evt){
+    var target = evt.target;
+    if (target.id === document.getElementById('tester')) {
+      target.classList.toggle('highlighted');
+    };
 
+    console.log(target);
+  }
   highlightServices(evt){
     var target = evt.target;
     var service = target.innerText;
@@ -46,6 +54,11 @@ class Services extends React.Component{
       <div>
         <h3 className='report__subheader'>Today, {this.props.studentName} went to:</h3>
         <div>
+            <Paper onClick={this.clickTest} style={paperStyle} id="tester">
+              <p style={textStyle}>OT</p>
+              <BorderColor style={iconStyle} />
+            </Paper>
+
             <Paper
               style={paperStyle}
               children={

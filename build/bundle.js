@@ -46719,10 +46719,21 @@
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Services).call(this, props));
 	
 	    _this.highlightServices = _this.highlightServices.bind(_this);
+	    _this.clickTest = _this.clickTest.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(Services, [{
+	    key: 'clickTest',
+	    value: function clickTest(evt) {
+	      var target = evt.target;
+	      if (target.id === document.getElementById('tester')) {
+	        target.classList.toggle('highlighted');
+	      };
+	
+	      console.log(target);
+	    }
+	  }, {
 	    key: 'highlightServices',
 	    value: function highlightServices(evt) {
 	      var target = evt.target;
@@ -46762,6 +46773,16 @@
 	        _react2.default.createElement(
 	          'div',
 	          null,
+	          _react2.default.createElement(
+	            _Paper2.default,
+	            { onClick: this.clickTest, style: paperStyle, id: 'tester' },
+	            _react2.default.createElement(
+	              'p',
+	              { style: textStyle },
+	              'OT'
+	            ),
+	            _react2.default.createElement(_borderColor2.default, { style: iconStyle })
+	          ),
 	          _react2.default.createElement(_Paper2.default, {
 	            style: paperStyle,
 	            children: _react2.default.createElement(
