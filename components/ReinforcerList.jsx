@@ -26,7 +26,11 @@ class ReinforcerList extends React.Component{
     evt.preventDefault();
     //call getValue() instead of value.
     var reinforcer = this.refs.reinforcer.getValue();
-    this.props.dispatch(actions.setReinforcer(reinforcer));
+    reinforcer.trim();
+    if (reinforcer !== ''){
+      this.props.dispatch(actions.setReinforcer(reinforcer));
+    }
+
     this.refs.reinforcerForm.reset();
   }
   render(){
